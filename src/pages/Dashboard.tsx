@@ -114,14 +114,16 @@ export default function Dashboard() {
           <h1 className="text-2xl font-display font-bold leading-snug mt-3 mb-1" style={{ color: 'var(--t-hero-text,#2C1A06)' }}>
             {greeting}
           </h1>
-          <p className="text-sm opacity-60" style={{ color: 'var(--t-hero-text,#2C1A06)' }}>
-            {new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
-          </p>
-          {hijriDate && (
-            <p className="text-xs opacity-50 mt-0.5" style={{ color: 'var(--t-hero-text,#2C1A06)' }}>
-              ۞ {hijriDate}
+          <div className="flex items-baseline justify-between">
+            <p className="text-sm opacity-60" style={{ color: 'var(--t-hero-text,#2C1A06)' }}>
+              {new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
             </p>
-          )}
+            {hijriDate && (
+              <p className="text-xs opacity-50" style={{ color: 'var(--t-hero-text,#2C1A06)' }}>
+                {hijriDate}
+              </p>
+            )}
+          </div>
         </div>
 
         {/* Arc décoratif */}
