@@ -497,6 +497,7 @@ export const ADHKAR_DATA: AdhkarItem[] = [
     merit: "Le Prophète ﷺ a dit : « Celui qui invoque Allah sur moi une fois, Allah prie sur lui dix fois. » Il est particulièrement recommandé de multiplier la salât le vendredi.",
     source: "Bukhari & Muslim — Rapporté par Ka'b ibn 'Ujra",
     tags: ['baraka', 'foi'],
+    audioArabicUrl: '/audio/ar/salat-ibrahimiya.mp3',
     isEssential: false,
   },
 
