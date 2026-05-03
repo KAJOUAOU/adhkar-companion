@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ──────────────────────────────────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-gray-900 font-sans antialiased;
+    background-color: var(--t-body-bg, #FAF7EE);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M28,8 C17,8 8,17 8,28 C8,39 17,48 28,48 C23,44 19,37 19,28 C19,19 23,12 28,8 Z' fill='%23C9963A' opacity='0.08'/%3E%3Ccircle cx='90' cy='15' r='7' fill='%23C9963A' opacity='0.06'/%3E%3Cpath d='M55,72 L56,75 L59,76 L56,77 L55,80 L54,77 L51,76 L54,75 Z' fill='%23C9963A' opacity='0.07'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M62,8 C55,8 50,13 50,20 C50,27 55,32 62,32 C59,29 57,25 57,20 C57,15 59,11 62,8 Z' fill='%23C9963A' opacity='0.07'/%3E%3Ccircle cx='15' cy='62' r='5' fill='%23C9963A' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: 120px 120px, 80px 80px;
+    animation: ornamentDrift 50s linear infinite;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: none;
+  }
+
+  * { -webkit-tap-highlight-color: transparent; }
+}
+
+/* ─── Arabic text ────────────────────────────────────────────── */
+.font-arabic {
+  font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+  unicode-bidi: embed;
+}
+
+[dir="rtl"] { direction: rtl; text-align: right; }
+
+/* ─── Safe areas (iPhone notch/home bar) ────────────────────── */
+.pt-safe  { padding-top:    env(safe-area-inset-top, 0px); }
+.pb-safe  { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.safe-bottom { padding-bottom: max(env(safe-area-inset-bottom, 0px), 12px); }
+
+/* ─── Scrollbar hide ────────────────────────────────────────── */
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* ─── Tajweed colors — Dar al-Ma'rifah / Hafs 'an 'Asim ─────────────────── */
+.tj-madd            { color: #CC0000; }                     /* Rouge    — Madd (toute prolongation)       */
+.tj-ghunna          { color: #16A34A; font-weight: 700; }  /* Vert     — Ghunna (nasalisation 2 temps)   */
+.tj-idghaam         { color: #16A34A; font-weight: 700; }  /* Vert     — Idghâm bi Ghunna (= Ghunna)     */
+.tj-ikhfaa          { color: #16A34A; }                     /* Vert     — Ikhfâ' (nasalité atténuée)      */
+.tj-iqlab           { color: #16A34A; font-weight: 700; }  /* Vert     — Iqlab (ن→م nasal)               */
+.tj-ikhfaa-shafawi  { color: #16A34A; }                     /* Vert     — Ikhfâ' Šafawi (م + ب)          */
+.tj-idghaam-shafawi { color: #16A34A; font-weight: 700; }  /* Vert     — Idghâm Šafawi (م + م)           */
+.tj-qalqalah        { color: #38BDF8; font-weight: 800; }  /* Bleu ciel — Qalqalah (ق ط ب ج د)          */
+.tj-tafkheem        { color: #1E40AF; font-weight: 600; }  /* Bleu foncé — Ra' / Tafkheem                */
+
+/* ─── Custom utilities ──────────────────────────────────────── */
+@layer utilities {
+  .bg-white\/8 { background-color: rgba(255,255,255,0.08); }
+  .scale-98 { transform: scale(0.98); }
+  .h-6\.5 { height: 1.625rem; }
+  .top-0\.75 { top: 0.1875rem; }
+  .translate-x-0\.75 { transform: translateX(0.1875rem); }
+  .text-gold-600 { color: #B7870C; }
+
+  /* Touch action for swipe */
+  .touch-pan-y { touch-action: pan-y; }
+
+  /* ── Glassmorphism ───────────────────────────────────────── */
+  .glass {
+    background: rgba(255, 253, 242, 0.82);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(224, 200, 140, 0.40);
+    box-shadow: 0 4px 24px rgba(139, 105, 20, 0.08), inset 0 1px 0 rgba(255,248,220,0.80);
+  }
+  .glass-gold {
+    background: rgba(255, 250, 228, 0.78);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(201, 150, 58, 0.30);
+    box-shadow: 0 4px 24px rgba(201, 150, 58, 0.10), inset 0 1px 0 rgba(255,245,190,0.80);
+  }
+  .glass-dark {
+    background: rgba(20, 12, 3, 0.65);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(201, 150, 58, 0.16);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(201, 150, 58, 0.10);
+  }
+
+}
+
+/* ─── Animations ────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.06); }
+}
+@keyframes pulseSoft {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   SYSTÈME DE THÈMES — CSS Custom Properties
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Parchemin (défaut) — parcheminé clair + or doux ──────── */
+[data-theme="parchemin"] {
+  --t-hero:      linear-gradient(150deg, #EAD898 0%, #E2CC88 55%, #D8C078 100%);
+  --t-hero-text: #2C1A06;
+  --t-primary:   #7A5818;
+  --t-primary-d: #5C4010;
+  --t-body-bg:   #FAF7EE;
+  --t-imm-m:     linear-gradient(160deg, #1E1204 0%, #321F06 100%);
+  --t-imm-e:     linear-gradient(135deg, #0E0903 0%, #1A1006 100%);
+}
+[data-theme="parchemin"] body { background-color: #FAF7EE; }
+
+/* ── Perle & Nacre — ivoire pur + pierre chaude ────────────── */
+[data-theme="perle"] {
+  --t-hero:      linear-gradient(150deg, #EDE6D8 0%, #E4DACC 55%, #D8CEBC 100%);
+  --t-hero-text: #2A2018;
+  --t-primary:   #66544A;
+  --t-primary-d: #4A3F32;
+  --t-body-bg:   #FFFDF8;
+  --t-imm-m:     linear-gradient(160deg, #181310 0%, #26201A 100%);
+  --t-imm-e:     linear-gradient(135deg, #100D0A 0%, #1C1510 100%);
+}
+[data-theme="perle"] body { background-color: #FFFDF8; }
+
+/* ── Émeraude — blanc crème + vert islamique clair ─────────── */
+[data-theme="emeraude"] {
+  --t-hero:      linear-gradient(150deg, #C8DFC8 0%, #B8D4B8 55%, #A8C8A8 100%);
+  --t-hero-text: #0A2E18;
+  --t-primary:   #145C38;
+  --t-primary-d: #0C4228;
+  --t-body-bg:   #F4FBF5;
+  --t-imm-m:     linear-gradient(160deg, #041810 0%, #0A2E1A 100%);
+  --t-imm-e:     linear-gradient(135deg, #020C06 0%, #061808 100%);
+}
+[data-theme="emeraude"] body { background-color: #F4FBF5; }
+
+/* ── Saphir — blanc + bleu perle clair ─────────────────────── */
+[data-theme="saphir"] {
+  --t-hero:      linear-gradient(150deg, #C8D4F0 0%, #B8C8EC 55%, #A8B8E4 100%);
+  --t-hero-text: #0E1E48;
+  --t-primary:   #243F88;
+  --t-primary-d: #1A2D5E;
+  --t-body-bg:   #F4F6FF;
+  --t-imm-m:     linear-gradient(160deg, #060C1E 0%, #0E1A30 100%);
+  --t-imm-e:     linear-gradient(135deg, #030610 0%, #080E20 100%);
+}
+[data-theme="saphir"] body { background-color: #F4F6FF; }
+
+/* ── Rose des sables — ivoire + rose pâle ─────────────────── */
+[data-theme="rose-sable"] {
+  --t-hero:      linear-gradient(150deg, #F0D0DC 0%, #E8C4D4 55%, #DEB8C8 100%);
+  --t-hero-text: #4A1830;
+  --t-primary:   #9E4872;
+  --t-primary-d: #7A3658;
+  --t-body-bg:   #FFF5F8;
+  --t-imm-m:     linear-gradient(160deg, #200A14 0%, #341020 100%);
+  --t-imm-e:     linear-gradient(135deg, #100508 0%, #1E0A12 100%);
+}
+[data-theme="rose-sable"] body { background-color: #FFF5F8; }
+
+/* ─── Animation fond islamique ────────────────────────────── */
+@keyframes ornamentDrift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 120px 120px, 80px 80px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+}
+
+/* ─── Dark mode specific ────────────────────────────────────── */
+.dark body {
+  background-color: #0E0903;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M28,8 C17,8 8,17 8,28 C8,39 17,48 28,48 C23,44 19,37 19,28 C19,19 23,12 28,8 Z' fill='%23C9963A' opacity='0.06'/%3E%3Ccircle cx='90' cy='15' r='7' fill='%23C9963A' opacity='0.05'/%3E%3Cpath d='M55,72 L56,75 L59,76 L56,77 L55,80 L54,77 L51,76 L54,75 Z' fill='%23C9963A' opacity='0.05'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M62,8 C55,8 50,13 50,20 C50,27 55,32 62,32 C59,29 57,25 57,20 C57,15 59,11 62,8 Z' fill='%23C9963A' opacity='0.05'/%3E%3Ccircle cx='15' cy='62' r='5' fill='%23C9963A' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 120px 120px, 80px 80px;
+  animation: ornamentDrift 50s linear infinite;
+}
+
+/* ─── PWA standalone mode ───────────────────────────────────── */
+@media all and (display-mode: standalone) {
+  .pt-safe { padding-top: env(safe-area-inset-top, 44px); }
+}
+
+/* ─── Smooth transitions for theme changes ──────────────────── */
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
+button, a {
+  transition-property: background-color, border-color, color, transform, opacity, box-shadow;
+}

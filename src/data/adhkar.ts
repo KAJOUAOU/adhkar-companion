@@ -1,0 +1,524 @@
+import type { AdhkarItem } from '../types'
+
+/**
+ * Base de données complète des Adhkar
+ * Source : "Mes invocations du matin et du soir" — QURAN TIME (@_quran_time)
+ * Contenu intégral du PDF — 32 invocations
+ */
+export const ADHKAR_DATA: AdhkarItem[] = [
+
+  // ─── 1. Ayat al-Kursi ─────────────────────────────────────────────────────
+  {
+    id: 'ayat-kursi',
+    number: 1,
+    title: 'Ayat al-Kursi',
+    titleAr: 'آية الكرسي',
+    period: 'both',
+    category: 'protection',
+    repeat: 1,
+    arabic: 'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ',
+    transliteration: "Allâhou lâ ilâha illâ houwa al-Hayyou al-Qayyoum, lâ ta'khoudhouhou sinatoun wa lâ nawm, lahou mâ fi s-samâwâti wa mâ fi l-ard, man dha-l-ladhî yachfa'ou 'indahou illâ bi-idhnih, ya'lamou mâ bayna aydihim wa mâ khalfahoum, wa lâ youhitouna bi-chay'in min 'ilmihi illâ bimâ châ'a, wasi'a koursiyyouhou s-samâwâti wa-l-arda wa lâ yaoudouhou hifdhouhoumâ wa houwa l-'Aliyyou l-'Adhîm.",
+    translationFr: "Allah ! Point de divinité à part Lui, le Vivant, Celui qui subsiste par lui-même. Ni somnolence ni sommeil ne Le saisissent. À Lui appartient tout ce qui est dans les cieux et sur la terre. Qui peut intercéder auprès de Lui sans Sa permission ? Il connaît leur passé et leur futur. Et, de Sa science, ils n'embrassent que ce qu'Il veut. Son Trône déborde les cieux et la terre, dont la garde ne Lui coûte aucune peine. Et Il est le Très Haut, le Très Grand.",
+    merit: "Celui qui récite Ayat al-Koursi le matin sera protégé des djinns jusqu'au soir, et celui qui la récite le soir sera protégé des djinns jusqu'au matin. Celui qui la récite après chaque prière obligatoire, rien ne l'empêchera d'entrer au Paradis sauf la mort.",
+    source: 'Al-Hakim (authentifié par Al-Albani) — Muslim',
+    tags: ['protection', 'foi'],
+    audioArabicUrl: '/audio/ar/ayat-kursi.mp3',
+    isEssential: true,
+  },
+
+  // ─── 2. Sourate Al-Ikhlâs ×3 ──────────────────────────────────────────────
+  {
+    id: 'al-ikhlas',
+    number: 2,
+    title: 'Sourate Al-Ikhlâs',
+    titleAr: 'سورة الإخلاص',
+    period: 'both',
+    category: 'praise',
+    repeat: 3,
+    arabic: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ\nقُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ',
+    transliteration: 'Bismillâhi r-Rahmâni r-Rahîm. Qoul houwa llâhou ahad. Allâhou s-samad. Lam yalid wa lam youlad. Wa lam yakoune lahou koufouwan ahad.',
+    translationFr: "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux. Dis : C'est Lui Allah Seul et Unique. Allah, le Seul à être imploré pour ce que nous désirons. Il n'a jamais engendré, ni n'a été engendré. Et nul n'est égal à Lui.",
+    merit: "Réciter les sourates Al-Ikhlâs, Al-Falaq et An-Nâs trois fois le matin et le soir protège contre toutes choses.",
+    source: 'Abou Dawoud et At-Tirmidhi',
+    tags: ['protection', 'foi'],
+    audioArabicUrl: '/audio/ar/al-ikhlas.mp3',
+    isEssential: true,
+  },
+
+  // ─── 3. Sourate Al-Falaq ×3 ───────────────────────────────────────────────
+  {
+    id: 'al-falaq',
+    number: 3,
+    title: 'Sourate Al-Falaq',
+    titleAr: 'سورة الفلق',
+    period: 'both',
+    category: 'protection',
+    repeat: 3,
+    arabic: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ\nقُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ',
+    transliteration: "Bismillâhi r-Rahmâni r-Rahîm. Qoul a'oudou bi-rabbi l-falaq. Min charri mâ khalaq. Wa min charri ghâssiqin idhâ waqab. Wa min charri n-naffâthâti fi l-'ouqad. Wa min charri hâssidin idhâ hassad.",
+    translationFr: "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux. Dis : Je cherche protection auprès du Seigneur de l'aube naissante, contre le mal des êtres qu'Il a créés, contre le mal de l'obscurité quand elle s'approfondit, contre le mal de celles qui soufflent sur les nœuds, et contre le mal de l'envieux quand il envie.",
+    merit: "Ces trois sourates récitées trois fois le matin et le soir te protègeront contre toutes choses.",
+    source: 'Abou Dawoud et At-Tirmidhi',
+    tags: ['protection', 'apaisement'],
+    audioArabicUrl: '/audio/ar/al-falaq.mp3',
+    isEssential: true,
+  },
+
+  // ─── 4. Sourate An-Nâs ×3 ─────────────────────────────────────────────────
+  {
+    id: 'an-nas',
+    number: 4,
+    title: 'Sourate An-Nâs',
+    titleAr: 'سورة الناس',
+    period: 'both',
+    category: 'protection',
+    repeat: 3,
+    arabic: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ\nقُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ',
+    transliteration: "Bismillâhi r-Rahmâni r-Rahîm. Qoul a'oudou bi-rabbi n-nâss. Maliki n-nâss. Ilâhi n-nâss. Min charri l-waswâsi l-khannâss. Alladhî youwaswiswou fî sdouri n-nâss. Mina l-jinnati wa n-nâss.",
+    translationFr: "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux. Dis : Je cherche protection auprès du Seigneur des hommes, le Souverain des hommes, Dieu des hommes, contre le mal du mauvais conseiller furtif, qui souffle le mal dans les poitrines des hommes, qu'il soit djinn ou être humain.",
+    merit: "Ces trois sourates récitées trois fois le matin et le soir te protègeront contre toutes choses.",
+    source: 'Abou Dawoud et At-Tirmidhi',
+    tags: ['protection', 'apaisement', 'anxiete'],
+    audioArabicUrl: '/audio/ar/an-nas.mp3',
+    isEssential: true,
+  },
+
+  // ─── 5. Bismillah — Protection ×3 ─────────────────────────────────────────
+  {
+    id: 'bismillah-protect',
+    number: 5,
+    title: 'Bismillah — Protection',
+    titleAr: 'بسم الله — الحماية',
+    period: 'both',
+    category: 'protection',
+    repeat: 3,
+    arabic: 'بِسْمِ اللهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ',
+    transliteration: "Bi-smillâhi l-ladhî lâ yadurrou ma'a smihi chay'oun fi l-ardi wa lâ fi s-samâ'i wa houwa s-Samî'ou l-'Alîm.",
+    translationFr: "Au nom d'Allah, tel qu'en compagnie de Son Nom rien sur Terre ni au ciel ne peut nuire, Lui l'Audient, l'Omniscient.",
+    merit: "Celui qui récite cette invocation trois fois le matin, rien ne lui nuira jusqu'au soir. Et celui qui la récite trois fois le soir, rien ne lui nuira jusqu'au matin.",
+    source: 'Abou Dawoud, At-Tirmidhi — Sahih',
+    tags: ['protection', 'baraka'],
+    audioArabicUrl: '/audio/ar/bismillah-protect.mp3',
+    isEssential: false,
+  },
+
+  // ─── 6. Sayyid al-Istighfâr ───────────────────────────────────────────────
+  {
+    id: 'sayyid-istighfar',
+    number: 6,
+    title: 'Sayyid al-Istighfâr',
+    titleAr: 'سيد الاستغفار',
+    period: 'both',
+    category: 'forgiveness',
+    repeat: 1,
+    arabic: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ',
+    transliteration: "Allâhomma anta rabbî, lâ ilâha illâ ant. Khalaqtanî wa anâ 'abdouk, wa anâ 'alâ 'ahdika wa wa'dika mâ stata't. A'ûdhou bika min charri mâ sana't. Abû'ou laka bi-ni'matika 'alayya wa abû'ou bi-dhanbî, fa-ghfir lî, fa-innahou lâ yaghfirou dh-dhounouba illâ ant.",
+    translationFr: "Ô Allah ! Tu es mon Seigneur. Il n'y a aucune divinité en dehors de Toi. Tu m'as créé et je suis Ton serviteur. Je me conforme autant que je peux à mon engagement et à ma promesse vis-à-vis de Toi. Je cherche refuge auprès de Toi contre le mal que j'ai commis. Je reconnais Ton bienfait à mon égard et je reconnais mon péché. Pardonne-moi donc, en effet nul autre que Toi ne pardonne les péchés.",
+    merit: "Ceci est la meilleure demande de pardon (Sayyid al-Istighfâr). Celui qui la prononce avec conviction dans la journée puis meurt avant la nuit sera parmi les gens du Paradis. Et celui qui la prononce la nuit avec conviction puis meurt avant l'aube sera également parmi les gens du Paradis.",
+    source: 'Al-Boukhâri',
+    tags: ['pardon', 'foi', 'tawakkul'],
+    audioArabicUrl: '/audio/ar/sayyid-istighfar.mp3',
+    isEssential: true,
+  },
+
+  // ─── 7. Yâ Hayyu Yâ Qayyûm ────────────────────────────────────────────────
+  {
+    id: 'ya-hayyu',
+    number: 7,
+    title: 'Yâ Hayyu Yâ Qayyûm',
+    titleAr: 'يا حي يا قيوم',
+    period: 'both',
+    category: 'supplication',
+    repeat: 1,
+    arabic: 'يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ',
+    transliteration: "Yâ Hayyou yâ Qayyûmou bi-rahmatika astaghîth. Aslih lî cha'nî koullah, wa lâ takilnî ilâ nafsî tarfata 'ayn.",
+    translationFr: "Ô Toi le Vivant, Celui qui n'a besoin de rien et dont toute chose dépend, j'implore secours auprès de Ta miséricorde. Améliore ma situation en tout point et ne me laisse pas à mon propre sort ne serait-ce le temps d'un clin d'œil.",
+    merit: "Cette invocation contient deux des plus grands Noms d'Allah : Al-Hayy (le Vivant) et Al-Qayyûm (Celui dont tout dépend). Elle est parmi les plus puissantes pour demander le soutien divin.",
+    source: 'Sahih at-Targhîb',
+    tags: ['apaisement', 'tawakkul', 'anxiete'],
+    audioArabicUrl: '/audio/ar/ya-hayyu.mp3',
+    isEssential: false,
+  },
+
+  // ─── 8. Protection complète — 6 directions ────────────────────────────────
+  {
+    id: 'protection-complete',
+    number: 8,
+    title: 'Protection complète',
+    titleAr: 'الحماية الكاملة',
+    period: 'both',
+    category: 'protection',
+    repeat: 1,
+    arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي، اللَّهُمَّ اسْتُرْ عَوْرَاتِي وَآمِنْ رَوْعَاتِي، اللَّهُمَّ احْفَظْنِي مِنْ بَيْنِ يَدَيَّ وَمِنْ خَلْفِي وَعَنْ يَمِينِي وَعَنْ شِمَالِي وَمِنْ فَوْقِي، وَأَعُوذُ بِعَظَمَتِكَ أَنْ أُغْتَالَ مِنْ تَحْتِي',
+    transliteration: "Allâhomma innî as'alouka l-'âfiyata fi d-dounyâ wa l-âkhirah. Allâhomma innî as'alouka l-'afwa wa l-'âfiyata fî dînî, wa dounyâya, wa ahlî, wa mâlî. Allâhomma stour 'awrâtî, wa âmin raw'âtî. Allâhomma hfadhnî min bayni yadayya, wa min khalfî, wa 'an yamînî, wa 'an chimâlî, wa min fawqî. Wa a'ûdhou bi-'adhamatika an oughtâla min tahtî.",
+    translationFr: "Ô Allah ! Je Te demande le salut dans cette vie et dans l'au-delà. Ô Allah ! Je Te demande le pardon et le salut dans ma religion, ma vie, ma famille et mes biens. Ô Allah ! Cache mes défauts et mets-moi à l'abri de toutes mes craintes. Ô Allah ! Protège-moi par devant, par derrière, sur ma droite, sur ma gauche et au-dessus de moi. Je me mets sous la protection de Ta grandeur pour ne pas être enseveli.",
+    merit: "Cette invocation demande une protection totale à Allah sur tous les aspects de la vie : corps, âme, famille, biens, honneur et direction.",
+    source: 'Sahih Abou Dawoud, Sahih at-Targhib',
+    tags: ['protection', 'baraka', 'apaisement'],
+    audioArabicUrl: '/audio/ar/protection-complete.mp3',
+    isEssential: false,
+  },
+
+  // ─── 9. Protection de l'âme et contre Satan ───────────────────────────────
+  {
+    id: 'protection-ame',
+    number: 9,
+    title: "Protection de l'âme",
+    titleAr: 'الحماية من الشيطان',
+    period: 'both',
+    category: 'protection',
+    repeat: 1,
+    arabic: 'اللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَالأَرْضِ رَبَّ كُلِّ شَيْءٍ وَمَلِيكَهُ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ، أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ وَأَنْ أَقْتَرِفَ عَلَى نَفْسِي سُوءًا أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ',
+    transliteration: "Allâhomma 'âlima l-ghaybi wa ch-chahâdah, fâtira s-samâwâti wa l-ard, rabba koulli chay'in wa malîkah. Achhadu an lâ ilâha illâ ant. A'ûdhou bika min charri nafsî, wa min charri ch-chaytâni wa chirkihi wa an aqtarifa 'alâ nafsî sou'an aw ajurraho ilâ mouslim.",
+    translationFr: "Ô Allah ! Connaisseur de l'invisible et de l'apparent, Créateur des cieux et de la Terre, Seigneur et Possesseur de toute chose, j'atteste qu'il n'y a aucune divinité en dehors de Toi. Je cherche refuge auprès de Toi contre le mal de mon âme, contre le mal de Satan et de son polythéisme et contre le fait de me faire du mal à moi-même ou d'en faire à un musulman.",
+    merit: "Cette invocation protège contre les tentations de l'âme mauvaise (nafs) et contre les influences sataniques. Elle renforce la foi et la vigilance spirituelle.",
+    source: 'Abou Dawoud, At-Tirmidhi — Sahih',
+    tags: ['protection', 'foi', 'anxiete'],
+    audioArabicUrl: '/audio/ar/protection-ame.mp3',
+    isEssential: false,
+  },
+
+  // ─── 10. Salât sur le Prophète ﷺ ×10 ─────────────────────────────────────
+  {
+    id: 'salat-prophet',
+    number: 10,
+    title: 'Salât sur le Prophète ﷺ',
+    titleAr: 'الصلاة على النبي ﷺ',
+    period: 'both',
+    category: 'praise',
+    repeat: 10,
+    arabic: 'اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ',
+    transliteration: "Allâhomma salli wa sallim 'alâ nabiyyinâ Mouhammad.",
+    translationFr: 'Ô Allah ! Prie et salue sur notre Prophète Muhammad.',
+    merit: "Le Prophète ﷺ a dit : « Celui qui aura prié sur moi dix fois le matin et dix fois le soir, obtiendra mon intercession le Jour de la Résurrection. »",
+    source: 'Al-Tabarânî',
+    tags: ['foi', 'baraka', 'gratitude'],
+    audioArabicUrl: '/audio/ar/salat-prophet.mp3',
+    isEssential: false,
+  },
+
+  // ─── 11. La Ilaha IllAllah ×10 ────────────────────────────────────────────
+  {
+    id: 'la-ilaha-10',
+    number: 11,
+    title: 'La Ilaha IllAllah',
+    titleAr: 'لا إله إلا الله',
+    period: 'both',
+    category: 'praise',
+    repeat: 10,
+    arabic: 'لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحْيِي وَيُمِيتُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
+    transliteration: "Lâ ilâha illa-llâhou wahdahou lâ charîka lah. Lahou l-moulkou wa lahou l-hamd, youhyî wa youmît, wa houwa 'alâ koulli chay'in qadîr.",
+    translationFr: "Il n'y a aucune divinité en dehors d'Allah, Seul, sans associé. À Lui la royauté, à Lui la louange. Il donne la vie et la mort et Il est capable de toute chose.",
+    merit: "Celui qui prononce cette formule dix fois le matin aura la récompense de l'affranchissement de quatre âmes parmi les descendants d'Ismaïl. Dix bonnes actions lui seront inscrites, dix péchés effacés, et il sera protégé contre le diable jusqu'au soir.",
+    source: 'Abou Dawoud — Sahih',
+    tags: ['foi', 'gratitude', 'protection'],
+    audioArabicUrl: '/audio/ar/la-ilaha-10.mp3',
+    isEssential: false,
+  },
+
+  // ─── 12. Protection corps / ouïe / vue ×3 ─────────────────────────────────
+  {
+    id: 'protection-corps',
+    number: 12,
+    title: 'Protection corps, ouïe et vue',
+    titleAr: 'حماية البدن والسمع والبصر',
+    period: 'both',
+    category: 'protection',
+    repeat: 3,
+    arabic: 'اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لَا إِلَهَ إِلَّا أَنْتَ',
+    transliteration: "Allâhomma 'âfinî fî badanî, Allâhomma 'âfinî fî sam'î, Allâhomma 'âfinî fî bassarî, lâ ilâha illâ ant. Allâhomma innî a'ûdhou bika min al-koufrî wa l-faqr, Allâhomma innî a'ûdhou bika min 'adhâbi l-qabr, lâ ilâha illâ ant. (3 fois)",
+    translationFr: "Ô Allah ! Préserve mon corps. Ô Allah ! Préserve mon ouïe. Ô Allah ! Préserve ma vue. Il n'y a de divinité digne d'adoration que Toi. Ô Allah ! Je cherche protection auprès de Toi contre la mécréance et la pauvreté. Ô Allah ! Je me mets sous Ta protection contre le châtiment de la tombe. Il n'y a pas de divinité digne d'adoration que Toi.",
+    merit: "Cette invocation demande à Allah la protection de nos facultés physiques essentielles et la protection contre la mécréance, la pauvreté et les châtiments de l'au-delà.",
+    source: 'Sahih Abou Dawoud',
+    tags: ['protection', 'baraka', 'apaisement'],
+    audioArabicUrl: '/audio/ar/protection-corps.mp3',
+    isEssential: false,
+  },
+
+  // ─── 13. Hasbiya Allah ×7 ─────────────────────────────────────────────────
+  {
+    id: 'hasbiya-allah',
+    number: 13,
+    title: 'Hasbiya Allâh',
+    titleAr: 'حسبي الله',
+    period: 'both',
+    category: 'tawakkul',
+    repeat: 7,
+    arabic: 'حَسْبِيَ اللهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ',
+    transliteration: "Hasbiya llâhou lâ ilâha illâ houwa 'alayhi tawakkaltou wa houwa rabbou l-'archi l-'adhîm.",
+    translationFr: "Allah me suffit. Il n'y a de divinité que Lui. En Lui je place ma confiance et Il est le Seigneur du Trône immense.",
+    merit: "Celui qui récite cette formule sept fois le matin et sept fois le soir, Allah lui suffit pour tout ce qui le préoccupe, que ce soit en rapport avec ce monde ou l'au-delà.",
+    source: 'Abou Dawoud — Sahih',
+    tags: ['tawakkul', 'apaisement', 'anxiete', 'foi'],
+    audioArabicUrl: '/audio/ar/hasbiya-allah.mp3',
+    isEssential: false,
+  },
+
+  // ─── 14. Demande de savoir et subsistance (Matin seulement) ───────────────
+  {
+    id: 'ilm-rizq',
+    number: 14,
+    title: 'Savoir utile et subsistance licite',
+    titleAr: 'العلم النافع والرزق الطيب',
+    period: 'morning',
+    category: 'supplication',
+    repeat: 1,
+    arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلًا مُتَقَبَّلًا',
+    transliteration: "Allâhomma innî as'alouka 'ilman nâfi'â, wa rizqan tayyibâ, wa 'amalan moutaqabbalâ.",
+    translationFr: "Ô Allah ! Je Te demande de m'accorder un savoir utile, une subsistance licite et des œuvres que Tu agrées.",
+    merit: "Cette belle invocation du matin résume trois demandes essentielles du croyant : la connaissance bénéfique, la provision halal et les bonnes œuvres agréées d'Allah.",
+    source: 'Ibn Maja — Sahih',
+    tags: ['baraka', 'gratitude'],
+    audioArabicUrl: '/audio/ar/ilm-rizq.mp3',
+    isEssential: false,
+  },
+
+  // ─── 15a. Tasbîh — Subhânallâh ×100 ──────────────────────────────────────
+  {
+    id: 'tasbih-subhanallah',
+    number: 15,
+    title: 'Tasbîh — Gloire à Allah',
+    titleAr: 'سبحان الله',
+    period: 'both',
+    category: 'praise',
+    repeat: 100,
+    arabic: 'سُبْحَانَ اللهِ',
+    transliteration: 'Subhâna-llâhi',
+    translationFr: 'Gloire à Allah',
+    merit: "Dire « Subhânallâh » cent fois vaut 1000 bonnes actions ou efface 1000 péchés selon le Prophète ﷺ. Ce sont les paroles les plus aimées d'Allah, les plus légères pour la langue mais les plus lourdes dans la balance.",
+    source: 'Bukhari et Muslim',
+    tags: ['gratitude', 'foi', 'baraka'],
+    audioArabicUrl: '/audio/ar/tasbih-subhanallah.mp3',
+    isEssential: true,
+  },
+
+  // ─── 15b. Tasbîh — Alhamdulillâh ×100 ────────────────────────────────────
+  {
+    id: 'tasbih-alhamdulillah',
+    number: 15,
+    title: 'Tahmîd — Louange à Allah',
+    titleAr: 'الحمد لله',
+    period: 'both',
+    category: 'praise',
+    repeat: 100,
+    arabic: 'الْحَمْدُ لِلَّهِ',
+    transliteration: 'Alhamdulillâhi',
+    translationFr: 'Louange à Allah',
+    merit: "Ces formules sont les paroles les plus aimées d'Allah selon le Prophète ﷺ, les plus légères pour la langue mais les plus lourdes dans la balance des bonnes actions.",
+    source: 'Bukhari et Muslim',
+    tags: ['gratitude', 'foi', 'baraka'],
+    audioArabicUrl: '/audio/ar/tasbih-alhamdulillah.mp3',
+    isEssential: true,
+  },
+
+  // ─── 15c. Tasbîh — Allâhou Akbar ×100 ────────────────────────────────────
+  {
+    id: 'tasbih-allahu-akbar',
+    number: 15,
+    title: 'Takbîr — Allah est le Plus Grand',
+    titleAr: 'الله أكبر',
+    period: 'both',
+    category: 'praise',
+    repeat: 100,
+    arabic: 'اللهُ أَكْبَرُ',
+    transliteration: 'Allâhou Akbar',
+    translationFr: 'Allah est le Plus Grand',
+    merit: "Ces formules sont les paroles les plus aimées d'Allah selon le Prophète ﷺ, les plus légères pour la langue mais les plus lourdes dans la balance des bonnes actions.",
+    source: 'Bukhari et Muslim',
+    tags: ['gratitude', 'foi', 'baraka'],
+    audioArabicUrl: '/audio/ar/tasbih-allahu-akbar.mp3',
+    isEssential: true,
+  },
+
+  // ─── 15g. Istighfâr ×100 ──────────────────────────────────────────────────
+  {
+    id: 'tasbih-istighfar',
+    number: 15,
+    title: 'Istighfâr — Demande de pardon',
+    titleAr: 'أستغفر الله وأتوب إليه',
+    period: 'both',
+    category: 'forgiveness',
+    repeat: 100,
+    arabic: 'أَسْتَغْفِرُ اللهَ وَأَتُوبُ إِلَيْهِ',
+    transliteration: 'AstaghfirouLlâha wa atûbou ilayh',
+    translationFr: 'Je demande pardon à Allah et je me repens à Lui',
+    merit: "Le Prophète ﷺ disait : « Par Allah, je demande pardon à Allah et je me repens à Lui plus de soixante-dix fois par jour. » Celui qui pratique l'istighfâr régulièrement, Allah lui ouvrira une issue dans toute difficulté.",
+    source: 'Bukhari — Abu Dawoud',
+    tags: ['pardon', 'foi', 'baraka'],
+    audioArabicUrl: '/audio/ar/tasbih-istighfar.mp3',
+    isEssential: false,
+  },
+
+  // ─── 16. Ridâ ×3 ──────────────────────────────────────────────────────────
+  {
+    id: 'rida',
+    number: 16,
+    title: 'Ridâ — Agrément envers Allah',
+    titleAr: 'الرضا بالله',
+    period: 'both',
+    category: 'faith',
+    repeat: 3,
+    arabic: 'رَضِيتُ بِاللهِ رَبًّا وَبِالإِسْلَامِ دِينًا وَبِمُحَمَّدٍ ﷺ نَبِيًّا',
+    transliteration: 'Radhîtou bi-llâhi rabbân wa bi-l-islâmi dînan wa bi-Mouhammadin ﷺ nabiyyâ.',
+    translationFr: "J'agrée Allah comme Seigneur, l'Islam comme religion et Muhammad ﷺ comme prophète.",
+    merit: "Celui qui prononce cette invocation au matin aura la récompense de l'affranchissement d'un esclave de la descendance d'Ismaïl. De plus, dix bonnes actions seront inscrites à son compte, dix péchés lui seront effacés, il sera élevé de dix degrés et sera protégé contre le diable jusqu'au soir.",
+    source: 'Abou Dawoud — Sahih',
+    tags: ['foi', 'gratitude', 'baraka'],
+    audioArabicUrl: '/audio/ar/rida.mp3',
+    isEssential: true,
+  },
+
+  // ─── 17. Asbahnâ bika (Matin) ─────────────────────────────────────────────
+  {
+    id: 'asbahna-bika',
+    number: 17,
+    title: "Nous voici au matin par Ta grâce",
+    titleAr: 'أصبحنا بك',
+    period: 'morning',
+    category: 'morning',
+    repeat: 1,
+    arabic: 'اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا وَبِكَ نَحْيَا وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُورُ',
+    transliteration: "Allâhomma bika asbahnâ, wa bika amsaynâ, wa bika nahyâ, wa bika namûtou, wa ilayka n-nouchûr.",
+    translationFr: "Ô Allah ! C'est par Toi que nous nous retrouvons au matin et c'est par Toi que nous nous retrouvons au soir. C'est par Toi que nous vivons et c'est par Toi que nous mourons et c'est vers Toi que se fera la Résurrection.",
+    merit: "Le Messager d'Allah ﷺ enseignait cette invocation à ses Compagnons et leur disait : « Si l'un de vous parvient au matin qu'il dise : Ô Allah ! C'est par Toi que nous nous retrouvons au matin… »",
+    source: 'At-Tirmidhi — Sahih',
+    tags: ['foi', 'gratitude', 'tawakkul'],
+    audioArabicUrl: '/audio/ar/asbahna-bika.mp3',
+    isEssential: false,
+  },
+
+  // ─── 18. Subhâna-llâhi wa bi-hamdih adada khalqih ×3 (Matin) ─────────────
+  {
+    id: 'tasbih-khalq',
+    number: 18,
+    title: 'Tasbîh — Autant que Ses créatures',
+    titleAr: 'سبحان الله وبحمده عدد خلقه',
+    period: 'morning',
+    category: 'praise',
+    repeat: 3,
+    arabic: 'سُبْحَانَ اللهِ وَبِحَمْدِهِ عَدَدَ خَلْقِهِ وَرِضَا نَفْسِهِ وَزِنَةَ عَرْشِهِ وَمِدَادَ كَلِمَاتِهِ',
+    transliteration: "Subhâna-llâhi wa bi-hamdih, 'adada khalqih, wa ridâ nafsih, wa zinata 'archih, wa midâda kalimâtih.",
+    translationFr: "Gloire, pureté et louanges à Allah, autant que le nombre de Ses créatures, autant de fois qu'il le faut pour Le satisfaire, d'un nombre égal au poids de Son Trône, et au nombre indéterminé de Ses paroles.",
+    merit: "Le Prophète ﷺ dit à Juwayriyah bint Al-Hârith qu'il avait prononcé quatre formules à trois reprises qui, si elles étaient pesées, pèseraient plus lourd que tout ce qu'elle avait dit depuis le matin.",
+    source: 'Muslim',
+    tags: ['gratitude', 'foi'],
+    audioArabicUrl: '/audio/ar/tasbih-khalq.mp3',
+    isEssential: false,
+  },
+
+  // ─── 19. Témoin de foi — Matin ×4 ─────────────────────────────────────────
+  {
+    id: 'temoin-matin',
+    number: 19,
+    title: "Témoin de foi — Matin",
+    titleAr: 'الشهادة صباحاً',
+    period: 'morning',
+    category: 'faith',
+    repeat: 4,
+    arabic: 'اللَّهُمَّ إِنِّي أَصْبَحْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ وَمَلَائِكَتَكَ وَجَمِيعَ خَلْقِكَ أَنَّكَ أَنْتَ اللهُ لَا إِلَهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ',
+    transliteration: "Allâhomma innî asbahtou ouchhidouka wa ouchhidou hamalata 'archika, wa malâ'ikataka wa jamî'a khalqika, annaka anta Allâhou lâ ilâha illâ anta wahdaka lâ charîka lak, wa anna Mouhammadan 'abdouka wa rassoulouk. (4 fois)",
+    translationFr: "Ô Allah ! Je témoigne à Ton égard, et je prends à témoin les porteurs de Ton Trône, Tes anges et l'ensemble de Tes créatures, que Tu es Allah, qu'il n'y a de divinité que Toi, Seul, sans associé, et que Muhammad est Ton serviteur et Ton messager. (4 fois)",
+    merit: "Celui qui récitera cette invocation 4 fois le matin, Allah libérera le quart de lui-même du Feu. Celui qui la dit deux fois, Allah libérera la moitié de lui-même. Trois fois les trois quarts. Quatre fois la totalité.",
+    source: 'Abou Dawoud — Hasan',
+    tags: ['foi', 'protection', 'baraka'],
+    audioArabicUrl: '/audio/ar/temoin-matin.mp3',
+    isEssential: false,
+  },
+
+  // ─── 20. Asbahnâ wa asbahal-mulk (Matin) ──────────────────────────────────
+  {
+    id: 'asbahna-mulk',
+    number: 20,
+    title: 'Nous voici au matin — Le règne à Allah',
+    titleAr: 'أصبحنا وأصبح الملك لله',
+    period: 'morning',
+    category: 'morning',
+    repeat: 1,
+    arabic: 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ',
+    transliteration: "Asbahnâ wa asbaha l-moulkou lillâh, wa l-hamdu lillâh, lâ ilâha illâ llâhou wahdahou lâ charîka lah, lahou l-moulkou wa lahou l-hamd, wa houwa 'alâ koulli chay'in qadîr. Rabbi, as'alouka khayra mâ fî hâdha l-yawmi wa khayra mâ ba'dah. Wa a'ûdhou bika min charri mâ fî hâdha l-yawmi wa charri mâ ba'dah. Rabbi a'ûdhou bika min al-kasali wa sûi l-kibar. Rabbi a'ûdhou bika min 'adhâbin fi n-nâri wa 'adhâbin fi l-qabr.",
+    translationFr: "Nous voilà au matin et le règne appartient à Allah. Louange à Allah. Il n'y a aucune divinité en dehors d'Allah, Seul, sans associé. À Lui la royauté, à Lui la louange et Il est capable de toute chose. Seigneur ! Je Te demande le bien que contient ce jour et le bien qui vient après. Et je cherche refuge auprès de Toi contre le mal que contient ce jour et le mal qui vient après. Seigneur ! Je cherche refuge auprès de Toi contre la paresse et les maux de la vieillesse. Je cherche refuge auprès de Toi contre le châtiment de l'Enfer et contre les tourments de la tombe.",
+    merit: "Cette invocation du matin combine une déclaration de la souveraineté d'Allah, une profession de foi, et une demande de protection contre les maux du jour et les maux de l'au-delà.",
+    source: 'Muslim',
+    tags: ['protection', 'foi', 'tawakkul'],
+    audioArabicUrl: '/audio/ar/asbahna-mulk.mp3',
+    isEssential: false,
+  },
+
+  // ─── 21. Asbahnâ ala fitrati l-Islam (Matin) ──────────────────────────────
+  {
+    id: 'asbahna-fitrat',
+    number: 21,
+    title: 'Nous voici sur la Fitrah islamique',
+    titleAr: 'أصبحنا على فطرة الإسلام',
+    period: 'morning',
+    category: 'faith',
+    repeat: 1,
+    arabic: 'أَصْبَحْنَا عَلَى فِطْرَةِ الإِسْلَامِ وَعَلَى كَلِمَةِ الإِخْلَاصِ وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِينَ',
+    transliteration: "Asbahnâ 'alâ fitrati l-islâm, wa 'alâ kalimati l-ikhlâs, wa 'alâ dîni nabiyyinâ Mouhammad, wa 'alâ millati abînâ Ibrâhîma hanîfan mouslimân, wa mâ kâna mina l-moushrikîn.",
+    translationFr: "Nous voici au matin, en conformité avec la saine disposition qu'est l'Islam, avec la parole du monothéisme, avec la religion de notre Prophète Mohammed et sur la voie de notre père Ibrâhîm qui vouait un culte exclusif à Allah, soumis à Lui, et n'était point du nombre des polythéistes.",
+    merit: "Cette invocation réaffirme le matin l'appartenance à l'Islam et à la lignée prophétique, renforçant l'identité et la fierté spirituelle du croyant.",
+    source: 'As-Sahihah',
+    tags: ['foi', 'gratitude'],
+    audioArabicUrl: '/audio/ar/asbahna-fitrat.mp3',
+    isEssential: false,
+  },
+
+  // ─── 22. Asbahnâ wa asbahal-mulk Rabb al-alameen (Matin) ──────────────────
+  {
+    id: 'asbahna-rabb',
+    number: 22,
+    title: 'Nous voici — Seigneur de l\'Univers',
+    titleAr: 'أصبحنا والملك لله رب العالمين',
+    period: 'morning',
+    category: 'morning',
+    repeat: 1,
+    arabic: 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ، اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذَا الْيَوْمِ فَتْحَهُ وَنَصْرَهُ وَنُورَهُ وَبَرَكَتَهُ وَهُدَاهُ وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِيهِ وَشَرِّ مَا بَعْدَهُ',
+    transliteration: "Asbahnâ wa asbaha l-moulkou li-llâhi Rabbi l-'âlamîn. Allâhomma innî as'alouka khayra hâdha l-yawmi : fathahou, wa nasrahou, wa nûrahou, wa barakatahu, wa hudâh. Wa a'ûdhou bika min charri mâ fîhi wa charri mâ ba'dah.",
+    translationFr: "Nous voilà au matin et la Royauté appartient à Allah, le Seigneur de l'Univers. Ô Allah ! Je Te demande le bien de ce jour : ce qu'il contient comme conquêtes, victoires, lumière, bénédiction et guidée. Je cherche refuge auprès de Toi contre le mal qu'il contient et le mal qui vient après lui.",
+    merit: "Cette invocation demande à Allah les cinq dons du jour : la conquête (fath), la victoire (nasr), la lumière (nour), la bénédiction (baraka) et la guidée (hudâ).",
+    source: 'Sahih al-Jâmi',
+    tags: ['baraka', 'protection', 'foi'],
+    audioArabicUrl: '/audio/ar/asbahna-rabb.mp3',
+    isEssential: false,
+  },
+
+]
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+export function getAdhkarByPeriod(period: 'morning' | 'evening'): AdhkarItem[] {
+  return ADHKAR_DATA.filter(a => a.period === 'both' || a.period === period)
+}
+
+export function getAdhkarByTag(tag: string): AdhkarItem[] {
+  return ADHKAR_DATA.filter(a => a.tags.includes(tag as never))
+}
+
+export function getEssentialAdhkar(): AdhkarItem[] {
+  return ADHKAR_DATA.filter(a => a.isEssential)
+}
+
+export function getAdhkarById(id: string): AdhkarItem | undefined {
+  return ADHKAR_DATA.find(a => a.id === id)
+}
+
+export const NEED_TAGS: { id: string; label: string; emoji: string; description: string }[] = [
+  { id: 'protection',  label: 'Protection',      emoji: '🛡️',  description: 'Se protéger des maux et du mal' },
+  { id: 'apaisement',  label: 'Apaisement',       emoji: '🌿',  description: 'Trouver la paix intérieure' },
+  { id: 'pardon',      label: 'Pardon',            emoji: '🤲',  description: 'Demander le pardon à Allah' },
+  { id: 'gratitude',   label: 'Gratitude',         emoji: '💛',  description: 'Remercier Allah pour Ses bienfaits' },
+  { id: 'tawakkul',    label: 'Tawakkul',          emoji: '🌊',  description: 'Se remettre totalement à Allah' },
+  { id: 'baraka',      label: 'Baraka',            emoji: '✨',  description: 'Demander la bénédiction divine' },
+  { id: 'anxiete',     label: 'Anxiété',           emoji: '💆',  description: "Apaiser l'inquiétude et l'angoisse" },
+  { id: 'foi',         label: 'Renforcer sa foi',  emoji: '🌙',  description: 'Fortifier son imân et sa conviction' },
+]
+
+export const INSPIRATIONAL_QUOTES: string[] = [
+  "« En vérité, c'est par l'évocation d'Allah que les cœurs se tranquillisent. » — Coran 13:28",
+  "« Rappelle-toi de Moi, Je Me souviendrai de toi. » — Coran 2:152",
+  "Le Prophète ﷺ a dit : « Voulez-vous que je vous indique la meilleure et la plus pure de vos actions ? » Les dhikr d'Allah.",
+  "« Et celui qui Me rappelle dans une assemblée, Je le rappelle dans une assemblée meilleure que la sienne. » — Hadith Qudsi",
+  "La constance dans les petites bonnes actions est plus aimée d'Allah que les grandes actions occasionnelles.",
+  "Chaque matin est une nouvelle page blanche qu'Allah t'offre. Commence-la par Son Nom.",
+  "Le cœur qui se souvient d'Allah est comme une maison habitée. Le cœur qui ne s'en souvient pas est comme une maison en ruines.",
+]

@@ -1,0 +1,32 @@
+{
+  "name": "Dhikr Companion — Mes Adhkar",
+  "short_name": "Dhikr",
+  "description": "Compagnon spirituel quotidien pour les invocations du matin et du soir",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0a4f2a",
+  "background_color": "#FAF7F2",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["lifestyle", "education", "religion"],
+  "screenshots": [],
+  "share_target": {
+    "action": "/",
+    "method": "GET"
+  }
+}
