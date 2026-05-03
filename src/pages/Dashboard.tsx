@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { Flame, ChevronRight, Moon, Sun, Clock } from 'lucide-react'
-import { getCurrentPeriod, getGreeting, getLast30Days } from '../utils/timeUtils'
+import { getCurrentPeriod, getGreeting, getLast30Days, getHijriDate } from '../utils/timeUtils'
 import { getAdhkarByPeriod } from '../data/adhkar'
 import { loadSession } from '../services/storageService'
 import { useStreak } from '../hooks/useStreak'
@@ -77,6 +77,7 @@ export default function Dashboard() {
   const currentPeriod = getCurrentPeriod()
   const greeting      = getGreeting()
   const quote         = getQuoteOfDay()
+  const hijriDate     = getHijriDate()
 
   const morningSession = loadSession('morning')
   const eveningSession = loadSession('evening')
@@ -116,6 +117,11 @@ export default function Dashboard() {
           <p className="text-sm opacity-60" style={{ color: 'var(--t-hero-text,#2C1A06)' }}>
             {new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
           </p>
+          {hijriDate && (
+            <p className="text-xs opacity-50 mt-0.5" style={{ color: 'var(--t-hero-text,#2C1A06)' }}>
+              ۞ {hijriDate}
+            </p>
+          )}
         </div>
 
         {/* Arc décoratif */}

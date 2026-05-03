@@ -60,3 +60,15 @@ export function formatTime(seconds: number): string {
   const s = Math.floor(seconds % 60)
   return `${m}:${s.toString().padStart(2, '0')}`
 }
+
+export function getHijriDate(): string {
+  try {
+    return new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(new Date())
+  } catch {
+    return ''
+  }
+}

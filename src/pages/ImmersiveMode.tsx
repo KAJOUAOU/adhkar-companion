@@ -152,14 +152,14 @@ export default function ImmersiveMode() {
         // repeat > 1 : chaque écoute compte
         audio.setManualEndCallback(() => {
           const done = tapRef.current()
-          if (navigator.vibrate) navigator.vibrate(12)
+          if (settings.vibration && navigator.vibrate) navigator.vibrate(12)
           if (done) setTimeout(() => nextRef.current(), 600)
         })
       } else {
         // repeat === 1 : marquer lu et passer au suivant automatiquement
         audio.setManualEndCallback(() => {
           markDoneRef.current(currentAdhkar!.id)
-          if (navigator.vibrate) navigator.vibrate([15, 30, 15])
+          if (settings.vibration && navigator.vibrate) navigator.vibrate([15, 30, 15])
           setTimeout(() => nextRef.current(), 500)
         })
       }
@@ -185,10 +185,10 @@ export default function ImmersiveMode() {
           currentAdhkar.id,
           currentAdhkar.audioArabicUrl!,
           currentAdhkar.repeat,
-          () => { tap(); if (navigator.vibrate) navigator.vibrate(12) },
+          () => { tap(); if (settings.vibration && navigator.vibrate) navigator.vibrate(12) },
           () => {
             setAutoRunning(false)
-            if (navigator.vibrate) navigator.vibrate([15, 30, 15])
+            if (settings.vibration && navigator.vibrate) navigator.vibrate([15, 30, 15])
             setTimeout(() => next(), 800)
           },
         )
@@ -505,7 +505,7 @@ export default function ImmersiveMode() {
                     variant={isLight ? 'light' : 'dark'}
                     onTap={() => {
                       const done = tap()
-                      if (navigator.vibrate) navigator.vibrate(12)
+                      if (settings.vibration && navigator.vibrate) navigator.vibrate(12)
                       if (done) setTimeout(() => next(), 600)
                     }}
                     onReset={() => resetCounter(currentAdhkar.id)}
@@ -574,7 +574,7 @@ export default function ImmersiveMode() {
                 <button
                   onClick={() => {
                     markDone(currentAdhkar.id)
-                    if (navigator.vibrate) navigator.vibrate([15, 30, 15])
+                    if (settings.vibration && navigator.vibrate) navigator.vibrate([15, 30, 15])
                     setTimeout(() => next(), 400)
                   }}
                   className="w-full py-3 font-bold rounded-2xl transition-colors flex-shrink-0 text-sm"

@@ -29,7 +29,7 @@ export default function NeedOfMoment() {
     if (done && !sess.completed.includes(item.id)) sess.completed = [...sess.completed, item.id]
     saveSession(sess)
     setSessions(s => ({ ...s, [period]: sess }))
-    if (navigator.vibrate) navigator.vibrate(12)
+    if (settings.vibration && navigator.vibrate) navigator.vibrate(12)
   }
 
   const handleReset = (item: ReturnType<typeof getAdhkarByTag>[0]) => {

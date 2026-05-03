@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Heart, ChevronDown, ChevronUp, Check, RotateCcw } from 'lucide-react'
+import { Heart, ChevronDown, ChevronUp, Check, RotateCcw, Share2, Copy, CheckCheck } from 'lucide-react'
 import type { AdhkarItem } from '../types'
 import type { AudioState } from '../types'
 import { applyTajweedHTML } from '../utils/tajweedUtils'
@@ -38,7 +38,21 @@ export default function AdhkarCard({
   onFavorite, onTap, onReset, onMarkDone,
   onPlay, onStopAudio,
 }: Props) {
-  const [meritOpen, setMeritOpen] = useState(false)
+  const [meritOpen,  setMeritOpen]  = useState(false)
+  const [copied,     setCopied]     = useState(false)
+
+  const handleShare = async () => {
+    const text = `${item.title} — ${item.titleAr}\n\n${item.arabic}\n\n${item.translationFr}`
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: item.title, text })
+      } catch { /* annulé par l'utilisateur */ }
+    } else {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
   // Use first line only for subItems (tasbih) display in arabic area
   const displayArabic = item.subItems ? item.arabic.split('\n')[0] : item.arabic
   const tajweedHtml   = applyTajweedHTML(displayArabic)
@@ -143,6 +157,15 @@ export default function AdhkarCard({
         />
 
         <div className="flex items-center gap-2">
+          <button
+            onClick={handleShare}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-cream-100 text-gray-500 hover:bg-cream-200 rounded-full text-xs font-semibold transition-colors dark:bg-night-700 dark:text-gray-400"
+            title="Partager cette invocation"
+          >
+            {copied ? <CheckCheck size={13} className="text-forest-600" /> : <Share2 size={13} />}
+            {copied ? 'Copié !' : 'Partager'}
+          </button>
+
           {item.repeat === 1 && !isDone && (
             <button
               onClick={onMarkDone}
