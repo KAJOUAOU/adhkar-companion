@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Play, Square } from 'lucide-react'
 import { getAdhkarById } from '../data/adhkar'
 import { useSettings } from '../hooks/useSettings'
 import { useAudio } from '../hooks/useAudio'
@@ -18,6 +18,7 @@ export default function DhikrDetail() {
     morning: loadSession('morning'),
     evening: loadSession('evening'),
   })
+  const [looping, setLooping] = useState(false)
 
   if (!item) {
     return (
@@ -76,6 +77,37 @@ export default function DhikrDetail() {
           <p className="text-xs text-gray-400 font-arabic">{item.titleAr}</p>
         </div>
       </div>
+
+      {/* Mode boucle — uniquement si audio disponible */}
+      {item.audioArabicUrl && (
+        <div className="mx-4 mt-5 bg-white dark:bg-night-800 rounded-2xl p-4 border border-cream-200 dark:border-white/5 shadow-soft">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Mode boucle</p>
+          <p className="text-xs text-gray-400 mb-3 leading-relaxed">
+            🕌 Recommandé de l'Asr du jeudi jusqu'à l'Asr du vendredi
+          </p>
+          {!looping ? (
+            <button
+              onClick={() => { setLooping(true); audio.playLoop(item.id, item.audioArabicUrl!) }}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm bg-forest-800 text-white active:scale-98 transition-transform"
+            >
+              <Play size={16} /> Lancer en boucle
+            </button>
+          ) : (
+            <div className="flex flex-col items-center gap-2">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-forest-500 animate-pulse" />
+                <span className="text-sm font-semibold text-forest-700 dark:text-forest-400">En cours de récitation…</span>
+              </div>
+              <button
+                onClick={() => { setLooping(false); audio.stopLoop() }}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-cream-100 dark:bg-night-700 text-gray-500"
+              >
+                <Square size={13} /> Arrêter
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="px-4 pt-5">
         <AdhkarCard

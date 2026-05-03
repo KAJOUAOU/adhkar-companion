@@ -91,6 +91,33 @@ export function useAudio() {
   const stop = useCallback(() => {
     const audio = audioRef.current
     if (!audio) return
+    audio.loop = false
+    audio.pause()
+    audio.src = ''
+    setState({ isPlaying: false, currentId: null, duration: 0, currentTime: 0, isLoading: false, error: null })
+  }, [])
+
+  const playLoop = useCallback(async (id: string, url: string) => {
+    const audio = audioRef.current
+    if (!audio) return
+    repeatCtxRef.current = null
+    audio.pause()
+    audio.loop = true
+    audio.src  = url
+    audio.currentTime = 0
+    setState(s => ({ ...s, currentId: id, isLoading: true, error: null }))
+    try {
+      await audio.play()
+    } catch {
+      audio.loop = false
+      setState(s => ({ ...s, error: 'Lecture impossible. Vérifiez votre connexion.', isLoading: false }))
+    }
+  }, [])
+
+  const stopLoop = useCallback(() => {
+    const audio = audioRef.current
+    if (!audio) return
+    audio.loop = false
     audio.pause()
     audio.src = ''
     setState({ isPlaying: false, currentId: null, duration: 0, currentTime: 0, isLoading: false, error: null })
@@ -146,5 +173,5 @@ export function useAudio() {
     manualEndCbRef.current = cb
   }, [])
 
-  return { state, play, stop, playRepeat, stopRepeat, seek, speak, setManualEndCallback }
+  return { state, play, stop, playLoop, stopLoop, playRepeat, stopRepeat, seek, speak, setManualEndCallback }
 }
