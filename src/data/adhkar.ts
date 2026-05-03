@@ -482,6 +482,24 @@ export const ADHKAR_DATA: AdhkarItem[] = [
     isEssential: false,
   },
 
+  // ─── Salât Ibrahimiya ─────────────────────────────────────────────────────
+  {
+    id: 'salat-ibrahimiya',
+    number: 33,
+    title: 'Salât Ibrahimiya',
+    titleAr: 'الصلاة الإبراهيمية',
+    period: 'both',
+    category: 'praise',
+    repeat: 1,
+    arabic: 'اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ اللَّهُمَّ بَارِكْ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ',
+    transliteration: "Allâhumma salli 'alâ Muhammad wa 'alâ âli Muhammad. Kamâ sallayta 'alâ Ibrâhîma wa 'alâ âli Ibrâhîm. Innaka Hamîdoun Majîd. Allâhumma bârik 'alâ Muhammad wa 'alâ âli Muhammad. Kamâ bârakta 'alâ Ibrâhîma wa 'alâ âli Ibrâhîm. Innaka Hamîdoun Majîd.",
+    translationFr: "Ô Allah, prie sur Muhammad ainsi que sur sa famille, comme Tu as prié sur Ibrahim ainsi que sur sa famille. Tu es certes digne de louanges et de glorifications. Ô Allah, bénis Muhammad ainsi que sa famille, comme Tu as béni Ibrahim et sa famille. Tu es certes digne de louanges et de glorifications.",
+    merit: "Le Prophète ﷺ a dit : « Celui qui invoque Allah sur moi une fois, Allah prie sur lui dix fois. » Il est particulièrement recommandé de multiplier la salât le vendredi.",
+    source: "Bukhari & Muslim — Rapporté par Ka'b ibn 'Ujra",
+    tags: ['baraka', 'foi'],
+    isEssential: false,
+  },
+
 ]
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────

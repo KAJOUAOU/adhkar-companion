@@ -241,6 +241,33 @@ export default function Dashboard() {
           </p>
         </div>
 
+        {/* Salât Ibrahimiya */}
+        {(() => {
+          const isFriday = new Date().getDay() === 5
+          return (
+            <button
+              onClick={() => navigate('/dhikr/salat-ibrahimiya')}
+              className="w-full bg-white dark:bg-night-800 rounded-2xl p-4 shadow-soft border border-cream-200 dark:border-white/5 flex items-center gap-4 text-left active:scale-98 transition-transform"
+            >
+              <div className="w-11 h-11 bg-forest-50 dark:bg-forest-900/20 rounded-xl flex items-center justify-center flex-shrink-0 text-xl">
+                🕌
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <p className="font-bold text-sm text-gray-900 dark:text-cream-100">Salât Ibrahimiya</p>
+                  {isFriday && (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-forest-100 text-forest-700 dark:bg-forest-900/40 dark:text-forest-300">
+                      Aujourd'hui
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-gray-400 mt-0.5 font-arabic">الصلاة الإبراهيمية — Chaque vendredi</p>
+              </div>
+              <ChevronRight size={18} className="text-gray-300 flex-shrink-0" />
+            </button>
+          )
+        })()}
+
         {/* Quick access */}
         <div className="grid grid-cols-2 gap-3">
           <button

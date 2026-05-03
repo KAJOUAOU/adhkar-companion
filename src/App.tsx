@@ -5,6 +5,7 @@ import ImmersiveMode from './pages/ImmersiveMode'
 import CardsMode    from './pages/CardsMode'
 import NeedOfMoment from './pages/NeedOfMoment'
 import Settings     from './pages/Settings'
+import DhikrDetail  from './pages/DhikrDetail'
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -20,6 +21,9 @@ export default function App() {
       <Routes>
         {/* Immersive mode — full screen, no nav bar */}
         <Route path="/session/:period" element={<ImmersiveMode />} />
+
+        {/* Single dhikr detail — no nav bar */}
+        <Route path="/dhikr/:id" element={<DhikrDetail />} />
 
         {/* Main app with bottom navigation */}
         <Route path="/" element={
