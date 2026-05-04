@@ -46,7 +46,7 @@ export const SLEEP_ADHKAR: SleepItem[] = [
   {
     id: 'baqarah-285-286',
     number: 3,
-    title: 'Fin de Surat Al-Baqarah',
+    title: 'Les deux derniers versets de Surat Al-Baqarah',
     titleAr: 'آخِرُ آيَتَيْنِ مِنْ سُورَةِ الْبَقَرَةِ',
     arabic: 'آمَنَ الرَّسُولُ بِمَا أُنزِلَ إِلَيْهِ مِن رَّبِّهِ وَالْمُؤْمِنُونَ ۚ كُلٌّ آمَنَ بِاللَّهِ وَمَلَائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ لَا نُفَرِّقُ بَيْنَ أَحَدٍ مِّن رُّسُلِهِ ۚ وَقَالُوا سَمِعْنَا وَأَطَعْنَا ۖ غُفْرَانَكَ رَبَّنَا وَإِلَيْكَ الْمَصِيرُ ۝ لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا ۚ لَهَا مَا كَسَبَتْ وَعَلَيْهَا مَا اكْتَسَبَتْ ۗ رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا ۚ رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِن قَبْلِنَا ۚ رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ ۖ وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا ۚ أَنتَ مَوْلَانَا فَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ',
     transliteration: "Âmanar-rasûlu bimâ unzila ilayhi mir-rabbihi wal-mu'minûn, kullun âmana billâhi wa malâ'ikatihi wa kutubihi wa rusulih, lâ nufarriqu bayna ahadin mir-rusulih, wa qâlû sami'nâ wa ata'nâ, ghufrânaka rabbanâ wa ilaykal-masîr. Lâ yukallifullâhu nafsan illâ wus'ahâ, lahâ mâ kasabat wa 'alayhâ maktasabat, rabbanâ lâ tu'âkhidhnâ in nasînâ aw akhta'nâ, rabbanâ wa lâ tahmil 'alaynâ isran kamâ hamaltahu 'alal-ladhîna min qablinâ, rabbanâ wa lâ tuhammilnâ mâ lâ tâqata lanâ bih, wa'fu 'annâ waghfir lanâ warhamnâ, anta mawlânâ fansurnâ 'alal-qawmil-kâfirîn.",
