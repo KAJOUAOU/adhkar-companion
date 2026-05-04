@@ -6,6 +6,7 @@ import CardsMode    from './pages/CardsMode'
 import NeedOfMoment from './pages/NeedOfMoment'
 import Settings     from './pages/Settings'
 import DhikrDetail  from './pages/DhikrDetail'
+import SleepAdhkar  from './pages/SleepAdhkar'
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,6 +25,9 @@ export default function App() {
 
         {/* Single dhikr detail — no nav bar */}
         <Route path="/dhikr/:id" element={<DhikrDetail />} />
+
+        {/* Sunnah de la nuit — no nav bar */}
+        <Route path="/sleep" element={<SleepAdhkar />} />
 
         {/* Main app with bottom navigation */}
         <Route path="/" element={

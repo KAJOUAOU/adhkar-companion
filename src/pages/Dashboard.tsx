@@ -241,6 +241,22 @@ export default function Dashboard() {
           </p>
         </div>
 
+        {/* Sunnah de la nuit */}
+        <button
+          onClick={() => navigate('/sleep')}
+          className="w-full bg-white dark:bg-night-800 rounded-2xl p-4 shadow-soft border border-cream-200 dark:border-white/5 flex items-center gap-4 text-left active:scale-98 transition-transform"
+        >
+          <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 text-xl"
+            style={{ background: 'linear-gradient(135deg, #1a1035, #2d1b5e)' }}>
+            🌙
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-bold text-sm text-gray-900 dark:text-cream-100">Sunnah de la nuit</p>
+            <p className="text-xs text-gray-400 mt-0.5">Avant de dormir — Al-Mulk, Ayat al-Kursi…</p>
+          </div>
+          <ChevronRight size={18} className="text-gray-300 flex-shrink-0" />
+        </button>
+
         {/* Salât Ibrahimiya */}
         {(() => {
           const isFriday = new Date().getDay() === 5
