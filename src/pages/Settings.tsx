@@ -156,7 +156,13 @@ export default function Settings() {
                 return (
                   <button
                     key={t.id}
-                    onClick={() => updateSettings('colorTheme', t.id)}
+                    onClick={() => {
+                      updateSettings('colorTheme', t.id)
+                      const root = document.documentElement
+                      root.style.removeProperty('--t-hero')
+                      root.style.removeProperty('--t-primary')
+                      root.style.removeProperty('--t-primary-d')
+                    }}
                     className="flex-shrink-0 flex flex-col items-center gap-2 scroll-snap-align-start"
                     style={{ scrollSnapAlign: 'start' }}
                   >
