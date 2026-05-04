@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Bell, Moon, Sun, Monitor, Type, Eye, EyeOff, Vibrate, Volume2, RotateCcw } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { Bell, Moon, Sun, Monitor, Type, Eye, EyeOff, Vibrate, Volume2, RotateCcw, Palette, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useSettings } from '../hooks/useSettings'
 import { requestPermission, scheduleReminder, cancelReminder } from '../services/notificationService'
 import { resetAllProgress } from '../services/storageService'
@@ -51,6 +51,14 @@ export default function Settings() {
   const { settings, updateSettings } = useSettings()
   const [confirmReset, setConfirmReset] = useState(false)
   const [resetDone,    setResetDone]    = useState(false)
+  const [showCustom,   setShowCustom]   = useState(false)
+  const [customHero1,  setCustomHero1]  = useState('#6E5010')
+  const [customHero2,  setCustomHero2]  = useState('#8B6914')
+  const carouselRef = useRef<HTMLDivElement>(null)
+
+  const scrollCarousel = (dir: 'left' | 'right') => {
+    carouselRef.current?.scrollBy({ left: dir === 'left' ? -160 : 160, behavior: 'smooth' })
+  }
 
   const handleReset = () => {
     resetAllProgress()
@@ -116,29 +124,117 @@ export default function Settings() {
       <div className="pt-5 px-4">
         {/* Palette de couleurs */}
         <div className="mb-6">
-          <h2 className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest px-5 mb-3">
-            Palette de couleurs
-          </h2>
-          <div className="flex gap-3 px-1 flex-wrap">
-            {COLOR_THEMES.map(t => {
-              const active = (settings.colorTheme ?? 'parchemin') === t.id
-              return (
-                <button
-                  key={t.id}
-                  onClick={() => updateSettings('colorTheme', t.id)}
-                  className={`flex flex-col items-center gap-2 p-3 rounded-2xl transition-all ${
-                    active ? 'ring-2 ring-offset-2 ring-gold-500 scale-105' : 'opacity-70 hover:opacity-100'
-                  }`}
-                >
-                  <div
-                    className="w-12 h-12 rounded-xl shadow-soft"
-                    style={{ background: t.hero }}
-                  />
-                  <span className="text-[10px] font-bold text-gray-600 dark:text-gray-400">{t.label}</span>
-                </button>
-              )
-            })}
+          <div className="flex items-center justify-between px-1 mb-3">
+            <h2 className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+              Palette de couleurs
+            </h2>
+            <button
+              onClick={() => setShowCustom(v => !v)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                showCustom ? 'bg-gold-500 text-white' : 'bg-cream-200 dark:bg-night-700 text-gray-500 dark:text-gray-400'
+              }`}
+            >
+              <Palette size={12} /> Personnaliser
+            </button>
           </div>
+
+          {/* Carousel */}
+          <div className="relative">
+            <button
+              onClick={() => scrollCarousel('left')}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 bg-white dark:bg-night-700 rounded-full shadow flex items-center justify-center text-gray-400"
+            >
+              <ChevronLeft size={14} />
+            </button>
+            <div
+              ref={carouselRef}
+              className="flex gap-3 overflow-x-auto scrollbar-none px-8 scroll-smooth"
+              style={{ scrollSnapType: 'x mandatory' }}
+            >
+              {COLOR_THEMES.map(t => {
+                const active = (settings.colorTheme ?? 'parchemin') === t.id
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => updateSettings('colorTheme', t.id)}
+                    className="flex-shrink-0 flex flex-col items-center gap-2 scroll-snap-align-start"
+                    style={{ scrollSnapAlign: 'start' }}
+                  >
+                    <div
+                      className={`w-16 h-16 rounded-2xl shadow-soft transition-all ${
+                        active ? 'ring-3 ring-gold-500 ring-offset-2 scale-110' : 'opacity-60 hover:opacity-90 hover:scale-105'
+                      }`}
+                      style={{ background: t.hero }}
+                    />
+                    <span className={`text-[10px] font-bold transition-colors ${
+                      active ? 'text-gold-600 dark:text-gold-400' : 'text-gray-400'
+                    }`}>{t.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+            <button
+              onClick={() => scrollCarousel('right')}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 bg-white dark:bg-night-700 rounded-full shadow flex items-center justify-center text-gray-400"
+            >
+              <ChevronRight size={14} />
+            </button>
+          </div>
+
+          {/* Couleur active label */}
+          <p className="text-center text-xs text-gray-400 mt-2">
+            Thème actif : <span className="font-bold text-gray-600 dark:text-gray-300">
+              {COLOR_THEMES.find(t => t.id === (settings.colorTheme ?? 'parchemin'))?.label}
+            </span>
+          </p>
+
+          {/* Custom color picker */}
+          {showCustom && (
+            <div className="mt-4 bg-white dark:bg-night-800 rounded-2xl p-4 border border-cream-200 dark:border-white/5 shadow-soft">
+              <p className="text-xs font-bold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wide">Couleurs personnalisées</p>
+              <div className="flex items-center gap-4">
+                <div className="flex flex-col items-center gap-1.5">
+                  <label className="text-[10px] text-gray-400 font-semibold">Couleur 1</label>
+                  <div className="relative">
+                    <input
+                      type="color"
+                      value={customHero1}
+                      onChange={e => setCustomHero1(e.target.value)}
+                      className="w-12 h-12 rounded-xl cursor-pointer border-0 p-0.5 bg-transparent"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col items-center gap-1.5">
+                  <label className="text-[10px] text-gray-400 font-semibold">Couleur 2</label>
+                  <div className="relative">
+                    <input
+                      type="color"
+                      value={customHero2}
+                      onChange={e => setCustomHero2(e.target.value)}
+                      className="w-12 h-12 rounded-xl cursor-pointer border-0 p-0.5 bg-transparent"
+                    />
+                  </div>
+                </div>
+                <div className="flex-1 flex flex-col gap-2">
+                  <div
+                    className="w-full h-12 rounded-xl shadow-soft"
+                    style={{ background: `linear-gradient(135deg, ${customHero1}, ${customHero2})` }}
+                  />
+                  <button
+                    onClick={() => {
+                      document.documentElement.style.setProperty('--t-hero', `linear-gradient(150deg, ${customHero1} 0%, ${customHero2} 55%, ${customHero1}CC 100%)`)
+                      document.documentElement.style.setProperty('--t-primary', customHero2)
+                      document.documentElement.style.setProperty('--t-primary-d', customHero1)
+                    }}
+                    className="w-full py-1.5 rounded-xl text-xs font-bold bg-forest-700 text-white active:scale-95 transition-transform"
+                  >
+                    Appliquer
+                  </button>
+                </div>
+              </div>
+              <p className="text-[10px] text-gray-400 mt-2">Les couleurs personnalisées s'appliquent pour cette session.</p>
+            </div>
+          )}
         </div>
 
         {/* Apparence */}
