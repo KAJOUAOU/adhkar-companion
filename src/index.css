@@ -179,6 +179,66 @@
 }
 [data-theme="rose-sable"] body { background-color: #FFF5F8; }
 
+/* ── Nuit — bleu nuit profond + étoilé ────────────────────── */
+[data-theme="nuit"] {
+  --t-hero:      linear-gradient(150deg, #1E2B5A 0%, #283880 55%, #1A2550 100%);
+  --t-hero-text: #E8EDF8;
+  --t-primary:   #3B5BAD;
+  --t-primary-d: #2A4090;
+  --t-body-bg:   #F2F4FC;
+  --t-imm-m:     linear-gradient(160deg, #060A18 0%, #0E1630 100%);
+  --t-imm-e:     linear-gradient(135deg, #030510 0%, #080E22 100%);
+}
+[data-theme="nuit"] body { background-color: #F2F4FC; }
+
+/* ── Pourpre — violet ottoman, profond et spirituel ────────── */
+[data-theme="pourpre"] {
+  --t-hero:      linear-gradient(150deg, #5B2A6A 0%, #7A3A90 55%, #4A2258 100%);
+  --t-hero-text: #F4EEF8;
+  --t-primary:   #7A3A90;
+  --t-primary-d: #5B2A6A;
+  --t-body-bg:   #FBF7FD;
+  --t-imm-m:     linear-gradient(160deg, #180A1E 0%, #2A1236 100%);
+  --t-imm-e:     linear-gradient(135deg, #0E0614 0%, #1C0C24 100%);
+}
+[data-theme="pourpre"] body { background-color: #FBF7FD; }
+
+/* ── Cuivre — terre cuite, chaleur du désert ───────────────── */
+[data-theme="cuivre"] {
+  --t-hero:      linear-gradient(150deg, #A84A20 0%, #C8622E 55%, #8A3A18 100%);
+  --t-hero-text: #FDF5F0;
+  --t-primary:   #B85A2A;
+  --t-primary-d: #8A4020;
+  --t-body-bg:   #FDF7F3;
+  --t-imm-m:     linear-gradient(160deg, #1E0C06 0%, #301408 100%);
+  --t-imm-e:     linear-gradient(135deg, #120804 0%, #1E0C06 100%);
+}
+[data-theme="cuivre"] body { background-color: #FDF7F3; }
+
+/* ── Turquoise — zellige ottoman, fraîcheur intemporelle ───── */
+[data-theme="turquoise"] {
+  --t-hero:      linear-gradient(150deg, #146868 0%, #1A8888 55%, #106060 100%);
+  --t-hero-text: #EEF8F8;
+  --t-primary:   #1A7878;
+  --t-primary-d: #115858;
+  --t-body-bg:   #F2FAFA;
+  --t-imm-m:     linear-gradient(160deg, #061414 0%, #0A2222 100%);
+  --t-imm-e:     linear-gradient(135deg, #030C0C 0%, #061818 100%);
+}
+[data-theme="turquoise"] body { background-color: #F2FAFA; }
+
+/* ── Ardoise — gris doux et moderne, épuré ─────────────────── */
+[data-theme="ardoise"] {
+  --t-hero:      linear-gradient(150deg, #3A4458 0%, #505A70 55%, #2E3848 100%);
+  --t-hero-text: #F0F2F8;
+  --t-primary:   #4A5568;
+  --t-primary-d: #384058;
+  --t-body-bg:   #F4F5F8;
+  --t-imm-m:     linear-gradient(160deg, #0A0C10 0%, #141820 100%);
+  --t-imm-e:     linear-gradient(135deg, #060810 0%, #0C1018 100%);
+}
+[data-theme="ardoise"] body { background-color: #F4F5F8; }
+
 /* ─── Animation fond islamique ────────────────────────────── */
 @keyframes ornamentDrift {
   from { background-position: 0 0, 0 0; }

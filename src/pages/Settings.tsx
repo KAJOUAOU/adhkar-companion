@@ -92,6 +92,11 @@ export default function Settings() {
     { id: 'emeraude',   label: 'Émeraude',   hero: 'linear-gradient(135deg,#0C4228,#145C38)', dot: '#1A7045' },
     { id: 'saphir',     label: 'Saphir',     hero: 'linear-gradient(135deg,#1A2D5E,#243F88)', dot: '#3B60CC' },
     { id: 'rose-sable', label: 'Rose',       hero: 'linear-gradient(135deg,#7A3658,#9E4872)', dot: '#C06090' },
+    { id: 'nuit',       label: 'Nuit',       hero: 'linear-gradient(135deg,#1E2B5A,#283880)', dot: '#3B5BAD' },
+    { id: 'pourpre',    label: 'Pourpre',    hero: 'linear-gradient(135deg,#5B2A6A,#7A3A90)', dot: '#7A3A90' },
+    { id: 'cuivre',     label: 'Cuivre',     hero: 'linear-gradient(135deg,#8A4020,#C8622E)', dot: '#B85A2A' },
+    { id: 'turquoise',  label: 'Turquoise',  hero: 'linear-gradient(135deg,#106060,#1A8888)', dot: '#1A7878' },
+    { id: 'ardoise',    label: 'Ardoise',    hero: 'linear-gradient(135deg,#2E3848,#505A70)', dot: '#4A5568' },
   ]
 
   const SIZES: { id: ArabicSize; label: string }[] = [

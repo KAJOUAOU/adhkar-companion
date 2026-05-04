@@ -82,7 +82,7 @@ export interface SessionState {
 export type ThemeMode   = 'light' | 'dark' | 'auto'
 export type ArabicSize  = 'md' | 'lg' | 'xl' | '2xl'
 export type ReadingMode = 'immersive' | 'cards'
-export type ColorTheme  = 'parchemin' | 'perle' | 'emeraude' | 'saphir' | 'rose-sable'
+export type ColorTheme  = 'parchemin' | 'perle' | 'emeraude' | 'saphir' | 'rose-sable' | 'nuit' | 'pourpre' | 'cuivre' | 'turquoise' | 'ardoise'
 
 export interface AppSettings {
   theme: ThemeMode
