@@ -3,6 +3,7 @@ import { ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
 import { useSettings } from '../hooks/useSettings'
 import { SLEEP_ADHKAR } from '../data/sleepAdhkar'
+import { applyTajweedHTML } from '../utils/tajweedUtils'
 
 export default function SleepAdhkar() {
   const navigate = useNavigate()
@@ -77,9 +78,10 @@ export default function SleepAdhkar() {
 
                 {/* Arabic */}
                 <div>
-                  <p className={`text-right leading-loose text-gray-900 dark:text-cream-100 font-arabic ${arabicSizeClass} ${!isExpanded ? 'line-clamp-4' : ''}`}>
-                    {item.arabic}
-                  </p>
+                  <p
+                    className={`text-right leading-loose text-gray-900 dark:text-cream-100 font-arabic ${arabicSizeClass} ${!isExpanded ? 'line-clamp-4' : ''}`}
+                    dangerouslySetInnerHTML={{ __html: applyTajweedHTML(item.arabic) }}
+                  />
                   {isLong && (
                     <button
                       onClick={() => toggle(item.id)}
