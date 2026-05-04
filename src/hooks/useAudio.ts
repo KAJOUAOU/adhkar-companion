@@ -11,6 +11,7 @@ export function useAudio() {
   const audioRef        = useRef<HTMLAudioElement | null>(null)
   const repeatCtxRef    = useRef<RepeatCtx | null>(null)
   const manualEndCbRef  = useRef<(() => void) | null>(null)
+  const playbackRateRef = useRef<number>(1)
   const [state, setState] = useState<AudioState>({
     isPlaying: false,
     currentId: null,
@@ -27,7 +28,7 @@ export function useAudio() {
 
     const handlers = {
       loadstart:      () => setState(s => ({ ...s, isLoading: true, error: null })),
-      canplay:        () => setState(s => ({ ...s, isLoading: false })),
+      canplay:        () => { setState(s => ({ ...s, isLoading: false })); audio.playbackRate = playbackRateRef.current },
       play:           () => setState(s => ({ ...s, isPlaying: true })),
       pause:          () => setState(s => ({ ...s, isPlaying: false })),
       ended: () => {
@@ -173,5 +174,10 @@ export function useAudio() {
     manualEndCbRef.current = cb
   }, [])
 
-  return { state, play, stop, playLoop, stopLoop, playRepeat, stopRepeat, seek, speak, setManualEndCallback }
+  const setPlaybackRate = useCallback((rate: number) => {
+    playbackRateRef.current = rate
+    if (audioRef.current) audioRef.current.playbackRate = rate
+  }, [])
+
+  return { state, play, stop, playLoop, stopLoop, playRepeat, stopRepeat, seek, speak, setManualEndCallback, setPlaybackRate }
 }

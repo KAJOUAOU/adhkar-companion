@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, X, RotateCcw, Play, Square } from 'lucide-react'
+import { ArrowLeft, ArrowRight, X, RotateCcw, Play, Square, GraduationCap } from 'lucide-react'
 import { useAdhkar, useEssentialAdhkar } from '../hooks/useAdhkar'
 import { useAudio } from '../hooks/useAudio'
 import { useSettings } from '../hooks/useSettings'
@@ -127,9 +127,20 @@ export default function ImmersiveMode() {
     ? 'translit'
     : settings.showTranslation ? 'translat' : null
 
-  const [activeTab,   setActiveTab]   = useState<Tab | null>(defaultTab)
-  const [audioMode,   setAudioMode]   = useState<'manual' | 'auto'>('manual')
-  const [autoRunning, setAutoRunning] = useState(false)
+  const [activeTab,    setActiveTab]   = useState<Tab | null>(defaultTab)
+  const [audioMode,    setAudioMode]   = useState<'manual' | 'auto'>('manual')
+  const [autoRunning,  setAutoRunning] = useState(false)
+  const [learningMode, setLearningMode] = useState(false)
+
+  // Vitesse de lecture 0.75× en mode apprentissage
+  useEffect(() => {
+    audio.setPlaybackRate(learningMode ? 0.75 : 1)
+  }, [learningMode])
+
+  // Forcer la translittération quand le mode s'active
+  useEffect(() => {
+    if (learningMode) setActiveTab('translit')
+  }, [learningMode])
 
   const touchStartX  = useRef(0)
   const touchStartY  = useRef(0)
@@ -286,14 +297,40 @@ export default function ImmersiveMode() {
             )}
           </div>
 
-          <button
-            onClick={() => { audio.stop(); reset() }}
-            className="p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center transition-opacity hover:opacity-70"
-            style={{ color: c.textMuted }}
-          >
-            <RotateCcw size={14} />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setLearningMode(v => !v)}
+              className="p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl transition-all"
+              style={{
+                background: learningMode ? 'rgba(59,130,246,0.25)' : 'transparent',
+                color:      learningMode ? '#3B82F6' : c.textMuted,
+              }}
+              title="Mode Apprentissage"
+            >
+              <GraduationCap size={17} />
+            </button>
+            <button
+              onClick={() => { audio.stop(); reset() }}
+              className="p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center transition-opacity hover:opacity-70"
+              style={{ color: c.textMuted }}
+            >
+              <RotateCcw size={14} />
+            </button>
+          </div>
         </div>
+
+        {/* ── Badge mode apprentissage ─────────────────────────── */}
+        {learningMode && (
+          <div
+            className="flex-shrink-0 mx-3 mb-1 px-3 py-1.5 rounded-xl flex items-center justify-center gap-2"
+            style={{ background: 'rgba(59,130,246,0.15)', border: '1px solid rgba(59,130,246,0.30)' }}
+          >
+            <GraduationCap size={13} style={{ color: '#3B82F6' }} />
+            <span className="text-[11px] font-bold" style={{ color: '#3B82F6' }}>
+              Mode Apprentissage — vitesse 0.75×
+            </span>
+          </div>
+        )}
 
         {/* ── Progress bar fine ────────────────────────────────── */}
         <div className="h-0.5 mx-4 rounded-full flex-shrink-0" style={{ background: c.btn }}>
