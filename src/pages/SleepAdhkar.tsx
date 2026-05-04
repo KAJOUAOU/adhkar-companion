@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
+import { ArrowLeft, ChevronDown, ChevronUp, Play, Square, Loader } from 'lucide-react'
 import { useState } from 'react'
 import { useSettings } from '../hooks/useSettings'
+import { useAudio } from '../hooks/useAudio'
 import { SLEEP_ADHKAR } from '../data/sleepAdhkar'
 import { applyTajweedHTML } from '../utils/tajweedUtils'
 
 export default function SleepAdhkar() {
   const navigate = useNavigate()
   const { settings } = useSettings()
+  const audio = useAudio()
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
   const toggle = (id: string) =>
@@ -106,6 +108,35 @@ export default function SleepAdhkar() {
                   <p className={`text-sm text-gray-600 dark:text-gray-300 leading-relaxed ${!isExpanded && isLong ? 'line-clamp-3' : ''}`}>
                     {item.translationFr}
                   </p>
+                )}
+
+                {/* Audio */}
+                {item.audioArabicUrl && (
+                  <div className="flex items-center gap-3 pt-1">
+                    {audio.state.currentId === item.id && audio.state.isLoading ? (
+                      <div className="flex items-center gap-2 text-indigo-500">
+                        <Loader size={14} className="animate-spin" />
+                        <span className="text-xs">Chargement…</span>
+                      </div>
+                    ) : audio.state.currentId === item.id && audio.state.isPlaying ? (
+                      <button
+                        onClick={() => audio.stop()}
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-semibold"
+                      >
+                        <Square size={12} /> Arrêter
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => audio.play(item.id, item.audioArabicUrl!)}
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-semibold active:scale-95 transition-transform"
+                      >
+                        <Play size={12} /> Écouter
+                      </button>
+                    )}
+                    {audio.state.error && audio.state.currentId === item.id && (
+                      <span className="text-xs text-red-400">{audio.state.error}</span>
+                    )}
+                  </div>
                 )}
 
                 {/* Merit */}

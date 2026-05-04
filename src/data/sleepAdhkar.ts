@@ -11,6 +11,7 @@ export interface SleepItem {
   translationFr: string
   merit?: string
   source?: string
+  audioArabicUrl?: string
 }
 
 const ayatKursi = getAdhkarById('ayat-kursi')
@@ -39,6 +40,7 @@ export const SLEEP_ADHKAR: SleepItem[] = [
     translationFr: ayatKursi?.translationFr ?? '',
     merit: "Celui qui récite Ayat al-Kursi avant de dormir, Allah lui désigne un ange pour le protéger toute la nuit et le Shaytan ne peut l'approcher jusqu'au matin.",
     source: 'Bukhari',
+    audioArabicUrl: '/audio/ar/ayat-kursi.mp3',
   },
 
   {
