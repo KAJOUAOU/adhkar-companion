@@ -68,13 +68,12 @@ export const T = {
       share: 'Partager', copied: 'Copié !', recited: 'Récité', redo: 'Refaire', merit: '✨ Mérite',
     },
     eid: {
-      title: 'Takbir de l\'Aïd', short: 'Courte', long: 'Longue',
+      title: 'Takbir de l\'Aïd',
       fitr: 'Aïd al-Fitr', adha: 'Aïd al-Adha',
       translationLabel: 'Traduction', translitLabel: 'Phonétique',
       playLoop: 'Lancer en boucle', stop: 'Arrêter',
-      playing: 'En cours…',
-      translationShort: "Allah est le Plus Grand, Allah est le Plus Grand, il n'y a de divinité qu'Allah, Allah est le Plus Grand, Allah est le Plus Grand, et à Allah appartient toute louange.",
-      translationLong: "Allah est le Plus Grand (×3), il n'y a de divinité qu'Allah, Allah est le Plus Grand, Allah est le Plus Grand, et à Allah appartient toute louange. Allah est vraiment le Plus Grand, et toute louange est à Allah en abondance, et Gloire à Allah matin et soir. Il n'y a de divinité qu'Allah, Seul, Il a tenu Sa promesse, secouru Son serviteur, renforcé Ses armées et mis en fuite les coalisés, Seul. Il n'y a de divinité qu'Allah, et nous n'adorons que Lui, en Lui vouant sincèrement la religion, même si les mécréants détestent cela. Ô Allah, envoie Tes grâces sur notre Seigneur Muhammad, sur sa famille, ses compagnons, ses partisans, ses épouses et sa descendance, et accorde-lui la paix en abondance.",
+      playing: 'Lecture en boucle…', speed: 'Vitesse',
+      translation: "Allah est le Plus Grand, Allah est le Plus Grand, Allah est le Plus Grand. Il n'y a de divinité qu'Allah. Allah est le Plus Grand, Allah est le Plus Grand, et à Allah appartient toute louange. Allah est vraiment très Grand, toute louange abondante à Allah, gloire à Allah matin et soir. Il n'y a de divinité qu'Allah.",
       back: 'Retour',
     },
     needTags: {
@@ -155,13 +154,12 @@ export const T = {
       share: 'Share', copied: 'Copied!', recited: 'Recited', redo: 'Redo', merit: '✨ Virtue',
     },
     eid: {
-      title: 'Eid Takbir', short: 'Short', long: 'Long',
+      title: 'Eid Takbir',
       fitr: 'Eid al-Fitr', adha: 'Eid al-Adha',
       translationLabel: 'Translation', translitLabel: 'Phonetic',
       playLoop: 'Play in loop', stop: 'Stop',
-      playing: 'Playing…',
-      translationShort: "Allah is the Greatest, Allah is the Greatest, there is no deity but Allah, Allah is the Greatest, Allah is the Greatest, and to Allah belongs all praise.",
-      translationLong: "Allah is the Greatest (×3), there is no deity but Allah, Allah is the Greatest, Allah is the Greatest, and to Allah belongs all praise. Allah is truly the Greatest, and abundant praise belongs to Allah, and glory be to Allah morning and evening. There is no deity but Allah alone; He fulfilled His promise, aided His servant, reinforced His armies, and defeated the confederates alone. There is no deity but Allah, and we worship none but Him, sincerely devoting religion to Him, even if the disbelievers dislike that. O Allah, send blessings upon our master Muhammad, his family, companions, supporters, wives and descendants, and grant him abundant peace.",
+      playing: 'Playing in loop…', speed: 'Speed',
+      translation: "Allah is the Greatest, Allah is the Greatest, Allah is the Greatest. There is no deity but Allah. Allah is the Greatest, Allah is the Greatest, and to Allah belongs all praise. Allah is truly Great, abundant praise to Allah, glory be to Allah morning and evening. There is no deity but Allah.",
       back: 'Back',
     },
     needTags: {
