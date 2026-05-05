@@ -416,7 +416,7 @@ export default function ImmersiveMode() {
         {/* ── Main content ─────────────────────────────────────── */}
         <div
           key={currentIndex}
-          className={`flex-1 min-h-0 flex flex-col px-3 gap-1.5 pb-1 ${isAllDone ? 'animate-fade-in' : slideDir === 'left' ? 'animate-slide-left' : 'animate-slide-right'}`}
+          className={`flex-1 min-h-0 overflow-y-auto scrollbar-none flex flex-col px-3 gap-1.5 pb-2 ${isAllDone ? 'animate-fade-in' : slideDir === 'left' ? 'animate-slide-left' : 'animate-slide-right'}`}
         >
 
           {isAllDone ? (
@@ -549,9 +549,6 @@ export default function ImmersiveMode() {
                 </div>
               )}
 
-              {/* ── Flexible spacer ───────────────────────────── */}
-              <div className="flex-1 min-h-0" />
-
               {/* ── Mode toggle ───────────────────────────────── */}
               {!learningMode && currentAdhkar.audioArabicUrl && currentAdhkar.repeat > 1 && (
                 <div className="flex items-center justify-center gap-2 flex-shrink-0">
@@ -655,20 +652,6 @@ export default function ImmersiveMode() {
                 </button>
               )}
 
-              {/* ── Audio player — mode manuel ────────────────── */}
-              {!learningMode && audioMode === 'manual' && (
-                <div className="flex justify-center flex-shrink-0">
-                  <AudioPlayer
-                    adhkarId={currentAdhkar.id}
-                    audioUrl={currentAdhkar.audioArabicUrl}
-                    audioState={audio.state}
-                    onPlay={audio.play}
-                    onStop={audio.stop}
-                    className={c.audioClass}
-                  />
-                </div>
-              )}
-
               {/* ── Mark done — ×1 items ──────────────────────── */}
               {currentAdhkar.repeat === 1 && !itemDone && (
                 <button
@@ -688,25 +671,44 @@ export default function ImmersiveMode() {
           )}
         </div>
 
-        {/* ── Navigation bar ───────────────────────────────────── */}
+        {/* ── Bottom bar — AudioPlayer + Navigation ────────────── */}
         {!isAllDone && (
-          <div className="flex-shrink-0 px-3 pt-2 flex gap-2" style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 40px)' }}>
-            <button
-              onClick={() => { setSlideDir('right'); prev() }}
-              disabled={currentIndex === 0}
-              className="flex-1 py-4 rounded-2xl font-bold disabled:opacity-30 flex items-center justify-center gap-2 text-sm transition-opacity"
-              style={{ background: c.surface, color: c.text, border: `1px solid ${c.border}` }}
-            >
-              <ArrowLeft size={16} /> {ts.prev}
-            </button>
-            <button
-              onClick={() => { setSlideDir('left'); next() }}
-              disabled={currentIndex === totalItems - 1 && !isAllDone}
-              className="flex-1 py-4 rounded-2xl font-bold disabled:opacity-30 flex items-center justify-center gap-2 text-sm transition-opacity"
-              style={{ background: c.surfaceAlt, color: c.text, border: `1px solid ${c.border}` }}
-            >
-              {ts.next} <ArrowRight size={16} />
-            </button>
+          <div
+            className="flex-shrink-0 px-3 pt-1 flex flex-col gap-2"
+            style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 8px), 14px)' }}
+          >
+            {/* Audio player — mode manuel */}
+            {!learningMode && audioMode === 'manual' && currentAdhkar?.audioArabicUrl && (
+              <div className="flex justify-center">
+                <AudioPlayer
+                  adhkarId={currentAdhkar.id}
+                  audioUrl={currentAdhkar.audioArabicUrl}
+                  audioState={audio.state}
+                  onPlay={audio.play}
+                  onStop={audio.stop}
+                  className={c.audioClass}
+                />
+              </div>
+            )}
+            {/* Précédent / Continuer */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => { setSlideDir('right'); prev() }}
+                disabled={currentIndex === 0}
+                className="flex-1 py-3.5 rounded-2xl font-bold disabled:opacity-30 flex items-center justify-center gap-2 text-sm transition-opacity"
+                style={{ background: c.surface, color: c.text, border: `1px solid ${c.border}` }}
+              >
+                <ArrowLeft size={16} /> {ts.prev}
+              </button>
+              <button
+                onClick={() => { setSlideDir('left'); next() }}
+                disabled={currentIndex === totalItems - 1 && !isAllDone}
+                className="flex-1 py-3.5 rounded-2xl font-bold disabled:opacity-30 flex items-center justify-center gap-2 text-sm transition-opacity"
+                style={{ background: c.surfaceAlt, color: c.text, border: `1px solid ${c.border}` }}
+              >
+                {ts.next} <ArrowRight size={16} />
+              </button>
+            </div>
           </div>
         )}
       </div>
