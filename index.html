@@ -3,17 +3,104 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#0a4f2a" />
+
+    <!-- ═══ SEO Primary ═══ -->
+    <title>Adhkar du matin et du soir — Dhikr quotidien islamique | Adhkar Companion</title>
+    <meta name="description" content="Récitez vos adhkar du matin et du soir avec notre application islamique gratuite. Compteur de dhikr, streak, mode immersif, tajweed coloré et Sunnah de la nuit. Conforme à la riwaya de Hafs." />
+    <meta name="keywords" content="adhkar, adhkar du matin, adhkar du soir, dhikr, invocations islamiques, invocations du matin, invocations du soir, islam, musulman, dhikr quotidien, compagnon adhkar, zikr, wird, duaa, askar, askar du matin, askar du soir" />
+    <meta name="author" content="DuoPédago — Quran Time Institut" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href="https://adhkar-companion.com" />
+
+    <!-- ═══ Hreflang FR / EN ═══ -->
+    <link rel="alternate" hreflang="fr" href="https://adhkar-companion.com/" />
+    <link rel="alternate" hreflang="en" href="https://adhkar-companion.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://adhkar-companion.com/" />
+
+    <!-- ═══ PWA / App ═══ -->
+    <meta name="theme-color" content="#8B6914" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Adhkar Companion" />
-    <meta name="description" content="Compagnon spirituel quotidien — Adhkar du matin et du soir" />
+    <meta name="application-name" content="Adhkar Companion" />
+
+    <!-- ═══ Open Graph ═══ -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://adhkar-companion.com" />
+    <meta property="og:site_name"   content="Adhkar Companion" />
+    <meta property="og:title"       content="Adhkar du matin et du soir — Application islamique de dhikr quotidien" />
+    <meta property="og:description" content="Récitez vos adhkar du matin et du soir avec Adhkar Companion. Compteur de dhikr, streak de constance, mode immersif et tajweed coloré. 100% gratuit." />
+    <meta property="og:image"       content="https://adhkar-companion.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale"      content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- ═══ Twitter Card ═══ -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="Adhkar du matin et du soir | Adhkar Companion" />
+    <meta name="twitter:description" content="Application islamique gratuite pour vos adhkar quotidiens. Dhikr du matin, du soir, tajweed, streak et mode immersif." />
+    <meta name="twitter:image"       content="https://adhkar-companion.com/og-image.png" />
+
+    <!-- ═══ JSON-LD Structured Data ═══ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Adhkar Companion",
+      "alternateName": [
+        "Adhkar du matin et du soir",
+        "Compagnon de dhikr islamique",
+        "Islamic Dhikr App",
+        "Askar du matin"
+      ],
+      "description": "Application islamique de dhikr quotidien — adhkar du matin et du soir selon la Sunnah, compteur, streak de constance, mode immersif avec tajweed coloré (Hafs), Sunnah de la nuit et Takbir de l'Aïd.",
+      "url": "https://adhkar-companion.com",
+      "applicationCategory": "LifestyleApplication",
+      "applicationSubCategory": "Religion & Spirituality",
+      "operatingSystem": "Web, iOS, Android",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "inLanguage": ["fr", "en", "ar"],
+      "author": {
+        "@type": "Organization",
+        "name": "DuoPédago",
+        "url": "https://duopedago.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Quran Time Institut"
+      },
+      "keywords": "adhkar, dhikr, invocations islamiques, adhkar du matin, adhkar du soir, islam, musulman, zikr, wird, duaa, compagnon adhkar",
+      "featureList": [
+        "Adhkar du matin (32 invocations)",
+        "Adhkar du soir (32 invocations)",
+        "Compteur de dhikr",
+        "Streak de constance spirituelle",
+        "Mode immersif plein écran",
+        "Tajweed coloré (riwaya Hafs)",
+        "Sunnah de la nuit",
+        "Takbir de l'Aïd",
+        "Salât Ibrahimiya",
+        "Audio récitation",
+        "Mode apprentissage",
+        "Bilingue Français / Anglais"
+      ]
+    }
+    </script>
+
+    <!-- ═══ Fonts ═══ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- ═══ Icons ═══ -->
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <title>Adhkar Companion — Mes Adhkar</title>
   </head>
   <body>
     <div id="root"></div>
