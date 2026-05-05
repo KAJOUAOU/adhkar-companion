@@ -314,7 +314,7 @@ export default function ImmersiveMode() {
       style={{
         backgroundImage:    `url(${encodeURI(bgFile)})`,
         backgroundSize:     'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'top center',
         backgroundRepeat:   'no-repeat',
         backgroundColor:    isLight ? '#F0E4C4' : '#1C0A02',
       }}
