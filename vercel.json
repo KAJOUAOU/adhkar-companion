@@ -1,6 +1,8 @@
 {
   "alias": ["adhkar-companion.vercel.app"],
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "rewrites": [
+    { "source": "/((?!sitemap\\.xml|robots\\.txt|icon\\.svg|apple-touch-icon\\.png|og-image\\.png).*)", "destination": "/index.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
