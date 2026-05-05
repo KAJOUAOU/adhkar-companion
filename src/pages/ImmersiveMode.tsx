@@ -418,12 +418,12 @@ export default function ImmersiveMode() {
         {/* ── Main content ─────────────────────────────────────── */}
         <div
           key={currentIndex}
-          className={`flex-1 min-h-0 overflow-y-auto scrollbar-none flex flex-col px-3 gap-1.5 pb-2 ${isAllDone ? 'animate-fade-in' : slideDir === 'left' ? 'animate-slide-left' : 'animate-slide-right'}`}
+          className={`flex-1 min-h-0 overflow-y-auto scrollbar-none ${isAllDone ? 'animate-fade-in' : slideDir === 'left' ? 'animate-slide-left' : 'animate-slide-right'}`}
         >
 
           {isAllDone ? (
             /* ── Completion screen ───────────────────────────── */
-            <div className="flex flex-col items-center justify-center flex-1 text-center gap-4">
+            <div className="flex flex-col items-center justify-center min-h-full text-center gap-4">
               <div
                 className="w-16 h-16 rounded-full flex items-center justify-center animate-breathe"
                 style={{ background: c.btnGold }}
@@ -458,7 +458,7 @@ export default function ImmersiveMode() {
             </div>
 
           ) : (
-            <>
+            <div className="flex flex-col min-h-full px-3 gap-2 py-2 justify-center">
               {/* ── Title badge ───────────────────────────────── */}
               <div className="text-center flex-shrink-0">
                 <span
@@ -669,7 +669,7 @@ export default function ImmersiveMode() {
                 </button>
               )}
 
-              </>
+            </div>
           )}
         </div>
 
