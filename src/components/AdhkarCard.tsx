@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { Heart, ChevronDown, ChevronUp, Check, RotateCcw, Share2, Copy, CheckCheck } from 'lucide-react'
+import { Heart, ChevronDown, ChevronUp, Check, RotateCcw, Share2, CheckCheck } from 'lucide-react'
 import type { AdhkarItem } from '../types'
 import type { AudioState } from '../types'
 import { applyTajweedHTML } from '../utils/tajweedUtils'
 import AudioPlayer from './AudioPlayer'
 import Counter from './Counter'
+import { useSettings } from '../hooks/useSettings'
+import { getT } from '../i18n'
 
 interface Props {
   item:          AdhkarItem
@@ -40,9 +42,15 @@ export default function AdhkarCard({
 }: Props) {
   const [meritOpen,  setMeritOpen]  = useState(false)
   const [copied,     setCopied]     = useState(false)
+  const { settings } = useSettings()
+  const tc = getT(settings.language).card
+  const lang = settings.language
+
+  const translation = (lang === 'en' && item.translationEn) ? item.translationEn : item.translationFr
+  const meritText   = (lang === 'en' && item.meritEn)       ? item.meritEn       : item.merit
 
   const handleShare = async () => {
-    const text = `${item.title} — ${item.titleAr}\n\n${item.arabic}\n\n${item.translationFr}`
+    const text = `${item.title} — ${item.titleAr}\n\n${item.arabic}\n\n${translation}`
     if (navigator.share) {
       try {
         await navigator.share({ title: item.title, text })
@@ -58,7 +66,7 @@ export default function AdhkarCard({
   const tajweedHtml   = applyTajweedHTML(displayArabic)
 
   const PERIOD_LABEL: Record<string, string> = {
-    both: 'Matin & Soir', morning: 'Matin', evening: 'Soir',
+    both: tc.bothPeriod, morning: tc.morning, evening: tc.evening,
   }
   const PERIOD_COLOR: Record<string, string> = {
     both:    'bg-forest-100 text-forest-700 dark:bg-forest-900 dark:text-forest-300',
@@ -128,7 +136,7 @@ export default function AdhkarCard({
       {showTranslat && (
         <div className="px-5 py-3 border-b border-cream-100 dark:border-white/5">
           <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed select-text cursor-text">
-            {item.translationFr}
+            {translation}
           </p>
         </div>
       )}
@@ -163,7 +171,7 @@ export default function AdhkarCard({
             title="Partager cette invocation"
           >
             {copied ? <CheckCheck size={13} className="text-forest-600" /> : <Share2 size={13} />}
-            {copied ? 'Copié !' : 'Partager'}
+            {copied ? tc.copied : tc.share}
           </button>
 
           {item.repeat === 1 && !isDone && (
@@ -171,7 +179,7 @@ export default function AdhkarCard({
               onClick={onMarkDone}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-forest-50 text-forest-700 hover:bg-forest-100 rounded-full text-xs font-semibold transition-colors dark:bg-forest-900/30 dark:text-forest-300"
             >
-              <Check size={13} /> Récité
+              <Check size={13} /> {tc.recited}
             </button>
           )}
           {isDone && item.repeat === 1 && (
@@ -179,16 +187,16 @@ export default function AdhkarCard({
               onClick={onReset}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-cream-100 text-gray-500 hover:bg-cream-200 rounded-full text-xs transition-colors dark:bg-night-700"
             >
-              <RotateCcw size={13} /> Refaire
+              <RotateCcw size={13} /> {tc.redo}
             </button>
           )}
 
-          {item.merit && (
+          {meritText && (
             <button
               onClick={() => setMeritOpen(v => !v)}
               className="flex items-center gap-1 px-3 py-1.5 bg-gold-50 text-gold-700 hover:bg-gold-100 rounded-full text-xs font-semibold transition-colors dark:bg-gold-900/20 dark:text-gold-400"
             >
-              ✨ Mérite
+              {tc.merit}
               {meritOpen ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
             </button>
           )}
@@ -196,7 +204,7 @@ export default function AdhkarCard({
       </div>
 
       {/* Merit panel */}
-      {meritOpen && item.merit && (
+      {meritOpen && meritText && (
         <div className="px-5 pb-4 pt-1 bg-gold-50 dark:bg-gold-900/10 border-t border-gold-100 dark:border-gold-800/20">
           {item.source && (
             <p className="text-[10px] font-bold text-gold-600 dark:text-gold-500 uppercase tracking-wide mb-1.5">
@@ -204,7 +212,7 @@ export default function AdhkarCard({
             </p>
           )}
           <p className="text-sm text-gold-900 dark:text-gold-300 leading-relaxed select-text cursor-text">
-            {item.merit}
+            {meritText}
           </p>
         </div>
       )}

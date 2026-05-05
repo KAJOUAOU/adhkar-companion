@@ -34,7 +34,9 @@ export interface AdhkarItem {
   arabic: string
   transliteration: string
   translationFr: string
+  translationEn?: string
   merit?: string
+  meritEn?: string
   source?: string
   tags: NeedTag[]
   audioArabicUrl?: string
@@ -83,8 +85,10 @@ export type ThemeMode   = 'light' | 'dark' | 'auto'
 export type ArabicSize  = 'md' | 'lg' | 'xl' | '2xl'
 export type ReadingMode = 'immersive' | 'cards'
 export type ColorTheme  = 'parchemin' | 'perle' | 'emeraude' | 'saphir' | 'rose-sable' | 'nuit' | 'pourpre' | 'cuivre' | 'turquoise' | 'ardoise'
+export type Language    = 'fr' | 'en'
 
 export interface AppSettings {
+  language: Language
   theme: ThemeMode
   colorTheme: ColorTheme
   arabicSize: ArabicSize

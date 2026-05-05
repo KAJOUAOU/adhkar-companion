@@ -5,11 +5,14 @@ import { useSettings } from '../hooks/useSettings'
 import { useAudio } from '../hooks/useAudio'
 import { loadSession, saveSession } from '../services/storageService'
 import AdhkarCard from '../components/AdhkarCard'
+import { getT } from '../i18n'
 
 export default function NeedOfMoment() {
   const [selected, setSelected] = useState<string | null>(null)
   const { settings, toggleFavorite } = useSettings()
   const audio = useAudio()
+  const t = getT(settings.language).need
+  const tTags = getT(settings.language).needTags
 
   const [sessions, setSessions] = useState({
     morning: loadSession('morning'),
@@ -52,9 +55,9 @@ export default function NeedOfMoment() {
       {/* Header */}
       <div className="bg-white dark:bg-night-900 border-b border-cream-200 dark:border-white/10 px-5 pt-safe pt-12 pb-6">
         <h1 className="text-xl font-display font-bold text-gray-900 dark:text-cream-100 mb-1">
-          Besoin du moment
+          {t.title}
         </h1>
-        <p className="text-sm text-gray-400">Aujourd'hui, j'ai besoin de…</p>
+        <p className="text-sm text-gray-400">{t.subtitle}</p>
       </div>
 
       {/* Need tags */}
@@ -72,10 +75,10 @@ export default function NeedOfMoment() {
             >
               <div className="text-2xl mb-2">{tag.emoji}</div>
               <div className={`font-bold text-sm mb-0.5 ${selected === tag.id ? 'text-white' : ''}`}>
-                {tag.label}
+                {tTags[tag.id]?.label ?? tag.label}
               </div>
               <div className={`text-xs leading-snug ${selected === tag.id ? 'text-white/70' : 'text-gray-400'}`}>
-                {tag.description}
+                {tTags[tag.id]?.description ?? tag.description}
               </div>
             </button>
           ))}
@@ -88,13 +91,13 @@ export default function NeedOfMoment() {
           {results.length === 0 ? (
             <div className="text-center py-12 text-gray-400">
               <p className="text-3xl mb-2">🤲</p>
-              <p className="text-sm">Aucune invocation pour ce besoin</p>
+              <p className="text-sm">{t.notFound}</p>
             </div>
           ) : (
             <>
               <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-4 px-1">
-                {results.length} invocation{results.length > 1 ? 's' : ''} pour «{' '}
-                {NEED_TAGS.find(t => t.id === selected)?.label} »
+                {results.length} invocation{results.length > 1 ? 's' : ''} — {' '}
+                {tTags[selected!]?.label ?? NEED_TAGS.find(nt => nt.id === selected)?.label}
               </p>
               <div className="space-y-4">
                 {results.map(item => (
@@ -127,7 +130,7 @@ export default function NeedOfMoment() {
         <div className="text-center py-12 px-8 text-gray-400">
           <p className="text-4xl mb-3">🌿</p>
           <p className="text-sm leading-relaxed">
-            Sélectionne un besoin ci-dessus pour voir les invocations correspondantes
+            {t.selectPrompt}
           </p>
         </div>
       )}

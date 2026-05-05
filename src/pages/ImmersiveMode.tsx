@@ -9,6 +9,7 @@ import { applyTajweedHTML } from '../utils/tajweedUtils'
 import AudioPlayer from '../components/AudioPlayer'
 import Counter from '../components/Counter'
 import { BG_THEMES, DEFAULT_SESSION_BG } from '../data/backgrounds'
+import { getT } from '../i18n'
 
 const ARABIC_SIZES: Record<string, string> = {
   md:   'text-xl',
@@ -94,6 +95,8 @@ export default function ImmersiveMode() {
 
   const actualPeriod       = isQuick ? 'morning' : (period as 'morning' | 'evening')
   const { settings }       = useSettings()
+  const ts = getT(settings.language).session
+  const lang = settings.language
   const { recordProgress } = useStreak()
   const audio              = useAudio()
 
@@ -114,6 +117,8 @@ export default function ImmersiveMode() {
   const bgTheme = BG_THEMES.find(t => t.id === bgId) ?? BG_THEMES[1]
   const isLight = bgTheme.style === 'light'
   const c: Tokens = isLight ? LIGHT : DARK
+
+  const [slideDir, setSlideDir] = useState<'left' | 'right'>('left')
 
   const [isPortrait, setIsPortrait] = useState(() => window.innerHeight > window.innerWidth)
   useEffect(() => {
@@ -184,36 +189,74 @@ export default function ImmersiveMode() {
     audio.stopRepeat()
     setAutoRunning(false)
 
-    // Si le nouvel adhkar ne supporte pas l'auto, repasser en manuel
-    if (!currentAdhkar?.audioArabicUrl || (currentAdhkar?.repeat ?? 1) <= 1) {
-      setAudioMode('manual')
-    }
+    // Mode apprentissage : l'audio est géré séparément (loop), on ne touche pas à la chaîne auto
+    if (learningMode) return
 
-    if (autoChainRef.current && !isAllDone && currentAdhkar?.audioArabicUrl && currentAdhkar?.repeat > 1) {
-      const timer = setTimeout(() => {
-        setAutoRunning(true)
-        audio.playRepeat(
-          currentAdhkar.id,
-          currentAdhkar.audioArabicUrl!,
-          currentAdhkar.repeat,
-          () => { tap(); if (settings.vibration && navigator.vibrate) navigator.vibrate(12) },
-          () => {
-            setAutoRunning(false)
-            if (settings.vibration && navigator.vibrate) navigator.vibrate([15, 30, 15])
-            setTimeout(() => next(), 800)
-          },
-        )
-      }, 600)
-      return () => clearTimeout(timer)
-    } else if (!currentAdhkar?.audioArabicUrl || (currentAdhkar?.repeat ?? 1) <= 1) {
-      autoChainRef.current = false
+    if (autoChainRef.current && !isAllDone) {
+      const repeat   = currentAdhkar?.repeat ?? 1
+      const hasAudio = !!currentAdhkar?.audioArabicUrl
+
+      if (hasAudio && repeat > 1) {
+        // Répétitions multiples avec audio : playRepeat N fois puis avancer
+        const timer = setTimeout(() => {
+          setAutoRunning(true)
+          audio.playRepeat(
+            currentAdhkar!.id,
+            currentAdhkar!.audioArabicUrl!,
+            repeat,
+            () => { tap(); if (settings.vibration && navigator.vibrate) navigator.vibrate(12) },
+            () => {
+              setAutoRunning(false)
+              if (settings.vibration && navigator.vibrate) navigator.vibrate([15, 30, 15])
+              setTimeout(() => next(), 800)
+            },
+          )
+        }, 600)
+        return () => clearTimeout(timer)
+      } else if (hasAudio && repeat === 1) {
+        // Une seule répétition avec audio : jouer une fois, marquer lu, avancer
+        const timer = setTimeout(() => {
+          setAutoRunning(true)
+          audio.playRepeat(
+            currentAdhkar!.id,
+            currentAdhkar!.audioArabicUrl!,
+            1,
+            () => markDoneRef.current(currentAdhkar!.id),
+            () => {
+              setAutoRunning(false)
+              if (settings.vibration && navigator.vibrate) navigator.vibrate([15, 30, 15])
+              setTimeout(() => nextRef.current(), 600)
+            },
+          )
+        }, 600)
+        return () => clearTimeout(timer)
+      } else {
+        // Pas d'audio : marquer lu et avancer automatiquement
+        const timer = setTimeout(() => {
+          markDoneRef.current(currentAdhkar!.id)
+          setTimeout(() => nextRef.current(), 500)
+        }, 800)
+        return () => clearTimeout(timer)
+      }
     }
   }, [currentIndex])
 
+  // Mode apprentissage : boucler l'audio à 0.75× sur l'adhkar courant
+  useEffect(() => {
+    if (!learningMode) {
+      audio.stopLoop()
+      return
+    }
+    if (currentAdhkar?.audioArabicUrl) {
+      audio.playLoop(currentAdhkar.id, currentAdhkar.audioArabicUrl)
+    }
+    return () => audio.stopLoop()
+  }, [currentIndex, learningMode])
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') next()
-      if (e.key === 'ArrowLeft')  prev()
+      if (e.key === 'ArrowRight') { setSlideDir('left');  next() }
+      if (e.key === 'ArrowLeft')  { setSlideDir('right'); prev() }
       if (e.key === 'Escape') navigate(-1)
     }
     window.addEventListener('keydown', handler)
@@ -228,8 +271,8 @@ export default function ImmersiveMode() {
     const dx = e.changedTouches[0].clientX - touchStartX.current
     const dy = e.changedTouches[0].clientY - touchStartY.current
     if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-      if (dx < 0) next()
-      else        prev()
+      if (dx < 0) { setSlideDir('left');  next() }
+      else        { setSlideDir('right'); prev() }
     }
   }
 
@@ -292,22 +335,23 @@ export default function ImmersiveMode() {
           <div className="flex flex-col items-center">
             {isQuick && (
               <span className="text-[9px] font-bold uppercase tracking-widest" style={{ color: c.gold }}>
-                Mode 2 min
+                {ts.mode2min}
               </span>
             )}
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <button
               onClick={() => setLearningMode(v => !v)}
-              className="p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl transition-all"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl transition-all text-[11px] font-bold min-h-[36px]"
               style={{
-                background: learningMode ? 'rgba(59,130,246,0.25)' : 'transparent',
+                background: learningMode ? 'rgba(59,130,246,0.22)' : c.btn,
                 color:      learningMode ? '#3B82F6' : c.textMuted,
+                border:     `1px solid ${learningMode ? 'rgba(59,130,246,0.38)' : 'transparent'}`,
               }}
-              title="Mode Apprentissage"
             >
-              <GraduationCap size={17} />
+              <GraduationCap size={14} />
+              {ts.learning}
             </button>
             <button
               onClick={() => { audio.stop(); reset() }}
@@ -327,7 +371,7 @@ export default function ImmersiveMode() {
           >
             <GraduationCap size={13} style={{ color: '#3B82F6' }} />
             <span className="text-[11px] font-bold" style={{ color: '#3B82F6' }}>
-              Mode Apprentissage — vitesse 0.75×
+              {ts.learningBadge}
             </span>
           </div>
         )}
@@ -370,7 +414,10 @@ export default function ImmersiveMode() {
         </div>
 
         {/* ── Main content ─────────────────────────────────────── */}
-        <div className="flex-1 min-h-0 flex flex-col px-3 gap-1.5 pb-1">
+        <div
+          key={currentIndex}
+          className={`flex-1 min-h-0 flex flex-col px-3 gap-1.5 pb-1 ${isAllDone ? 'animate-fade-in' : slideDir === 'left' ? 'animate-slide-left' : 'animate-slide-right'}`}
+        >
 
           {isAllDone ? (
             /* ── Completion screen ───────────────────────────── */
@@ -383,10 +430,11 @@ export default function ImmersiveMode() {
               </div>
               <div>
                 <p className="font-arabic text-xl mb-1" style={{ color: c.gold }}>بَارَكَ اللهُ فِيكَ</p>
-                <h2 className="text-lg font-display font-bold mb-1" style={{ color: c.text }}>Masha'Allah !</h2>
+                <h2 className="text-lg font-display font-bold mb-1" style={{ color: c.text }}>{ts.completionTitle}</h2>
                 <p className="text-sm leading-relaxed max-w-xs mx-auto" style={{ color: c.textSec }}>
-                  Tu as accompli toutes tes invocations.<br />
-                  Qu'Allah les accepte et te protège. Âmîn.
+                  {ts.completionText.split('\n').map((line, i) => (
+                    <span key={i}>{line}{i === 0 && <br />}</span>
+                  ))}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -395,14 +443,14 @@ export default function ImmersiveMode() {
                   className="px-4 py-2 rounded-2xl text-sm font-semibold border"
                   style={{ background: c.surface, color: c.text, borderColor: c.border }}
                 >
-                  Recommencer
+                  {ts.restart}
                 </button>
                 <button
                   onClick={() => navigate('/')}
                   className="px-4 py-2 rounded-2xl text-sm font-bold text-white"
                   style={{ background: c.gold }}
                 >
-                  Retour
+                  {ts.back}
                 </button>
               </div>
             </div>
@@ -462,7 +510,7 @@ export default function ImmersiveMode() {
                       border: `1px solid ${activeTab === tab ? c.border : 'transparent'}`,
                     }}
                   >
-                    {tab === 'translit' ? 'Phonétique' : tab === 'translat' ? 'Traduction' : 'Mérite'}
+                    {tab === 'translit' ? ts.translit : tab === 'translat' ? ts.translat : ts.merit}
                   </button>
                 ))}
               </div>
@@ -483,10 +531,10 @@ export default function ImmersiveMode() {
                   )}
                   {activeTab === 'translat' && (
                     <p className="select-text cursor-text" style={{ color: c.text }}>
-                      {currentAdhkar.translationFr}
+                      {(lang === 'en' && currentAdhkar.translationEn) ? currentAdhkar.translationEn : currentAdhkar.translationFr}
                     </p>
                   )}
-                  {activeTab === 'merit' && currentAdhkar.merit && (
+                  {activeTab === 'merit' && (currentAdhkar.merit || currentAdhkar.meritEn) && (
                     <>
                       {currentAdhkar.source && (
                         <p className="text-[10px] font-bold uppercase tracking-wide mb-1" style={{ color: c.sourceText }}>
@@ -494,7 +542,7 @@ export default function ImmersiveMode() {
                         </p>
                       )}
                       <p className="select-text cursor-text" style={{ color: c.meritText }}>
-                        {currentAdhkar.merit}
+                        {(lang === 'en' && currentAdhkar.meritEn) ? currentAdhkar.meritEn : currentAdhkar.merit}
                       </p>
                     </>
                   )}
@@ -505,9 +553,9 @@ export default function ImmersiveMode() {
               <div className="flex-1 min-h-0" />
 
               {/* ── Mode toggle ───────────────────────────────── */}
-              {currentAdhkar.audioArabicUrl && currentAdhkar.repeat > 1 && (
+              {!learningMode && currentAdhkar.audioArabicUrl && currentAdhkar.repeat > 1 && (
                 <div className="flex items-center justify-center gap-2 flex-shrink-0">
-                  <span className="text-[10px]" style={{ color: c.textMuted }}>Mode :</span>
+                  <span className="text-[10px]" style={{ color: c.textMuted }}>{ts.modeLabel}</span>
                   <button
                     onClick={() => { setAudioMode('manual'); handleAutoStop() }}
                     className="px-2.5 py-0.5 rounded-full text-[11px] font-bold transition-all"
@@ -517,7 +565,7 @@ export default function ImmersiveMode() {
                       border:     `1px solid ${audioMode === 'manual' ? c.border : 'transparent'}`,
                     }}
                   >
-                    Manuel
+                    {ts.manual}
                   </button>
                   <button
                     onClick={() => { setAudioMode('auto'); audio.stop() }}
@@ -528,13 +576,13 @@ export default function ImmersiveMode() {
                       border:     `1px solid ${audioMode === 'auto' ? c.borderGold : 'transparent'}`,
                     }}
                   >
-                    🔁 Auto
+                    {ts.auto}
                   </button>
                 </div>
               )}
 
               {/* ── Counter — mode manuel ─────────────────────── */}
-              {currentAdhkar.repeat > 1 && audioMode === 'manual' && (
+              {!learningMode && currentAdhkar.repeat > 1 && audioMode === 'manual' && (
                 <div className="flex justify-center flex-shrink-0">
                   <Counter
                     current={counterVal}
@@ -552,7 +600,7 @@ export default function ImmersiveMode() {
               )}
 
               {/* ── Auto-récitation ───────────────────────────── */}
-              {currentAdhkar.audioArabicUrl && currentAdhkar.repeat > 1 && audioMode === 'auto' && (
+              {!learningMode && currentAdhkar.audioArabicUrl && currentAdhkar.repeat > 1 && audioMode === 'auto' && (
                 <div className="flex flex-col items-center gap-2 flex-shrink-0">
                   {!autoRunning ? (
                     <div className="flex flex-col items-center gap-1">
@@ -561,7 +609,7 @@ export default function ImmersiveMode() {
                         className="px-5 py-2.5 font-bold rounded-2xl transition-colors flex items-center gap-2 text-sm"
                         style={{ background: c.stopBg, color: c.stopText }}
                       >
-                        <Play size={14} /> Lancer l'auto-récitation
+                        <Play size={14} /> {ts.startAuto}
                       </button>
                       {counterVal > 0 && (
                         <button
@@ -569,7 +617,7 @@ export default function ImmersiveMode() {
                           className="text-[11px] underline underline-offset-2"
                           style={{ color: c.dangerText }}
                         >
-                          Réinitialiser ({counterVal}/{currentAdhkar.repeat})
+                          {ts.reset} ({counterVal}/{currentAdhkar.repeat})
                         </button>
                       )}
                     </div>
@@ -585,15 +633,30 @@ export default function ImmersiveMode() {
                         className="flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-semibold"
                         style={{ background: c.btn, color: c.dangerText }}
                       >
-                        <Square size={10} /> Arrêter
+                        <Square size={10} /> {ts.stop}
                       </button>
                     </div>
                   )}
                 </div>
               )}
 
+              {/* ── Bouton apprentissage — repeat > 1 ────────── */}
+              {learningMode && currentAdhkar.repeat > 1 && !itemDone && (
+                <button
+                  onClick={() => {
+                    markDone(currentAdhkar.id)
+                    if (settings.vibration && navigator.vibrate) navigator.vibrate([15, 30, 15])
+                    setTimeout(() => { setSlideDir('left'); next() }, 400)
+                  }}
+                  className="w-full py-3 font-bold rounded-2xl flex-shrink-0 text-sm"
+                  style={{ background: 'rgba(59,130,246,0.18)', color: '#3B82F6', border: '1px solid rgba(59,130,246,0.30)' }}
+                >
+                  {ts.learnedNext}
+                </button>
+              )}
+
               {/* ── Audio player — mode manuel ────────────────── */}
-              {audioMode === 'manual' && (
+              {!learningMode && audioMode === 'manual' && (
                 <div className="flex justify-center flex-shrink-0">
                   <AudioPlayer
                     adhkarId={currentAdhkar.id}
@@ -617,7 +680,7 @@ export default function ImmersiveMode() {
                   className="w-full py-3 font-bold rounded-2xl transition-colors flex-shrink-0 text-sm"
                   style={{ background: c.stopBg, color: c.stopText }}
                 >
-                  ✓ Lu — Suivant
+                  {ts.readNext}
                 </button>
               )}
 
@@ -629,20 +692,20 @@ export default function ImmersiveMode() {
         {!isAllDone && (
           <div className="flex-shrink-0 px-3 pt-2 flex gap-2" style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 40px)' }}>
             <button
-              onClick={prev}
+              onClick={() => { setSlideDir('right'); prev() }}
               disabled={currentIndex === 0}
               className="flex-1 py-4 rounded-2xl font-bold disabled:opacity-30 flex items-center justify-center gap-2 text-sm transition-opacity"
               style={{ background: c.surface, color: c.text, border: `1px solid ${c.border}` }}
             >
-              <ArrowLeft size={16} /> Précédent
+              <ArrowLeft size={16} /> {ts.prev}
             </button>
             <button
-              onClick={next}
+              onClick={() => { setSlideDir('left'); next() }}
               disabled={currentIndex === totalItems - 1 && !isAllDone}
               className="flex-1 py-4 rounded-2xl font-bold disabled:opacity-30 flex items-center justify-center gap-2 text-sm transition-opacity"
               style={{ background: c.surfaceAlt, color: c.text, border: `1px solid ${c.border}` }}
             >
-              Continuer <ArrowRight size={16} />
+              {ts.next} <ArrowRight size={16} />
             </button>
           </div>
         )}

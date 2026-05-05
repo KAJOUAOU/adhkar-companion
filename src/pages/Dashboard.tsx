@@ -4,13 +4,16 @@ import { getCurrentPeriod, getGreeting, getLast30Days, getHijriDate } from '../u
 import { getAdhkarByPeriod } from '../data/adhkar'
 import { loadSession } from '../services/storageService'
 import { useStreak } from '../hooks/useStreak'
+import { useSettings } from '../hooks/useSettings'
 import CircularProgress from '../components/CircularProgress'
 import IslamicPattern from '../components/IslamicPattern'
-import { INSPIRATIONAL_QUOTES } from '../data/adhkar'
+import { INSPIRATIONAL_QUOTES, INSPIRATIONAL_QUOTES_EN } from '../data/adhkar'
+import { getT } from '../i18n'
 
-function getQuoteOfDay(): string {
+function getQuoteOfDay(lang?: string): string {
   const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
-  return INSPIRATIONAL_QUOTES[dayOfYear % INSPIRATIONAL_QUOTES.length]
+  const quotes = lang === 'en' ? INSPIRATIONAL_QUOTES_EN : INSPIRATIONAL_QUOTES
+  return quotes[dayOfYear % quotes.length]
 }
 
 function SessionStatusCard({
@@ -18,11 +21,13 @@ function SessionStatusCard({
   label,
   emoji,
   color,
+  lang,
 }: {
   period: 'morning' | 'evening'
   label: string
   emoji: string
   color: 'amber' | 'indigo'
+  lang?: string
 }) {
   const navigate = useNavigate()
   const list     = getAdhkarByPeriod(period)
@@ -31,6 +36,7 @@ function SessionStatusCard({
   const total    = list.length
   const pct      = total > 0 ? done / total : 0
   const isAllDone = done >= total && total > 0
+  const td = getT(lang).dashboard
 
   const colors = {
     amber:  { bg: 'from-amber-50 to-amber-100/50',     ring: '#C9963A', text: 'text-amber-700',    badge: 'bg-amber-100 text-amber-700' },
@@ -57,13 +63,13 @@ function SessionStatusCard({
       <div>
         {isAllDone ? (
           <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${c.badge}`}>
-            ✓ Terminé
+            {td.done}
           </span>
         ) : done === 0 ? (
-          <span className="text-xs text-gray-400">Non commencé</span>
+          <span className="text-xs text-gray-400">{td.notStarted}</span>
         ) : (
           <span className="text-xs text-gray-500">
-            {done}/{total} invocations
+            {done}/{total} {td.invocations}
           </span>
         )}
       </div>
@@ -74,9 +80,12 @@ function SessionStatusCard({
 export default function Dashboard() {
   const navigate      = useNavigate()
   const { streak }    = useStreak()
+  const { settings }  = useSettings()
+  const lang          = settings.language
+  const t             = getT(lang).dashboard
   const currentPeriod = getCurrentPeriod()
   const greeting      = getGreeting()
-  const quote         = getQuoteOfDay()
+  const quote         = getQuoteOfDay(lang)
   const hijriDate     = getHijriDate()
 
   const morningSession = loadSession('morning')
@@ -116,7 +125,7 @@ export default function Dashboard() {
           </h1>
           <div className="flex items-baseline justify-between">
             <p className="text-sm opacity-60" style={{ color: 'var(--t-hero-text,#2C1A06)' }}>
-              {new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
+              {new Date().toLocaleDateString(lang === 'en' ? 'en-US' : 'fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
             </p>
             {hijriDate && (
               <p className="text-xs opacity-50" style={{ color: 'var(--t-hero-text,#2C1A06)' }}>
@@ -164,12 +173,12 @@ export default function Dashboard() {
         >
           <div>
             <p className="text-white/70 text-xs uppercase tracking-wide mb-0.5">
-              {currentPeriod === 'morning' ? '☀️ Adhkar du matin' : '🌙 Adhkar du soir'}
+              {currentPeriod === 'morning' ? `☀️ ${t.morning}` : `🌙 ${t.evening}`}
             </p>
             <p className="font-bold text-lg">
               {(currentPeriod === 'morning' ? morningDone : eveningDone)
-                ? 'Reprendre la session'
-                : 'Commencer mon moment de dhikr'}
+                ? t.resumeSession
+                : t.startSession}
             </p>
           </div>
           <div className="w-11 h-11 bg-white/15 rounded-xl flex items-center justify-center">
@@ -179,8 +188,8 @@ export default function Dashboard() {
 
         {/* Session status cards */}
         <div className="flex gap-3">
-          <SessionStatusCard period="morning" label="Matin"  emoji="☀️" color="amber"  />
-          <SessionStatusCard period="evening" label="Soir"   emoji="🌙" color="indigo" />
+          <SessionStatusCard period="morning" label={t.morning} emoji="☀️" color="amber"  lang={lang} />
+          <SessionStatusCard period="evening" label={t.evening} emoji="🌙" color="indigo" lang={lang} />
         </div>
 
         {/* 2 min mode */}
@@ -192,8 +201,8 @@ export default function Dashboard() {
             <Clock size={22} className="text-gold-600" />
           </div>
           <div className="text-left">
-            <p className="font-bold text-sm text-gray-900 dark:text-cream-100">Mode 2 minutes</p>
-            <p className="text-xs text-gray-400">L'essentiel en un instant — pour les jours pressés</p>
+            <p className="font-bold text-sm text-gray-900 dark:text-cream-100">{t.quickMode}</p>
+            <p className="text-xs text-gray-400">{t.quickModeSub}</p>
           </div>
           <ChevronRight size={18} className="text-gray-300 ml-auto flex-shrink-0" />
         </button>
@@ -204,9 +213,9 @@ export default function Dashboard() {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <Flame size={18} className="text-gold-500" />
-                <span className="font-bold text-sm text-gray-900 dark:text-cream-100">Constance spirituelle</span>
+                <span className="font-bold text-sm text-gray-900 dark:text-cream-100">{t.spiritualConsistency}</span>
               </div>
-              <span className="text-xs text-gray-400">{streak.currentStreak} jour{streak.currentStreak > 1 ? 's' : ''} consécutifs</span>
+              <span className="text-xs text-gray-400">{streak.currentStreak} {t.consecutiveDays}</span>
             </div>
             <div className="flex gap-1.5">
               {last7.map((day, i) => {
@@ -221,8 +230,10 @@ export default function Dashboard() {
                           ? 'bg-cream-200 dark:bg-night-700 border-2 border-forest-300 dark:border-forest-600'
                           : 'bg-cream-200 dark:bg-night-700'
                     }`} />
-                    <span className="text-[9px] text-gray-400">
-                      {['L','M','M','J','V','S','D'][new Date(day).getDay()]}
+                            <span className="text-[9px] text-gray-400">
+                      {lang === 'en'
+                        ? ['S','M','T','W','T','F','S'][new Date(day).getDay()]
+                        : ['D','L','M','M','J','V','S'][new Date(day).getDay()]}
                     </span>
                   </div>
                 )
@@ -234,7 +245,7 @@ export default function Dashboard() {
         {/* Inspirational quote */}
         <div className="glass-gold dark:glass-dark rounded-2xl p-5">
           <p className="text-xs font-bold text-forest-600 dark:text-forest-400 uppercase tracking-wide mb-2">
-            Parole du jour
+            {t.quoteOfDay}
           </p>
           <p className="text-sm text-forest-900 dark:text-cream-200 leading-relaxed italic">
             {quote}
@@ -251,8 +262,8 @@ export default function Dashboard() {
             🌙
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-sm text-gray-900 dark:text-cream-100">Sunnah de la nuit</p>
-            <p className="text-xs text-gray-400 mt-0.5">Avant de dormir — Al-Mulk, Ayat al-Kursi…</p>
+            <p className="font-bold text-sm text-gray-900 dark:text-cream-100">{t.nightSunnah}</p>
+            <p className="text-xs text-gray-400 mt-0.5">{t.nightSunnahSub}</p>
           </div>
           <ChevronRight size={18} className="text-gray-300 flex-shrink-0" />
         </button>
@@ -273,7 +284,7 @@ export default function Dashboard() {
                   <p className="font-bold text-sm text-gray-900 dark:text-cream-100">Salât Ibrahimiya</p>
                   {isFriday && (
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-forest-100 text-forest-700 dark:bg-forest-900/40 dark:text-forest-300">
-                      Aujourd'hui
+                      {t.friday}
                     </span>
                   )}
                 </div>
@@ -291,23 +302,23 @@ export default function Dashboard() {
             className="bg-white dark:bg-night-800 rounded-2xl p-4 shadow-soft border border-cream-200 dark:border-white/5 text-left active:scale-98 transition-transform"
           >
             <span className="text-2xl">🤲</span>
-            <p className="font-bold text-sm text-gray-900 dark:text-cream-100 mt-2">Besoin du moment</p>
-            <p className="text-xs text-gray-400 mt-0.5">Protection, pardon, apaisement…</p>
+            <p className="font-bold text-sm text-gray-900 dark:text-cream-100 mt-2">{t.needOfMoment}</p>
+            <p className="text-xs text-gray-400 mt-0.5">{t.needOfMomentSub}</p>
           </button>
           <button
             onClick={() => navigate('/browse')}
             className="bg-white dark:bg-night-800 rounded-2xl p-4 shadow-soft border border-cream-200 dark:border-white/5 text-left active:scale-98 transition-transform"
           >
             <span className="text-2xl">📖</span>
-            <p className="font-bold text-sm text-gray-900 dark:text-cream-100 mt-2">Parcourir</p>
-            <p className="text-xs text-gray-400 mt-0.5">Toutes les invocations</p>
+            <p className="font-bold text-sm text-gray-900 dark:text-cream-100 mt-2">{t.browse}</p>
+            <p className="text-xs text-gray-400 mt-0.5">{t.browseSub}</p>
           </button>
         </div>
 
         {/* Longest streak */}
         {streak.longestStreak > 0 && (
           <p className="text-center text-xs text-gray-400 pb-2">
-            Record : <strong className="text-forest-600 dark:text-forest-400">{streak.longestStreak} jours</strong> consécutifs
+            {t.record} : <strong className="text-forest-600 dark:text-forest-400">{streak.longestStreak} {t.days}</strong> {t.consecutiveDays}
           </p>
         )}
       </div>

@@ -12,6 +12,7 @@ const KEYS = {
 // ─── Settings ─────────────────────────────────────────────────────────────────
 
 export const DEFAULT_SETTINGS: AppSettings = {
+  language:                'fr',
   theme:                   'light',
   colorTheme:              'parchemin',
   arabicSize:              'xl',

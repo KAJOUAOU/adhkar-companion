@@ -8,20 +8,22 @@ import { useAudio } from '../hooks/useAudio'
 import { loadSession, saveSession } from '../services/storageService'
 import { getAdhkarByPeriod } from '../data/adhkar'
 import AdhkarCard from '../components/AdhkarCard'
+import { getT } from '../i18n'
 
 type Filter = 'all' | 'morning' | 'evening' | 'both' | 'favorites'
-
-const FILTER_LABELS: Record<Filter, string> = {
-  all:       'Tous',
-  morning:   'Matin',
-  evening:   'Soir',
-  both:      'Commun',
-  favorites: '❤️ Favoris',
-}
 
 export default function CardsMode() {
   const { settings, toggleFavorite } = useSettings()
   const audio = useAudio()
+  const t = getT(settings.language).cards
+
+  const FILTER_LABELS: Record<Filter, string> = {
+    all:       t.filters.all,
+    morning:   t.filters.morning,
+    evening:   t.filters.evening,
+    both:      t.filters.both,
+    favorites: t.filters.favorites,
+  }
 
   const [filter,  setFilter]  = useState<Filter>('all')
   const [search,  setSearch]  = useState('')
@@ -89,7 +91,7 @@ export default function CardsMode() {
       {/* Header */}
       <div className="bg-white dark:bg-night-900 border-b border-cream-200 dark:border-white/10 px-5 pt-safe pt-12 pb-4 sticky top-0 z-20">
         <h1 className="text-xl font-display font-bold text-gray-900 dark:text-cream-100 mb-4">
-          Toutes les invocations
+          {t.title}
         </h1>
 
         {/* Search */}
@@ -97,7 +99,7 @@ export default function CardsMode() {
           <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
-            placeholder="Rechercher…"
+            placeholder={t.search}
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="w-full pl-9 pr-4 py-2.5 bg-cream-100 dark:bg-night-800 rounded-xl text-sm border border-cream-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-forest-500 dark:text-cream-100"
@@ -127,7 +129,7 @@ export default function CardsMode() {
         {displayed.length === 0 ? (
           <div className="text-center py-20 text-gray-400">
             <p className="text-4xl mb-3">🔍</p>
-            <p className="text-sm">Aucune invocation trouvée</p>
+            <p className="text-sm">{t.notFound}</p>
           </div>
         ) : (
           displayed.map(item => (

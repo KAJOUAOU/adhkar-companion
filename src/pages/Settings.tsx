@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react'
-import { Bell, Moon, Sun, Monitor, Type, Eye, EyeOff, Vibrate, Volume2, RotateCcw, Palette, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Moon, Sun, Monitor, RotateCcw, Palette, ChevronLeft, ChevronRight, Languages } from 'lucide-react'
 import { useSettings } from '../hooks/useSettings'
 import { requestPermission, scheduleReminder, cancelReminder } from '../services/notificationService'
 import { resetAllProgress } from '../services/storageService'
 import type { ThemeMode, ArabicSize, ColorTheme } from '../types'
+import { getT } from '../i18n'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -49,6 +50,7 @@ function Toggle({ value, onChange }: { value: boolean; onChange: (v: boolean) =>
 
 export default function Settings() {
   const { settings, updateSettings } = useSettings()
+  const t = getT(settings.language).settings
   const [confirmReset, setConfirmReset] = useState(false)
   const [resetDone,    setResetDone]    = useState(false)
   const [showCustom,   setShowCustom]   = useState(false)
@@ -89,9 +91,9 @@ export default function Settings() {
   }
 
   const THEMES: { id: ThemeMode; label: string; icon: React.ReactNode }[] = [
-    { id: 'light',  label: 'Clair',   icon: <Sun size={16} /> },
-    { id: 'dark',   label: 'Sombre',  icon: <Moon size={16} /> },
-    { id: 'auto',   label: 'Auto',    icon: <Monitor size={16} /> },
+    { id: 'light',  label: t.light,  icon: <Sun size={16} /> },
+    { id: 'dark',   label: t.dark,   icon: <Moon size={16} /> },
+    { id: 'auto',   label: t.auto,   icon: <Monitor size={16} /> },
   ]
 
   const COLOR_THEMES: { id: ColorTheme; label: string; hero: string; dot: string }[] = [
@@ -118,7 +120,7 @@ export default function Settings() {
     <div className="min-h-screen bg-cream-100 dark:bg-night-950 pb-28">
       {/* Header */}
       <div className="bg-white dark:bg-night-900 border-b border-cream-200 dark:border-white/10 px-5 pt-safe pt-12 pb-5">
-        <h1 className="text-xl font-display font-bold text-gray-900 dark:text-cream-100">Réglages</h1>
+        <h1 className="text-xl font-display font-bold text-gray-900 dark:text-cream-100">{t.title}</h1>
       </div>
 
       <div className="pt-5 px-4">
@@ -126,7 +128,7 @@ export default function Settings() {
         <div className="mb-6">
           <div className="flex items-center justify-between px-1 mb-3">
             <h2 className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
-              Palette de couleurs
+              {t.palette}
             </h2>
             <button
               onClick={() => setShowCustom(v => !v)}
@@ -134,7 +136,7 @@ export default function Settings() {
                 showCustom ? 'bg-gold-500 text-white' : 'bg-cream-200 dark:bg-night-700 text-gray-500 dark:text-gray-400'
               }`}
             >
-              <Palette size={12} /> Personnaliser
+              <Palette size={12} /> {t.customize}
             </button>
           </div>
 
@@ -189,18 +191,18 @@ export default function Settings() {
 
           {/* Couleur active label */}
           <p className="text-center text-xs text-gray-400 mt-2">
-            Thème actif : <span className="font-bold text-gray-600 dark:text-gray-300">
-              {COLOR_THEMES.find(t => t.id === (settings.colorTheme ?? 'parchemin'))?.label}
+            {t.activeTheme} <span className="font-bold text-gray-600 dark:text-gray-300">
+              {COLOR_THEMES.find(ct => ct.id === (settings.colorTheme ?? 'parchemin'))?.label}
             </span>
           </p>
 
           {/* Custom color picker */}
           {showCustom && (
             <div className="mt-4 bg-white dark:bg-night-800 rounded-2xl p-4 border border-cream-200 dark:border-white/5 shadow-soft">
-              <p className="text-xs font-bold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wide">Couleurs personnalisées</p>
+              <p className="text-xs font-bold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wide">{t.customColors}</p>
               <div className="flex items-center gap-4">
                 <div className="flex flex-col items-center gap-1.5">
-                  <label className="text-[10px] text-gray-400 font-semibold">Couleur 1</label>
+                  <label className="text-[10px] text-gray-400 font-semibold">{t.color1}</label>
                   <div className="relative">
                     <input
                       type="color"
@@ -211,7 +213,7 @@ export default function Settings() {
                   </div>
                 </div>
                 <div className="flex flex-col items-center gap-1.5">
-                  <label className="text-[10px] text-gray-400 font-semibold">Couleur 2</label>
+                  <label className="text-[10px] text-gray-400 font-semibold">{t.color2}</label>
                   <div className="relative">
                     <input
                       type="color"
@@ -234,18 +236,18 @@ export default function Settings() {
                     }}
                     className="w-full py-1.5 rounded-xl text-xs font-bold bg-forest-700 text-white active:scale-95 transition-transform"
                   >
-                    Appliquer
+                    {t.apply}
                   </button>
                 </div>
               </div>
-              <p className="text-[10px] text-gray-400 mt-2">Les couleurs personnalisées s'appliquent pour cette session.</p>
+              <p className="text-[10px] text-gray-400 mt-2">{t.customNote}</p>
             </div>
           )}
         </div>
 
         {/* Apparence */}
-        <Section title="Apparence">
-          <Row label="Thème" sub="Choisir le mode d'affichage">
+        <Section title={t.appearance}>
+          <Row label={t.theme} sub={t.themeSub}>
             <div className="flex gap-1.5">
               {THEMES.map(t => (
                 <button
@@ -263,7 +265,7 @@ export default function Settings() {
             </div>
           </Row>
 
-          <Row label="Taille du texte arabe" sub="Ajuster selon votre préférence">
+          <Row label={t.arabicSize} sub={t.arabicSizeSub}>
             <div className="flex gap-1.5">
               {SIZES.map(s => (
                 <button
@@ -283,33 +285,33 @@ export default function Settings() {
         </Section>
 
         {/* Affichage */}
-        <Section title="Affichage">
-          <Row label="Afficher la translittération" sub="Texte phonétique latin">
+        <Section title={t.display}>
+          <Row label={t.showTranslit} sub={t.showTranslitSub}>
             <Toggle value={settings.showTranslit} onChange={v => updateSettings('showTranslit', v)} />
           </Row>
-          <Row label="Afficher la traduction" sub="Traduction française">
+          <Row label={t.showTranslat} sub={t.showTranslatSub}>
             <Toggle value={settings.showTranslation} onChange={v => updateSettings('showTranslation', v)} />
           </Row>
-          <Row label="Afficher les mérites" sub="Bénéfices de chaque invocation">
+          <Row label={t.showMerit} sub={t.showMeritSub}>
             <Toggle value={settings.showMerit} onChange={v => updateSettings('showMerit', v)} />
           </Row>
         </Section>
 
         {/* Audio & Retour haptique */}
-        <Section title="Audio & Retour haptique">
-          <Row label="Lecture automatique" sub="Jouer l'audio au changement d'invocation">
+        <Section title={t.audio}>
+          <Row label={t.autoplay} sub={t.autoplaySub}>
             <Toggle value={settings.audioAutoplay} onChange={v => updateSettings('audioAutoplay', v)} />
           </Row>
-          <Row label="Vibrations" sub="Retour haptique lors du compteur">
+          <Row label={t.vibration} sub={t.vibrationSub}>
             <Toggle value={settings.vibration} onChange={v => updateSettings('vibration', v)} />
           </Row>
         </Section>
 
         {/* Rappels */}
-        <Section title="Rappels">
+        <Section title={t.reminders}>
           <Row
-            label="Rappel du matin ☀️"
-            sub={settings.morningReminderEnabled ? `Activé à ${settings.morningReminderTime}` : 'Désactivé'}
+            label={t.morningReminder}
+            sub={settings.morningReminderEnabled ? `${t.enabledAt} ${settings.morningReminderTime}` : t.disabled}
           >
             <Toggle
               value={settings.morningReminderEnabled}
@@ -317,7 +319,7 @@ export default function Settings() {
             />
           </Row>
           {settings.morningReminderEnabled && (
-            <Row label="Heure du rappel matin">
+            <Row label={t.morningTime}>
               <input
                 type="time"
                 value={settings.morningReminderTime}
@@ -330,8 +332,8 @@ export default function Settings() {
             </Row>
           )}
           <Row
-            label="Rappel du soir 🌙"
-            sub={settings.eveningReminderEnabled ? `Activé à ${settings.eveningReminderTime}` : 'Désactivé'}
+            label={t.eveningReminder}
+            sub={settings.eveningReminderEnabled ? `${t.enabledAt} ${settings.eveningReminderTime}` : t.disabled}
           >
             <Toggle
               value={settings.eveningReminderEnabled}
@@ -339,7 +341,7 @@ export default function Settings() {
             />
           </Row>
           {settings.eveningReminderEnabled && (
-            <Row label="Heure du rappel soir">
+            <Row label={t.eveningTime}>
               <input
                 type="time"
                 value={settings.eveningReminderTime}
@@ -354,7 +356,7 @@ export default function Settings() {
         </Section>
 
         {/* Preview arabe */}
-        <Section title="Aperçu du texte arabe">
+        <Section title={t.arabicPreview}>
           <div className="px-5 py-5">
             <p
               className={`font-arabic text-right dir-rtl leading-loose text-gray-900 dark:text-cream-100 ${
@@ -368,20 +370,45 @@ export default function Settings() {
               <p className="text-sm italic text-gray-400 mt-2">Bismillâhi r-Rahmâni r-Rahîm</p>
             )}
             {settings.showTranslation && (
-              <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                {settings.language === 'en'
+                  ? 'In the name of Allah, the Most Gracious, the Most Merciful.'
+                  : 'Au nom d\'Allah, le Tout Miséricordieux, le Très Miséricordieux.'}
+              </p>
             )}
           </div>
         </Section>
 
+        {/* Langue */}
+        <Section title={t.language}>
+          <Row label={t.language} sub={t.languageSub}>
+            <div className="flex gap-1.5">
+              {(['fr', 'en'] as const).map(l => (
+                <button
+                  key={l}
+                  onClick={() => updateSettings('language', l)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                    settings.language === l
+                      ? 'bg-forest-800 text-white'
+                      : 'bg-cream-200 dark:bg-night-700 text-gray-600 dark:text-gray-400'
+                  }`}
+                >
+                  {l === 'fr' ? '🇫🇷 FR' : '🇬🇧 EN'}
+                </button>
+              ))}
+            </div>
+          </Row>
+        </Section>
+
         {/* Progression */}
-        <Section title="Progression">
-          <Row label="Réinitialiser l'avancement" sub="Remet les sessions matin et soir à zéro">
+        <Section title={t.progress}>
+          <Row label={t.resetProgress} sub={t.resetProgressSub}>
             {!confirmReset ? (
               <button
                 onClick={() => setConfirmReset(true)}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-gray-400 dark:text-gray-500 bg-cream-100 dark:bg-night-700 hover:text-red-400 transition-colors"
               >
-                <RotateCcw size={13} /> Reset
+                <RotateCcw size={13} /> {t.resetBtn}
               </button>
             ) : (
               <div className="flex items-center gap-2">
@@ -389,30 +416,30 @@ export default function Settings() {
                   onClick={() => setConfirmReset(false)}
                   className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-cream-100 dark:bg-night-700 text-gray-400"
                 >
-                  Annuler
+                  {t.cancel}
                 </button>
                 <button
                   onClick={handleReset}
                   className="px-3 py-1.5 rounded-xl text-xs font-bold bg-red-50 dark:bg-red-900/20 text-red-500 border border-red-200 dark:border-red-500/20"
                 >
-                  Confirmer
+                  {t.confirm}
                 </button>
               </div>
             )}
           </Row>
           {resetDone && (
             <div className="px-5 py-2 text-xs text-forest-600 dark:text-forest-400 font-semibold">
-              ✓ Avancement remis à zéro
+              {t.resetDone}
             </div>
           )}
         </Section>
 
         {/* About */}
         <div className="text-center pb-6 pt-2 text-xs text-gray-300 dark:text-gray-600">
-          <p className="font-semibold">Adhkar Companion v1.0</p>
-          <p className="mt-1">Contenu : Mes Adhkar du Matin et du Soir — QURAN TIME</p>
-          <p className="mt-0.5">Développé avec ❤️ pour la Oumma</p>
-          <p className="mt-0.5">Avec DuoPédago®</p>
+          <p className="font-semibold">{t.about}</p>
+          <p className="mt-1">{t.aboutContent}</p>
+          <p className="mt-0.5">{t.aboutDev}</p>
+          <p className="mt-0.5">{t.aboutWith}</p>
         </div>
       </div>
     </div>
