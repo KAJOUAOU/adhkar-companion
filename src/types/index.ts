@@ -103,6 +103,7 @@ export interface AppSettings {
   eveningReminderEnabled: boolean
   eveningReminderTime: string      // "20:00"
   favoritesIds: string[]
+  sessionBg: string                // bg id ou 'auto'
 }
 
 // ─── Audio ────────────────────────────────────────────────────────────────────

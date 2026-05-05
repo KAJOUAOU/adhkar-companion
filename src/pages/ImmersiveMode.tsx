@@ -113,7 +113,9 @@ export default function ImmersiveMode() {
   } = adhkar
 
   // ── Background theme ──────────────────────────────────────
-  const bgId    = DEFAULT_SESSION_BG[period] ?? 'evening-lanterns'
+  const bgId    = (settings.sessionBg && settings.sessionBg !== 'auto')
+    ? settings.sessionBg
+    : (DEFAULT_SESSION_BG[period] ?? 'evening-lanterns')
   const bgTheme = BG_THEMES.find(t => t.id === bgId) ?? BG_THEMES[1]
   const isLight = bgTheme.style === 'light'
   const c: Tokens = isLight ? LIGHT : DARK

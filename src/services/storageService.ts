@@ -27,6 +27,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   eveningReminderEnabled:  false,
   eveningReminderTime:     '20:00',
   favoritesIds:            [],
+  sessionBg:               'auto',
 }
 
 export function loadSettings(): AppSettings {

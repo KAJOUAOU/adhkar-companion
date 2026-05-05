@@ -1,8 +1,9 @@
 import { useState, useRef } from 'react'
-import { Moon, Sun, Monitor, RotateCcw, Palette, ChevronLeft, ChevronRight, Languages } from 'lucide-react'
+import { Moon, Sun, Monitor, RotateCcw, Palette, ChevronLeft, ChevronRight, Languages, Check } from 'lucide-react'
 import { useSettings } from '../hooks/useSettings'
 import { requestPermission, scheduleReminder, cancelReminder } from '../services/notificationService'
 import { resetAllProgress } from '../services/storageService'
+import { BG_THEMES } from '../data/backgrounds'
 import type { ThemeMode, ArabicSize, ColorTheme } from '../types'
 import { getT } from '../i18n'
 
@@ -282,6 +283,68 @@ export default function Settings() {
               ))}
             </div>
           </Row>
+        </Section>
+
+        {/* Fond d'écran mode immersif */}
+        <Section title="Fond d'écran (mode immersif)">
+          <div className="px-4 py-4">
+            <p className="text-xs text-gray-400 mb-3">
+              Affiché pendant les sessions. "Auto" suit la période (matin / soir).
+            </p>
+            <div className="grid grid-cols-4 gap-2">
+              {/* Option Auto */}
+              <button
+                onClick={() => updateSettings('sessionBg', 'auto')}
+                className={`relative flex flex-col items-center gap-1 rounded-xl overflow-hidden border-2 transition-all ${
+                  (settings.sessionBg ?? 'auto') === 'auto'
+                    ? 'border-forest-700 ring-2 ring-forest-500/30'
+                    : 'border-cream-200 dark:border-white/10'
+                }`}
+              >
+                <div className="w-full aspect-[9/13] bg-gradient-to-b from-amber-100 to-amber-300 dark:from-night-700 dark:to-night-900 flex items-center justify-center">
+                  <span className="text-xl">✨</span>
+                </div>
+                <span className="text-[10px] font-semibold text-gray-600 dark:text-gray-300 pb-1 px-1 text-center leading-tight">
+                  Auto
+                </span>
+                {(settings.sessionBg ?? 'auto') === 'auto' && (
+                  <div className="absolute top-1 right-1 w-4 h-4 bg-forest-700 rounded-full flex items-center justify-center">
+                    <Check size={9} className="text-white" />
+                  </div>
+                )}
+              </button>
+
+              {/* Backgrounds */}
+              {BG_THEMES.map(bg => (
+                <button
+                  key={bg.id}
+                  onClick={() => updateSettings('sessionBg', bg.id)}
+                  className={`relative flex flex-col items-center gap-1 rounded-xl overflow-hidden border-2 transition-all ${
+                    settings.sessionBg === bg.id
+                      ? 'border-forest-700 ring-2 ring-forest-500/30'
+                      : 'border-cream-200 dark:border-white/10'
+                  }`}
+                >
+                  <div className="w-full aspect-[9/13] overflow-hidden">
+                    <img
+                      src={bg.fileMobile}
+                      alt={bg.label}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-[10px] font-semibold text-gray-600 dark:text-gray-300 pb-1 px-1 text-center leading-tight">
+                    {bg.label}
+                  </span>
+                  {settings.sessionBg === bg.id && (
+                    <div className="absolute top-1 right-1 w-4 h-4 bg-forest-700 rounded-full flex items-center justify-center">
+                      <Check size={9} className="text-white" />
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
         </Section>
 
         {/* Affichage */}
