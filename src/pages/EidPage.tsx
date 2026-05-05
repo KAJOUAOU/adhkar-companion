@@ -3,26 +3,22 @@ import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Play, Square } from 'lucide-react'
 import { useSettings } from '../hooks/useSettings'
 import { getT } from '../i18n'
+import { applyTajweedHTML } from '../utils/tajweedUtils'
 
+// Texte en un seul paragraphe fluide — les retours à la ligne naturels du RTL s'en chargent
 const ARABIC =
-  'اللهُ أَكْبَرُ، اللهُ أَكْبَرُ، اللهُ أَكْبَرُ،\n' +
-  'لَا إِلَهَ إِلَّا اللهُ،\n' +
-  'اللهُ أَكْبَرُ، اللهُ أَكْبَرُ،\n' +
-  'وَلِلَّهِ الحَمْدُ.\n' +
-  'اللهُ أَكْبَرُ كَبِيرًا،\n' +
-  'وَالحَمْدُ لِلَّهِ كَثِيرًا،\n' +
-  'وَسُبْحَانَ اللهِ بُكْرَةً وَأَصِيلًا،\n' +
+  'اللهُ أَكْبَرُ، اللهُ أَكْبَرُ، اللهُ أَكْبَرُ، ' +
+  'لَا إِلَهَ إِلَّا اللهُ، ' +
+  'اللهُ أَكْبَرُ، اللهُ أَكْبَرُ، وَلِلَّهِ الحَمْدُ. ' +
+  'اللهُ أَكْبَرُ كَبِيرًا، وَالحَمْدُ لِلَّهِ كَثِيرًا، ' +
+  'وَسُبْحَانَ اللهِ بُكْرَةً وَأَصِيلًا، ' +
   'لَا إِلَهَ إِلَّا اللهُ.'
 
 const TRANSLIT =
-  'Allāhu Akbar, Allāhu Akbar, Allāhu Akbar,\n' +
-  'lā ilāha illā-llāh,\n' +
-  'Allāhu Akbar, Allāhu Akbar,\n' +
-  'wa li-llāhi l-ḥamd.\n' +
-  'Allāhu Akbaru kabīrā,\n' +
-  'wa l-ḥamdu li-llāhi kathīrā,\n' +
-  'wa subḥāna-llāhi bukratan wa aṣīlā,\n' +
-  'lā ilāha illā-llāh.'
+  'Allāhu Akbar, Allāhu Akbar, Allāhu Akbar, lā ilāha illā-llāh, ' +
+  'Allāhu Akbar, Allāhu Akbar, wa li-llāhi l-ḥamd. ' +
+  'Allāhu Akbaru kabīrā, wa l-ḥamdu li-llāhi kathīrā, ' +
+  'wa subḥāna-llāhi bukratan wa aṣīlā, lā ilāha illā-llāh.'
 
 // Couleurs or/ambre hardcodées — indépendantes du thème actif
 const GOLD_DARK   = '#7A5010'
@@ -154,22 +150,21 @@ export default function EidPage() {
       {/* ── Contenu scrollable ── */}
       <div className="flex-1 min-h-0 overflow-y-auto scrollbar-none px-4 py-5 space-y-3">
 
-        {/* Texte arabe */}
+        {/* Texte arabe avec couleurs tajweed */}
         <div
           className="rounded-2xl p-5"
           style={{ background: cardBg, border: `1px solid ${cardBorder}` }}
         >
           <p
-            className="font-arabic text-right whitespace-pre-line"
+            className="font-arabic text-right"
             style={{
               fontSize: ARABIC_FS[settings.arabicSize] ?? '1.45rem',
-              lineHeight: 2.2,
+              lineHeight: 2.1,
               color: textMain,
               direction: 'rtl',
             }}
-          >
-            {ARABIC}
-          </p>
+            dangerouslySetInnerHTML={{ __html: applyTajweedHTML(ARABIC) }}
+          />
         </div>
 
         {/* Phonétique */}
