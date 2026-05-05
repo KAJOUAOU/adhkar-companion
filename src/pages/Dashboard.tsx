@@ -302,7 +302,7 @@ export default function Dashboard() {
           className="w-full bg-white dark:bg-night-800 rounded-2xl p-4 shadow-soft border border-cream-200 dark:border-white/5 flex items-center gap-4 text-left active:scale-98 transition-transform"
         >
           <div className="w-11 h-11 bg-amber-50 dark:bg-amber-900/20 rounded-xl flex items-center justify-center flex-shrink-0 text-xl">
-            🪔
+            ☪️
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">

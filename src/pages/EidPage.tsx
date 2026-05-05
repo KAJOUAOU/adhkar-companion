@@ -106,7 +106,7 @@ export default function EidPage() {
         </button>
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-white/15 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
-            🪔
+            ☪️
           </div>
           <div>
             <h1 className="text-xl font-display font-bold text-white leading-tight">
