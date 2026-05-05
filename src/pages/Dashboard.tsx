@@ -299,19 +299,14 @@ export default function Dashboard() {
         {/* Eid Takbir */}
         <button
           onClick={() => navigate('/eid')}
-          className="w-full rounded-2xl p-4 shadow-soft border flex items-center gap-4 text-left active:scale-98 transition-transform"
-          style={{
-            background: 'linear-gradient(135deg, #0d2b1a, #1a3a20)',
-            borderColor: 'rgba(212,160,23,0.3)',
-          }}
+          className="w-full bg-white dark:bg-night-800 rounded-2xl p-4 shadow-soft border border-cream-200 dark:border-white/5 flex items-center gap-4 text-left active:scale-98 transition-transform"
         >
-          <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 text-xl"
-            style={{ background: 'rgba(212,160,23,0.2)' }}>
-            🌙
+          <div className="w-11 h-11 bg-amber-50 dark:bg-amber-900/20 rounded-xl flex items-center justify-center flex-shrink-0 text-xl">
+            🪔
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <p className="font-bold text-sm text-yellow-100">{t.eidTakbir}</p>
+              <p className="font-bold text-sm text-gray-900 dark:text-cream-100">{t.eidTakbir}</p>
               {eidStatus && (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-yellow-400 text-gray-900">
                   {eidStatus.daysUntil === 0
@@ -327,9 +322,9 @@ export default function Dashboard() {
                 </span>
               )}
             </div>
-            <p className="text-xs text-yellow-100/50 mt-0.5">{t.eidTakbirSub}</p>
+            <p className="text-xs text-gray-400 mt-0.5">{t.eidTakbirSub}</p>
           </div>
-          <ChevronRight size={18} className="text-yellow-400/50 flex-shrink-0" />
+          <ChevronRight size={18} className="text-gray-300 flex-shrink-0" />
         </button>
 
         {/* Quick access */}
