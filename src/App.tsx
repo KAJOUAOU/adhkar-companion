@@ -7,10 +7,11 @@ import NeedOfMoment from './pages/NeedOfMoment'
 import Settings     from './pages/Settings'
 import DhikrDetail  from './pages/DhikrDetail'
 import SleepAdhkar  from './pages/SleepAdhkar'
+import EidPage      from './pages/EidPage'
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-lg mx-auto relative min-h-screen">
+    <div className="max-w-lg mx-auto relative min-h-screen md:shadow-[0_0_60px_rgba(0,0,0,0.12)] md:ring-1 md:ring-black/5">
       {children}
     </div>
   )
@@ -28,6 +29,9 @@ export default function App() {
 
         {/* Sunnah de la nuit — no nav bar */}
         <Route path="/sleep" element={<SleepAdhkar />} />
+
+        {/* Eid Takbir — full screen, no nav bar */}
+        <Route path="/eid" element={<EidPage />} />
 
         {/* Main app with bottom navigation */}
         <Route path="/" element={

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { Flame, ChevronRight, Moon, Sun, Clock } from 'lucide-react'
-import { getCurrentPeriod, getGreeting, getLast30Days, getHijriDate } from '../utils/timeUtils'
+import { getCurrentPeriod, getGreeting, getLast30Days, getHijriDate, getEidStatus } from '../utils/timeUtils'
 import { getAdhkarByPeriod } from '../data/adhkar'
 import { loadSession } from '../services/storageService'
 import { useStreak } from '../hooks/useStreak'
@@ -88,6 +88,7 @@ export default function Dashboard() {
   const quote         = getQuoteOfDay(lang)
   const hijriDate     = getHijriDate()
 
+  const eidStatus = getEidStatus()
   const morningSession = loadSession('morning')
   const eveningSession = loadSession('evening')
   const morningList    = getAdhkarByPeriod('morning')
@@ -294,6 +295,42 @@ export default function Dashboard() {
             </button>
           )
         })()}
+
+        {/* Eid Takbir */}
+        <button
+          onClick={() => navigate('/eid')}
+          className="w-full rounded-2xl p-4 shadow-soft border flex items-center gap-4 text-left active:scale-98 transition-transform"
+          style={{
+            background: 'linear-gradient(135deg, #0d2b1a, #1a3a20)',
+            borderColor: 'rgba(212,160,23,0.3)',
+          }}
+        >
+          <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 text-xl"
+            style={{ background: 'rgba(212,160,23,0.2)' }}>
+            🌙
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <p className="font-bold text-sm text-yellow-100">{t.eidTakbir}</p>
+              {eidStatus && (
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-yellow-400 text-gray-900">
+                  {eidStatus.daysUntil === 0
+                    ? t.eidToday
+                    : eidStatus.daysUntil === 1
+                      ? t.eidTomorrow
+                      : t.eidDays(eidStatus.daysUntil)}
+                </span>
+              )}
+              {eidStatus && (
+                <span className="text-[10px] font-medium text-yellow-300/70">
+                  {eidStatus.type === 'fitr' ? t.eidFitr : t.eidAdha}
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-yellow-100/50 mt-0.5">{t.eidTakbirSub}</p>
+          </div>
+          <ChevronRight size={18} className="text-yellow-400/50 flex-shrink-0" />
+        </button>
 
         {/* Quick access */}
         <div className="grid grid-cols-2 gap-3">

@@ -61,6 +61,26 @@ export function formatTime(seconds: number): string {
   return `${m}:${s.toString().padStart(2, '0')}`
 }
 
+const EID_DATES: { type: 'fitr' | 'adha'; date: string }[] = [
+  { type: 'fitr', date: '2025-03-30' },
+  { type: 'adha', date: '2025-06-06' },
+  { type: 'fitr', date: '2026-03-20' },
+  { type: 'adha', date: '2026-05-27' },
+  { type: 'fitr', date: '2027-03-09' },
+  { type: 'adha', date: '2027-05-16' },
+]
+
+export function getEidStatus(): { type: 'fitr' | 'adha'; daysUntil: number } | null {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  for (const eid of EID_DATES) {
+    const eidDate = new Date(eid.date)
+    const diff = Math.round((eidDate.getTime() - today.getTime()) / 86400000)
+    if (diff >= -1 && diff <= 5) return { type: eid.type, daysUntil: diff }
+  }
+  return null
+}
+
 export function getHijriDate(): string {
   try {
     return new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {

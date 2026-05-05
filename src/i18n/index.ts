@@ -16,6 +16,9 @@ export const T = {
       browse: 'Parcourir', browseSub: 'Toutes les invocations',
       record: 'Record', days: 'jours', done: '✓ Terminé', notStarted: 'Non commencé',
       invocations: 'invocations', friday: "Aujourd'hui",
+      eidTakbir: 'Takbir de l\'Aïd', eidTakbirSub: 'Allahu Akbar — en attendant la prière',
+      eidFitr: 'Aïd al-Fitr', eidAdha: 'Aïd al-Adha',
+      eidToday: 'Aujourd\'hui !', eidTomorrow: 'Demain', eidDays: (n: number) => `Dans ${n} jours`,
     },
     session: {
       mode2min: 'Mode 2 min', learning: 'Apprentissage',
@@ -64,6 +67,16 @@ export const T = {
       morning: 'Matin', evening: 'Soir', bothPeriod: 'Matin & Soir',
       share: 'Partager', copied: 'Copié !', recited: 'Récité', redo: 'Refaire', merit: '✨ Mérite',
     },
+    eid: {
+      title: 'Takbir de l\'Aïd', short: 'Courte', long: 'Longue',
+      fitr: 'Aïd al-Fitr', adha: 'Aïd al-Adha',
+      translationLabel: 'Traduction', translitLabel: 'Phonétique',
+      playLoop: 'Lancer en boucle', stop: 'Arrêter',
+      playing: 'En cours…',
+      translationShort: "Allah est le Plus Grand, Allah est le Plus Grand, il n'y a de divinité qu'Allah, Allah est le Plus Grand, Allah est le Plus Grand, et à Allah appartient toute louange.",
+      translationLong: "Allah est le Plus Grand (×3), il n'y a de divinité qu'Allah, Allah est le Plus Grand, Allah est le Plus Grand, et à Allah appartient toute louange. Allah est vraiment le Plus Grand, et toute louange est à Allah en abondance, et Gloire à Allah matin et soir. Il n'y a de divinité qu'Allah, Seul, Il a tenu Sa promesse, secouru Son serviteur, renforcé Ses armées et mis en fuite les coalisés, Seul. Il n'y a de divinité qu'Allah, et nous n'adorons que Lui, en Lui vouant sincèrement la religion, même si les mécréants détestent cela. Ô Allah, envoie Tes grâces sur notre Seigneur Muhammad, sur sa famille, ses compagnons, ses partisans, ses épouses et sa descendance, et accorde-lui la paix en abondance.",
+      back: 'Retour',
+    },
     needTags: {
       protection: { label: 'Protection',      description: 'Se protéger des maux et du mal' },
       apaisement: { label: 'Apaisement',       description: 'Trouver la paix intérieure' },
@@ -90,6 +103,9 @@ export const T = {
       browse: 'Browse', browseSub: 'All invocations',
       record: 'Record', days: 'days', done: '✓ Completed', notStarted: 'Not started',
       invocations: 'invocations', friday: 'Today',
+      eidTakbir: 'Eid Takbir', eidTakbirSub: 'Allahu Akbar — while waiting for prayer',
+      eidFitr: 'Eid al-Fitr', eidAdha: 'Eid al-Adha',
+      eidToday: 'Today!', eidTomorrow: 'Tomorrow', eidDays: (n: number) => `In ${n} days`,
     },
     session: {
       mode2min: '2-min mode', learning: 'Learning',
@@ -137,6 +153,16 @@ export const T = {
     card: {
       morning: 'Morning', evening: 'Evening', bothPeriod: 'Morning & Evening',
       share: 'Share', copied: 'Copied!', recited: 'Recited', redo: 'Redo', merit: '✨ Virtue',
+    },
+    eid: {
+      title: 'Eid Takbir', short: 'Short', long: 'Long',
+      fitr: 'Eid al-Fitr', adha: 'Eid al-Adha',
+      translationLabel: 'Translation', translitLabel: 'Phonetic',
+      playLoop: 'Play in loop', stop: 'Stop',
+      playing: 'Playing…',
+      translationShort: "Allah is the Greatest, Allah is the Greatest, there is no deity but Allah, Allah is the Greatest, Allah is the Greatest, and to Allah belongs all praise.",
+      translationLong: "Allah is the Greatest (×3), there is no deity but Allah, Allah is the Greatest, Allah is the Greatest, and to Allah belongs all praise. Allah is truly the Greatest, and abundant praise belongs to Allah, and glory be to Allah morning and evening. There is no deity but Allah alone; He fulfilled His promise, aided His servant, reinforced His armies, and defeated the confederates alone. There is no deity but Allah, and we worship none but Him, sincerely devoting religion to Him, even if the disbelievers dislike that. O Allah, send blessings upon our master Muhammad, his family, companions, supporters, wives and descendants, and grant him abundant peace.",
+      back: 'Back',
     },
     needTags: {
       protection: { label: 'Protection',       description: 'Protection against harm and evil' },
