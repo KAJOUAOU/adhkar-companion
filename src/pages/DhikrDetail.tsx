@@ -6,6 +6,7 @@ import { useAudio } from '../hooks/useAudio'
 import { loadSession, saveSession } from '../services/storageService'
 import { useState } from 'react'
 import AdhkarCard from '../components/AdhkarCard'
+import IslamicPattern from '../components/IslamicPattern'
 
 export default function DhikrDetail() {
   const { id } = useParams<{ id: string }>()
@@ -63,14 +64,15 @@ export default function DhikrDetail() {
   return (
     <div className="min-h-screen bg-cream-100 dark:bg-night-950 pb-10">
       {/* Header */}
-      <div className="bg-white dark:bg-night-900 border-b border-cream-200 dark:border-white/10 px-5 pt-safe pt-12 pb-5 flex items-center gap-3">
+      <div className="relative overflow-hidden bg-white dark:bg-night-900 border-b border-cream-200 dark:border-white/10 px-5 pt-safe pt-12 pb-5 flex items-center gap-3">
+        <IslamicPattern className="text-forest-800 dark:text-forest-400" opacity={0.06} />
         <button
           onClick={() => navigate(-1)}
-          className="p-2 -ml-1 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-cream-100 dark:hover:bg-night-800 transition-colors"
+          className="relative z-10 p-2 -ml-1 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-cream-100 dark:hover:bg-night-800 transition-colors"
         >
           <ArrowLeft size={20} />
         </button>
-        <div>
+        <div className="relative z-10">
           <h1 className="text-lg font-display font-bold text-gray-900 dark:text-cream-100 leading-tight">
             {item.title}
           </h1>

@@ -5,6 +5,7 @@ import { useSettings } from '../hooks/useSettings'
 import { useAudio } from '../hooks/useAudio'
 import { SLEEP_ADHKAR } from '../data/sleepAdhkar'
 import { applyTajweedHTML } from '../utils/tajweedUtils'
+import IslamicPattern from '../components/IslamicPattern'
 
 export default function SleepAdhkar() {
   const navigate = useNavigate()
@@ -25,12 +26,14 @@ export default function SleepAdhkar() {
 
       {/* Header */}
       <div
-        className="relative border-b border-white/10 px-5 pb-6"
+        className="relative overflow-hidden border-b border-white/10 px-5 pb-6"
         style={{
           background: 'linear-gradient(150deg, #1a1035, #2d1b5e)',
           paddingTop: 'max(env(safe-area-inset-top, 0px), 48px)',
         }}
       >
+        <IslamicPattern className="text-white" opacity={0.10} />
+        <div className="relative z-10">
         <button
           onClick={() => navigate(-1)}
           className="p-2 -ml-1 rounded-xl text-white/60 hover:bg-white/10 transition-colors mb-3"
@@ -49,6 +52,7 @@ export default function SleepAdhkar() {
               Avant de dormir — {SLEEP_ADHKAR.length} invocations
             </p>
           </div>
+        </div>
         </div>
       </div>
 
