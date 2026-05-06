@@ -564,7 +564,7 @@ export default function ImmersiveMode() {
               )}
 
               {/* ── Mode toggle ───────────────────────────────── */}
-              {!learningMode && currentAdhkar.audioArabicUrl && currentAdhkar.repeat > 1 && (
+              {!learningMode && currentAdhkar.audioArabicUrl && (
                 <div className="flex items-center justify-center gap-2 flex-shrink-0">
                   <span className="text-[10px]" style={{ color: c.textMuted }}>{ts.modeLabel}</span>
                   <button
@@ -611,7 +611,7 @@ export default function ImmersiveMode() {
               )}
 
               {/* ── Auto-récitation ───────────────────────────── */}
-              {!learningMode && currentAdhkar.audioArabicUrl && currentAdhkar.repeat > 1 && audioMode === 'auto' && (
+              {!learningMode && currentAdhkar.audioArabicUrl && audioMode === 'auto' && (
                 <div className="flex flex-col items-center gap-2 flex-shrink-0">
                   {!autoRunning ? (
                     <div className="flex flex-col items-center gap-1">
