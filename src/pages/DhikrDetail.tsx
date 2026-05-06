@@ -7,6 +7,7 @@ import { loadSession, saveSession } from '../services/storageService'
 import { useState } from 'react'
 import AdhkarCard from '../components/AdhkarCard'
 import IslamicPattern from '../components/IslamicPattern'
+import SeoHead from '../components/SeoHead'
 
 export default function DhikrDetail() {
   const { id } = useParams<{ id: string }>()
@@ -63,6 +64,11 @@ export default function DhikrDetail() {
 
   return (
     <div className="min-h-screen bg-cream-100 dark:bg-night-950 pb-10">
+      <SeoHead
+        title={`${item.title} — ${item.titleAr} | Adhkar Companion`}
+        description={`Récitez "${item.title}" (${item.titleAr}) ${item.repeat} fois selon la Sunnah. Texte arabe avec tajweed, translittération et traduction en français.`}
+        canonical={`/dhikr/${item.id}`}
+      />
       {/* Header */}
       <div className="relative overflow-hidden bg-white dark:bg-night-900 border-b border-cream-200 dark:border-white/10 px-5 pt-safe pt-12 pb-5 flex items-center gap-3">
         <IslamicPattern className="text-forest-800 dark:text-forest-400" opacity={0.06} />

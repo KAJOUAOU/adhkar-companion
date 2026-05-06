@@ -9,6 +9,7 @@ import { loadSession, saveSession } from '../services/storageService'
 import { getAdhkarByPeriod } from '../data/adhkar'
 import AdhkarCard from '../components/AdhkarCard'
 import { getT } from '../i18n'
+import SeoHead from '../components/SeoHead'
 
 type Filter = 'all' | 'morning' | 'evening' | 'both' | 'favorites'
 
@@ -88,6 +89,12 @@ export default function CardsMode() {
 
   return (
     <div className="min-h-screen bg-cream-100 dark:bg-night-950 pb-28">
+      <SeoHead
+        title="Bibliothèque des adhkar — Parcourir toutes les invocations islamiques | Adhkar Companion"
+        description="Explorez les 32 adhkar du matin et du soir : invocations coraniques, tasbih, salawat. Filtrez par période, recherchez par mot-clé, sauvegardez vos favoris."
+        canonical="/browse"
+        keywords="liste adhkar, invocations islamiques, tasbih, salawat, subhanallah, alhamdulillah, allahu akbar, al-ikhlas, al-falaq, an-nas, al-mulk"
+      />
       {/* Header */}
       <div className="bg-white dark:bg-night-900 border-b border-cream-200 dark:border-white/10 px-5 pt-safe pt-12 pb-4 sticky top-0 z-20">
         <h1 className="text-xl font-display font-bold text-gray-900 dark:text-cream-100 mb-4">

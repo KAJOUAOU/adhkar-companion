@@ -5,6 +5,7 @@ import { useSettings } from '../hooks/useSettings'
 import { getT } from '../i18n'
 import { applyTajweedHTML } from '../utils/tajweedUtils'
 import IslamicPattern from '../components/IslamicPattern'
+import SeoHead from '../components/SeoHead'
 
 const AUDIO_SRC = '/audio/ar/takbir-eid.mp3'
 
@@ -108,6 +109,12 @@ export default function EidPage() {
 
   return (
     <div className="h-dvh flex flex-col overflow-hidden" style={{ background: surfaceBg }}>
+      <SeoHead
+        title="Takbir de l'Aïd — Formule complète avec audio | Adhkar Companion"
+        description="Récitez le Takbir de l'Aïd Al-Fitr et Al-Adha avec la formule complète en arabe, translittération et audio. Allâhu Akbar Kabîrâ… selon la Sunnah."
+        canonical="/eid"
+        keywords="takbir eid, takbir al-fitr, takbir al-adha, allahu akbar eid, formule eid islam, invocation eid, dhikr eid"
+      />
 
       {/* ── Header avec motif islamique ── */}
       <div

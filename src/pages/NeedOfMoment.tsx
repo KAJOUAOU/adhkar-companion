@@ -6,6 +6,7 @@ import { useAudio } from '../hooks/useAudio'
 import { loadSession, saveSession } from '../services/storageService'
 import AdhkarCard from '../components/AdhkarCard'
 import { getT } from '../i18n'
+import SeoHead from '../components/SeoHead'
 
 export default function NeedOfMoment() {
   const [selected, setSelected] = useState<string | null>(null)
@@ -52,6 +53,12 @@ export default function NeedOfMoment() {
 
   return (
     <div className="min-h-screen bg-cream-100 dark:bg-night-950 pb-28">
+      <SeoHead
+        title="Invocation selon mon besoin — Protection, Pardon, Apaisement | Adhkar Companion"
+        description="Trouvez l'invocation islamique adaptée à votre état spirituel : protection, pardon, apaisement, gratitude, tawakkul, foi. Duaa et adhkar selon la Sunnah."
+        canonical="/need"
+        keywords="duaa protection, invocation pardon, invocation apaisement, tawakkul, dua anxiete, invocation gratitude, dhikr foi, invocation islamique selon besoin"
+      />
       {/* Header */}
       <div className="bg-white dark:bg-night-900 border-b border-cream-200 dark:border-white/10 px-5 pt-safe pt-12 pb-6">
         <h1 className="text-xl font-display font-bold text-gray-900 dark:text-cream-100 mb-1">

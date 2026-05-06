@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { Flame, ChevronRight, Moon, Sun, Clock } from 'lucide-react'
+import SeoHead from '../components/SeoHead'
 import { getCurrentPeriod, getGreeting, getLast30Days, getHijriDate, getEidStatus } from '../utils/timeUtils'
 import { getAdhkarByPeriod } from '../data/adhkar'
 import { loadSession } from '../services/storageService'
@@ -101,6 +102,12 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen pb-24 overflow-y-auto scrollbar-none touch-pan-y">
+      <SeoHead
+        title="Adhkar du matin et du soir | Application dhikr islamique"
+        description="Récitez adhkar du matin et du soir selon la Sunnah du Prophète. 32 invocations authentiques, tajweed coloré, compteur de dhikr, streak et mode immersif. Gratuit."
+        canonical="/"
+        keywords="adhkar du matin et du soir, adhkar du matin, adhkar du soir, invocations islamiques, dhikr quotidien, askar du matin, askar du soir, zikr, wird, duaa"
+      />
 
       {/* Hero header */}
       <div className="relative" style={{ background: 'var(--t-hero, linear-gradient(150deg,#6E5010,#8B6914))' }}>

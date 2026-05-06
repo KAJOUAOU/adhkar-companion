@@ -10,6 +10,7 @@ import AudioPlayer from '../components/AudioPlayer'
 import Counter from '../components/Counter'
 import { BG_THEMES, DEFAULT_SESSION_BG } from '../data/backgrounds'
 import { getT } from '../i18n'
+import SeoHead from '../components/SeoHead'
 
 const ARABIC_SIZES: Record<string, string> = {
   md:   'text-xl',
@@ -321,6 +322,15 @@ export default function ImmersiveMode() {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
+      <SeoHead
+        title={period === 'morning'
+          ? 'Adhkar du matin — Session immersive | Adhkar Companion'
+          : 'Adhkar du soir — Session immersive | Adhkar Companion'}
+        description={period === 'morning'
+          ? 'Récitez vos adhkar du matin en mode immersif. 32 invocations selon la Sunnah avec tajweed coloré et compteur. Commencez votre journée avec le dhikr.'
+          : 'Récitez vos adhkar du soir en mode immersif. 32 invocations selon la Sunnah avec tajweed coloré et compteur. Terminez votre journée avec le dhikr.'}
+        canonical={`/session/${period}`}
+      />
       {/* ── Contenu centré — respecte le cadre du fond ────────── */}
       <div className="flex flex-col h-full w-full max-w-[850px] mx-auto">
 

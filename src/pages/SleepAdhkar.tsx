@@ -6,6 +6,7 @@ import { useAudio } from '../hooks/useAudio'
 import { SLEEP_ADHKAR } from '../data/sleepAdhkar'
 import { applyTajweedHTML } from '../utils/tajweedUtils'
 import IslamicPattern from '../components/IslamicPattern'
+import SeoHead from '../components/SeoHead'
 
 export default function SleepAdhkar() {
   const navigate = useNavigate()
@@ -23,6 +24,12 @@ export default function SleepAdhkar() {
 
   return (
     <div className="min-h-screen bg-cream-100 dark:bg-night-950 pb-10">
+      <SeoHead
+        title="Sunnah de la nuit — Invocations avant le sommeil | Adhkar Companion"
+        description="Les adhkar et invocations islamiques à réciter avant de dormir selon la Sunnah : Ayat Al-Kursi, Al-Ikhlas, Al-Falaq, An-Nas, salawat. Sunnah de la nuit."
+        canonical="/sleep"
+        keywords="adhkar avant de dormir, invocation sommeil islam, sunnah de la nuit, ayat al-kursi avant sommeil, sourate avant dormir, dhikr nuit"
+      />
 
       {/* Header */}
       <div
