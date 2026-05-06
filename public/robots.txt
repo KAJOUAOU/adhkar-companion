@@ -1,4 +1,79 @@
-User-agent: *
+# ═══════════════════════════════════════════════
+#  Adhkar Companion — robots.txt
+#  https://www.adhkar-companion.com
+# ═══════════════════════════════════════════════
+
+# ── Googlebot (web + mobile) ──────────────────
+User-agent: Googlebot
+Allow: /
+Allow: /session/
+Allow: /browse
+Allow: /need
+Allow: /sleep
+Allow: /eid
+Allow: /dhikr/
+Disallow: /assets/
+Disallow: /sw.js
+Disallow: /workbox-*.js
+Disallow: /registerSW.js
+
+# ── Bingbot ───────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Disallow: /assets/
+Disallow: /sw.js
+Disallow: /workbox-*.js
+Disallow: /registerSW.js
+
+# ── GPTBot (OpenAI) ───────────────────────────
+User-agent: GPTBot
+Allow: /
+Allow: /session/
+Allow: /browse
+Allow: /need
+Allow: /sleep
+Allow: /eid
+Allow: /dhikr/
+Disallow: /assets/
+
+# ── Claude-Web (Anthropic) ────────────────────
+User-agent: Claude-Web
 Allow: /
 
+# ── PerplexityBot ─────────────────────────────
+User-agent: PerplexityBot
+Allow: /
+
+# ── Applebot ──────────────────────────────────
+User-agent: Applebot
+Allow: /
+Disallow: /assets/
+
+# ── Bots de scraping / spam ───────────────────
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+# ── Tous les autres ───────────────────────────
+User-agent: *
+Allow: /
+Disallow: /assets/
+Disallow: /sw.js
+Disallow: /workbox-*.js
+Disallow: /registerSW.js
+Crawl-delay: 2
+
+# ── Sitemaps ──────────────────────────────────
+Sitemap: https://www.adhkar-companion.com/sitemap.xml
 Sitemap: https://adhkar-companion.com/sitemap.xml
