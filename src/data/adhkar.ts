@@ -26,6 +26,7 @@ export const ADHKAR_DATA: AdhkarItem[] = [
     tags: ['protection', 'foi'],
     audioArabicUrl: '/audio/ar/ayat-kursi.mp3',
     isEssential: true,
+    isQuran: true,
   },
 
   // ─── 2. Sourate Al-Ikhlâs ×3 ──────────────────────────────────────────────
@@ -47,6 +48,7 @@ export const ADHKAR_DATA: AdhkarItem[] = [
     tags: ['protection', 'foi'],
     audioArabicUrl: '/audio/ar/al-ikhlas.mp3',
     isEssential: true,
+    isQuran: true,
   },
 
   // ─── 3. Sourate Al-Falaq ×3 ───────────────────────────────────────────────
@@ -68,6 +70,7 @@ export const ADHKAR_DATA: AdhkarItem[] = [
     tags: ['protection', 'apaisement'],
     audioArabicUrl: '/audio/ar/al-falaq.mp3',
     isEssential: true,
+    isQuran: true,
   },
 
   // ─── 4. Sourate An-Nâs ×3 ─────────────────────────────────────────────────
@@ -89,6 +92,7 @@ export const ADHKAR_DATA: AdhkarItem[] = [
     tags: ['protection', 'apaisement', 'anxiete'],
     audioArabicUrl: '/audio/ar/an-nas.mp3',
     isEssential: true,
+    isQuran: true,
   },
 
   // ─── 5. Bismillah — Protection ×3 ─────────────────────────────────────────

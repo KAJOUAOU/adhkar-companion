@@ -304,7 +304,7 @@ export default function ImmersiveMode() {
 
   if (!currentAdhkar) return null
 
-  const tajweedHtml = applyTajweedHTML(currentAdhkar.arabic)
+  const tajweedHtml = currentAdhkar.isQuran ? applyTajweedHTML(currentAdhkar.arabic) : currentAdhkar.arabic
   const counterVal  = getCounter(currentAdhkar.id)
   const itemDone    = isItemDone(currentAdhkar.id)
   const toggleTab   = (tab: Tab) => setActiveTab(prev => prev === tab ? null : tab)
@@ -497,13 +497,15 @@ export default function ImmersiveMode() {
                 />
               </div>
 
-              {/* ── Tajweed legend ────────────────────────────── */}
-              <div className="flex-shrink-0 flex flex-wrap gap-x-3 gap-y-0.5 text-[9px]" style={{ color: c.textMuted }}>
-                <span><span style={{ color: '#CC0000' }}>■</span> Madd</span>
-                <span><span style={{ color: '#16A34A' }}>■</span> Ghunna</span>
-                <span><span style={{ color: '#38BDF8' }}>■</span> Qalqalah</span>
-                <span><span style={{ color: '#1E40AF' }}>■</span> Tafkheem</span>
-              </div>
+              {/* ── Tajweed legend — uniquement pour les sourates coraniques ── */}
+              {currentAdhkar.isQuran && (
+                <div className="flex-shrink-0 flex flex-wrap gap-x-3 gap-y-0.5 text-[9px]" style={{ color: c.textMuted }}>
+                  <span><span style={{ color: '#CC0000' }}>■</span> Madd</span>
+                  <span><span style={{ color: '#16A34A' }}>■</span> Ghunna</span>
+                  <span><span style={{ color: '#38BDF8' }}>■</span> Qalqalah</span>
+                  <span><span style={{ color: '#1E40AF' }}>■</span> Tafkheem</span>
+                </div>
+              )}
 
               {/* ── Tab pills — taille au contenu ─────────────── */}
               <div className="flex gap-1.5 flex-shrink-0 flex-wrap justify-center">

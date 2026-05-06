@@ -187,7 +187,7 @@ export default function EidPage() {
               color: textMain,
               direction: 'rtl',
             }}
-            dangerouslySetInnerHTML={{ __html: applyTajweedHTML(ARABIC) }}
+            dangerouslySetInnerHTML={{ __html: ARABIC }}
           />
         </div>
 

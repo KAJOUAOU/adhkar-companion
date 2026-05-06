@@ -63,7 +63,7 @@ export default function AdhkarCard({
   }
   // Use first line only for subItems (tasbih) display in arabic area
   const displayArabic = item.subItems ? item.arabic.split('\n')[0] : item.arabic
-  const tajweedHtml   = applyTajweedHTML(displayArabic)
+  const tajweedHtml   = item.isQuran ? applyTajweedHTML(displayArabic) : displayArabic
 
   const PERIOD_LABEL: Record<string, string> = {
     both: tc.bothPeriod, morning: tc.morning, evening: tc.evening,

@@ -42,6 +42,7 @@ export interface AdhkarItem {
   audioArabicUrl?: string
   audioFrenchUrl?: string
   isEssential?: boolean      // used in "2 min mode"
+  isQuran?: boolean          // true = Quranic text → apply tajweed colors
   subItems?: AdhkarSubItem[] // for tasbih multi-formula
 }
 

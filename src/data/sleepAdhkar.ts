@@ -12,6 +12,7 @@ export interface SleepItem {
   merit?: string
   source?: string
   audioArabicUrl?: string
+  isQuran?: boolean
 }
 
 const ayatKursi = getAdhkarById('ayat-kursi')
@@ -29,6 +30,7 @@ export const SLEEP_ADHKAR: SleepItem[] = [
     merit: "Le Prophète ﷺ a dit : « Une sourate du Coran de trente versets intercédera pour son lecteur jusqu'à ce qu'il soit pardonné : تَبَارَكَ ٱلَّذِى بِيَدِهِ ٱلْمُلْكُ » — c'est Al-Mulk.",
     source: 'Abou Dawoud, At-Tirmidhi, Ibn Maja',
     audioArabicUrl: '/audio/ar/al-mulk.mp3',
+    isQuran: true,
   },
 
   {
@@ -42,6 +44,7 @@ export const SLEEP_ADHKAR: SleepItem[] = [
     merit: "Celui qui récite Ayat al-Kursi avant de dormir, Allah lui désigne un ange pour le protéger toute la nuit et le Shaytan ne peut l'approcher jusqu'au matin.",
     source: 'Bukhari',
     audioArabicUrl: '/audio/ar/ayat-kursi.mp3',
+    isQuran: true,
   },
 
   {
@@ -55,5 +58,6 @@ export const SLEEP_ADHKAR: SleepItem[] = [
     merit: "Le Prophète ﷺ a dit : « Deux versets de la fin de la Sourate Al-Baqara suffisent à celui qui les récite pendant la nuit. »",
     source: 'Bukhari & Muslim',
     audioArabicUrl: '/audio/ar/baqarah-285-286.mp3',
+    isQuran: true,
   },
 ]

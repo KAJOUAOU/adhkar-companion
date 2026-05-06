@@ -93,7 +93,7 @@ export default function SleepAdhkar() {
                 <div>
                   <p
                     className={`text-right leading-loose text-gray-900 dark:text-cream-100 font-arabic ${arabicSizeClass} ${!isExpanded ? 'line-clamp-4' : ''}`}
-                    dangerouslySetInnerHTML={{ __html: applyTajweedHTML(item.arabic) }}
+                    dangerouslySetInnerHTML={{ __html: item.isQuran ? applyTajweedHTML(item.arabic) : item.arabic }}
                   />
                   {isLong && (
                     <button
