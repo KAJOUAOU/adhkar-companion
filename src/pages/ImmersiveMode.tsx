@@ -501,9 +501,11 @@ export default function ImmersiveMode() {
               {currentAdhkar.isQuran && (
                 <div className="flex-shrink-0 flex flex-wrap gap-x-3 gap-y-0.5 text-[9px]" style={{ color: c.textMuted }}>
                   <span><span style={{ color: '#CC0000' }}>■</span> Madd</span>
+                  <span><span style={{ color: '#7F1D1D' }}>■</span> Madd long (4-6t)</span>
                   <span><span style={{ color: '#16A34A' }}>■</span> Ghunna</span>
-                  <span><span style={{ color: '#38BDF8' }}>■</span> Qalqalah</span>
-                  <span><span style={{ color: '#1E40AF' }}>■</span> Tafkheem</span>
+                  <span><span style={{ color: '#38BDF8' }}>■</span> Qalqala</span>
+                  <span><span style={{ color: '#1E40AF' }}>■</span> Tafkhim ر</span>
+                  <span><span style={{ color: '#92400E' }}>■</span> Lām Allah</span>
                 </div>
               )}
 
