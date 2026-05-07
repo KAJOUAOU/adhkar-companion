@@ -30,14 +30,8 @@
 
 /* ─── Arabic text ────────────────────────────────────────────── */
 .font-arabic {
-  font-family: 'Amiri Quran', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', 'Traditional Arabic', 'Geeza Pro', serif;
+  font-family: 'Amiri', 'Noto Naskh Arabic', serif;
   unicode-bidi: embed;
-  /* Active explicitement les features OpenType arabes : ligatures + shaping contextuel */
-  font-feature-settings: "liga" 1, "dlig" 1, "calt" 1, "rlig" 1, "ccmp" 1, "isol" 1, "init" 1, "medi" 1, "fina" 1;
-  -webkit-font-feature-settings: "liga" 1, "dlig" 1, "calt" 1, "rlig" 1, "ccmp" 1, "isol" 1, "init" 1, "medi" 1, "fina" 1;
-  /* Pas d'espacement entre lettres — laisse la police gérer la ligature de Allah */
-  letter-spacing: 0;
-  word-spacing: normal;
 }
 
 [dir="rtl"] { direction: rtl; text-align: right; }
@@ -51,11 +45,16 @@
 .scrollbar-none { scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 
-/* ─── Tajweed v6 — Hafs ʿan ʿĀṣim, schéma simplifié 4 couleurs ──────────── */
-.tj-madd          { color: #DC2626; }                     /* Rouge — Madd (toute prolongation)            */
-.tj-ghunna        { color: #16A34A; font-weight: 700; }   /* Vert  — Ghunna + nasalisations (ikhfa, iqlab, idgham, shafawi) */
-.tj-qalqalah      { color: #2563EB; font-weight: 700; }   /* Bleu  — Qalqala (ق ط ب ج د en sakin/waqf)    */
-.tj-tafkheem-lam  { color: #92400E; font-weight: 700; }   /* Brun  — لام de الله après fatha/damma         */
+/* ─── Tajweed colors — Dar al-Ma'rifah / Hafs 'an 'Asim ─────────────────── */
+.tj-madd            { color: #CC0000; }                     /* Rouge    — Madd (toute prolongation)       */
+.tj-ghunna          { color: #16A34A; font-weight: 700; }  /* Vert     — Ghunna (nasalisation 2 temps)   */
+.tj-idghaam         { color: #16A34A; font-weight: 700; }  /* Vert     — Idghâm bi Ghunna (= Ghunna)     */
+.tj-ikhfaa          { color: #16A34A; }                     /* Vert     — Ikhfâ' (nasalité atténuée)      */
+.tj-iqlab           { color: #16A34A; font-weight: 700; }  /* Vert     — Iqlab (ن→م nasal)               */
+.tj-ikhfaa-shafawi  { color: #16A34A; }                     /* Vert     — Ikhfâ' Šafawi (م + ب)          */
+.tj-idghaam-shafawi { color: #16A34A; font-weight: 700; }  /* Vert     — Idghâm Šafawi (م + م)           */
+.tj-qalqalah        { color: #38BDF8; font-weight: 800; }  /* Bleu ciel — Qalqalah (ق ط ب ج د)          */
+.tj-tafkheem        { color: #1E40AF; font-weight: 600; }  /* Bleu foncé — Ra' / Tafkheem                */
 
 /* ─── Custom utilities ──────────────────────────────────────── */
 @layer utilities {
