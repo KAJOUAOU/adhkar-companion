@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Heart, ChevronDown, ChevronUp, Check, RotateCcw, Share2, CheckCheck } from 'lucide-react'
 import type { AdhkarItem } from '../types'
 import type { AudioState } from '../types'
-import { applyTajweedHTML } from '../utils/tajweedUtils'
 import AudioPlayer from './AudioPlayer'
 import Counter from './Counter'
 import { useSettings } from '../hooks/useSettings'
@@ -63,7 +62,6 @@ export default function AdhkarCard({
   }
   // Use first line only for subItems (tasbih) display in arabic area
   const displayArabic = item.subItems ? item.arabic.split('\n')[0] : item.arabic
-  const tajweedHtml   = item.isQuran ? applyTajweedHTML(displayArabic) : displayArabic
 
   const PERIOD_LABEL: Record<string, string> = {
     both: tc.bothPeriod, morning: tc.morning, evening: tc.evening,
@@ -117,10 +115,11 @@ export default function AdhkarCard({
       {/* Arabic text */}
       <div className="px-5 py-4 bg-gradient-to-b from-cream-50 to-white dark:from-night-900 dark:to-night-800 border-y border-cream-100 dark:border-white/5">
         <p
-          className={`font-arabic leading-loose text-right dir-rtl text-gray-900 dark:text-cream-100 ${ARABIC_SIZES[arabicSize] || 'text-[2.1rem]'}`}
+          className={`font-arabic leading-loose text-right dir-rtl whitespace-pre-line text-gray-900 dark:text-cream-100 ${ARABIC_SIZES[arabicSize] || 'text-[2.1rem]'}`}
           dir="rtl"
-          dangerouslySetInnerHTML={{ __html: tajweedHtml }}
-        />
+        >
+          {displayArabic}
+        </p>
       </div>
 
       {/* Transliteration */}

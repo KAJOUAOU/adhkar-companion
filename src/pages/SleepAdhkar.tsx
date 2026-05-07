@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useSettings } from '../hooks/useSettings'
 import { useAudio } from '../hooks/useAudio'
 import { SLEEP_ADHKAR } from '../data/sleepAdhkar'
-import { applyTajweedHTML } from '../utils/tajweedUtils'
 import IslamicPattern from '../components/IslamicPattern'
 import SeoHead from '../components/SeoHead'
 
@@ -92,9 +91,10 @@ export default function SleepAdhkar() {
                 {/* Arabic */}
                 <div>
                   <p
-                    className={`text-right leading-loose text-gray-900 dark:text-cream-100 font-arabic ${arabicSizeClass} ${!isExpanded ? 'line-clamp-4' : ''}`}
-                    dangerouslySetInnerHTML={{ __html: item.isQuran ? applyTajweedHTML(item.arabic) : item.arabic }}
-                  />
+                    className={`text-right leading-loose whitespace-pre-line text-gray-900 dark:text-cream-100 font-arabic ${arabicSizeClass} ${!isExpanded ? 'line-clamp-4' : ''}`}
+                  >
+                    {item.arabic}
+                  </p>
                   {isLong && (
                     <button
                       onClick={() => toggle(item.id)}

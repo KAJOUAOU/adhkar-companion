@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Play, Square } from 'lucide-react'
 import { useSettings } from '../hooks/useSettings'
 import { getT } from '../i18n'
-import { applyTajweedHTML } from '../utils/tajweedUtils'
 import IslamicPattern from '../components/IslamicPattern'
 import SeoHead from '../components/SeoHead'
 

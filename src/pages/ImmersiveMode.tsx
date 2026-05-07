@@ -5,7 +5,6 @@ import { useAdhkar, useEssentialAdhkar } from '../hooks/useAdhkar'
 import { useAudio } from '../hooks/useAudio'
 import { useSettings } from '../hooks/useSettings'
 import { useStreak } from '../hooks/useStreak'
-import { applyTajweedHTML } from '../utils/tajweedUtils'
 import AudioPlayer from '../components/AudioPlayer'
 import Counter from '../components/Counter'
 import { BG_THEMES, DEFAULT_SESSION_BG } from '../data/backgrounds'
@@ -304,7 +303,6 @@ export default function ImmersiveMode() {
 
   if (!currentAdhkar) return null
 
-  const tajweedHtml = currentAdhkar.isQuran ? applyTajweedHTML(currentAdhkar.arabic) : currentAdhkar.arabic
   const counterVal  = getCounter(currentAdhkar.id)
   const itemDone    = isItemDone(currentAdhkar.id)
   const toggleTab   = (tab: Tab) => setActiveTab(prev => prev === tab ? null : tab)
@@ -490,22 +488,13 @@ export default function ImmersiveMode() {
               {/* ── Arabic text ───────────────────────────────── */}
               <div className="flex-shrink-0 max-h-[26vh] overflow-y-auto scrollbar-none">
                 <p
-                  className={`font-arabic leading-[1.9] text-right ${ARABIC_SIZES[settings.arabicSize] || 'text-[1.9rem]'}`}
+                  className={`font-arabic leading-[1.9] text-right whitespace-pre-line ${ARABIC_SIZES[settings.arabicSize] || 'text-[1.9rem]'}`}
                   style={{ color: c.arabic }}
                   dir="rtl"
-                  dangerouslySetInnerHTML={{ __html: tajweedHtml }}
-                />
+                >
+                  {currentAdhkar.arabic}
+                </p>
               </div>
-
-              {/* ── Tajweed legend — uniquement pour les sourates coraniques ── */}
-              {currentAdhkar.isQuran && (
-                <div className="flex-shrink-0 flex flex-wrap gap-x-3 gap-y-0.5 text-[9px]" style={{ color: c.textMuted }}>
-                  <span><span style={{ color: '#CC0000' }}>■</span> Madd</span>
-                  <span><span style={{ color: '#16A34A' }}>■</span> Ghunna</span>
-                  <span><span style={{ color: '#38BDF8' }}>■</span> Qalqalah</span>
-                  <span><span style={{ color: '#1E40AF' }}>■</span> Tafkheem</span>
-                </div>
-              )}
 
               {/* ── Tab pills — taille au contenu ─────────────── */}
               <div className="flex gap-1.5 flex-shrink-0 flex-wrap justify-center">
