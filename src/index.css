@@ -45,27 +45,11 @@
 .scrollbar-none { scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 
-/* ─── Tajweed v5 — Hafs 'an 'Asim, rasm uthmani ─────────────────────────── */
-/* Madd — 4 niveaux d'intensité (rouge croissant selon durée) */
-.tj-madd            { color: #CC0000; }                                                /* Tabi'i 2 temps               */
-.tj-madd-wajib      { color: #B91C1C; font-weight: 700; }                              /* Wajib Muttasil 4-5 temps     */
-.tj-madd-jaiz       { color: #B91C1C; font-weight: 600; }                              /* Jaiz Munfasil 2-5 temps      */
-.tj-madd-lazim      { color: #7F1D1D; font-weight: 800; text-decoration: underline; } /* Lazim 6 temps                */
-
-/* Nasalisation (vert) */
-.tj-ghunna          { color: #16A34A; font-weight: 700; }  /* Vert     — Ghunna (نّ مّ — 2 temps nasals)  */
-.tj-idghaam         { color: #16A34A; font-weight: 700; }  /* Vert     — Idghâm bi Ghunna (ي ن م و)       */
-.tj-ikhfaa          { color: #16A34A; }                     /* Vert     — Ikhfâ' (15 lettres)              */
-.tj-iqlab           { color: #16A34A; font-weight: 700; }  /* Vert     — Iqlab (ن→م devant ب)             */
-.tj-ikhfaa-shafawi  { color: #16A34A; }                     /* Vert     — Ikhfâ' Šafawi (م + ب)            */
-.tj-idghaam-shafawi { color: #16A34A; font-weight: 700; }  /* Vert     — Idghâm Šafawi (م + م)            */
-
-/* Qalqala (bleu ciel) */
-.tj-qalqalah        { color: #38BDF8; font-weight: 800; }  /* Bleu ciel — Qalqala (ق ط ب ج د en sakin)    */
-
-/* Tafkhim */
-.tj-tafkheem        { color: #1E40AF; font-weight: 600; }  /* Bleu foncé — ر mufakhkham + استعلاء         */
-.tj-tafkheem-lam    { color: #92400E; font-weight: 700; }  /* Brun       — لام de الله après fatha/damma  */
+/* ─── Tajweed v6 — Hafs ʿan ʿĀṣim, schéma simplifié 4 couleurs ──────────── */
+.tj-madd          { color: #DC2626; }                     /* Rouge — Madd (toute prolongation)            */
+.tj-ghunna        { color: #16A34A; font-weight: 700; }   /* Vert  — Ghunna + nasalisations (ikhfa, iqlab, idgham, shafawi) */
+.tj-qalqalah      { color: #2563EB; font-weight: 700; }   /* Bleu  — Qalqala (ق ط ب ج د en sakin/waqf)    */
+.tj-tafkheem-lam  { color: #92400E; font-weight: 700; }   /* Brun  — لام de الله après fatha/damma         */
 
 /* ─── Custom utilities ──────────────────────────────────────── */
 @layer utilities {
