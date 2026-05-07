@@ -30,12 +30,13 @@ const IQLAB_HIGH  = 'ۢ' // marqueur iqlab uthmani sur ن sakin
 const IQLAB_LOW   = 'ۭ' // marqueur iqlab uthmani sur tanwin
 
 // ─── Lettres ────────────────────────────────────────────────────────────────
-const ALEF         = 'ا'
-const ALEF_WASLA   = 'ٱ'
-const ALEF_MAQSURA = 'ى'
-const ALEF_MADDA   = 'آ'
-const WAW          = 'و'
-const YA           = 'ي'
+const ALEF          = 'ا'
+const ALEF_WASLA    = 'ٱ'
+const ALEF_MAQSURA  = 'ى'
+const ALEF_MADDA    = 'آ'
+const WAW           = 'و'
+const YA            = 'ي'
+const ALLAH_LIGATURE = 'ﷲ' // U+FDF2 — caractère unique pour le mot الله
 
 const HAMZA_FORMS = new Set(['ء', 'أ', 'إ', 'ؤ', 'ئ', ALEF_MADDA])
 const MADD_BASE   = new Set([ALEF, ALEF_WASLA, ALEF_MAQSURA, WAW, YA])
@@ -189,6 +190,20 @@ export function applyTajweedHTML(arabic: string): string {
     // ── Alef Madda (آ) — toujours madd ─────────────────────────────────────
     if (c === ALEF_MADDA) {
       result.push(span('tj-madd', 'Madd — prolongation', unit))
+      i = nxt; continue
+    }
+
+    // ── Ligature de الله (ﷲ U+FDF2) — Tafkhīm/Tarqīq selon voyelle précédente
+    if (c === ALLAH_LIGATURE) {
+      const prev = prevBase(chars, i)
+      const isStart = prev.index < 0 || SEPARATORS.has(prev.char)
+      const prevVowel = isStart ? '' : vowelOfLetter(chars, prev.index)
+      // Tafkhim si début de parole, fatha, ou damma. Tarqiq si kasra.
+      if (prevVowel !== KASRA) {
+        result.push(span('tj-tafkheem-lam', 'Tafkhīm du لام de الله (après fatha/damma)', unit))
+      } else {
+        result.push(unit)
+      }
       i = nxt; continue
     }
 
