@@ -30,8 +30,14 @@
 
 /* ─── Arabic text ────────────────────────────────────────────── */
 .font-arabic {
-  font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+  font-family: 'Amiri Quran', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', 'Traditional Arabic', 'Geeza Pro', serif;
   unicode-bidi: embed;
+  /* Active explicitement les features OpenType arabes : ligatures + shaping contextuel */
+  font-feature-settings: "liga" 1, "dlig" 1, "calt" 1, "rlig" 1, "ccmp" 1, "isol" 1, "init" 1, "medi" 1, "fina" 1;
+  -webkit-font-feature-settings: "liga" 1, "dlig" 1, "calt" 1, "rlig" 1, "ccmp" 1, "isol" 1, "init" 1, "medi" 1, "fina" 1;
+  /* Pas d'espacement entre lettres — laisse la police gérer la ligature de Allah */
+  letter-spacing: 0;
+  word-spacing: normal;
 }
 
 [dir="rtl"] { direction: rtl; text-align: right; }
