@@ -8,6 +8,7 @@ import { useStreak } from '../hooks/useStreak'
 import { useSettings } from '../hooks/useSettings'
 import CircularProgress from '../components/CircularProgress'
 import IslamicPattern from '../components/IslamicPattern'
+import PrayerTimesCard from '../components/PrayerTimesCard'
 import { INSPIRATIONAL_QUOTES, INSPIRATIONAL_QUOTES_EN } from '../data/adhkar'
 import { getT } from '../i18n'
 
@@ -199,6 +200,9 @@ export default function Dashboard() {
           <SessionStatusCard period="morning" label={t.morning} emoji="☀️" color="amber"  lang={lang} />
           <SessionStatusCard period="evening" label={t.evening} emoji="🌙" color="indigo" lang={lang} />
         </div>
+
+        {/* Prayer times widget (Aladhan API) */}
+        <PrayerTimesCard />
 
         {/* 2 min mode */}
         <button

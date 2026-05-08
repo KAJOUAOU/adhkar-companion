@@ -105,6 +105,7 @@ export interface AppSettings {
   eveningReminderTime: string      // "20:00"
   favoritesIds: string[]
   sessionBg: string                // bg id ou 'auto'
+  prayerCity: PrayerCity           // ville pour le calcul des horaires de prière (Aladhan)
 }
 
 // ─── Audio ────────────────────────────────────────────────────────────────────
@@ -121,3 +122,36 @@ export interface AudioState {
 // ─── Navigation ───────────────────────────────────────────────────────────────
 
 export type TabId = 'home' | 'session' | 'browse' | 'need' | 'settings'
+
+// ─── Prayer Times (Aladhan API) ───────────────────────────────────────────────
+
+export interface PrayerCity {
+  name:      string
+  country:   string
+  latitude:  number
+  longitude: number
+  /** Aladhan calculation method ID. 12 = UOIF (France) par défaut. */
+  method:    number
+}
+
+export interface PrayerTimesData {
+  date: string                    // ISO "YYYY-MM-DD"
+  city: PrayerCity
+  timings: {
+    fajr:     string              // "HH:MM"
+    sunrise:  string
+    dhuhr:    string
+    asr:      string
+    maghrib:  string
+    isha:     string
+    imsak?:   string
+    midnight?: string
+  }
+  hijri?: {
+    day:       string
+    monthEn:   string
+    monthAr:   string
+    year:      string
+    formatted: string             // "20 Dhū al-Qaʿdah 1447 AH"
+  }
+}

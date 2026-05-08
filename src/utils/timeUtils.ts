@@ -1,10 +1,47 @@
-import type { Period } from '../types'
+import type { Period, PrayerTimesData } from '../types'
 
+/**
+ * Lit les horaires de prière mis en cache aujourd'hui par usePrayerTimes
+ * (clé localStorage `prayer_times_<date>_<lat>_<lng>_<method>`).
+ * Renvoie null si rien de cohérent n'est trouvé pour aujourd'hui.
+ */
+function readCachedPrayerTimesForToday(): PrayerTimesData | null {
+  try {
+    const today = new Date()
+    const dateKey = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i)
+      if (!k || !k.startsWith('prayer_times_')) continue
+      if (!k.includes(dateKey)) continue
+      const raw = localStorage.getItem(k)
+      if (!raw) continue
+      const data = JSON.parse(raw) as PrayerTimesData
+      if (data?.timings?.fajr && data?.timings?.dhuhr) return data
+    }
+  } catch { /* noop */ }
+  return null
+}
+
+/**
+ * Détermine la période (matin/soir) :
+ *   1. Si on a les horaires de prière du jour en cache → on utilise Fajr → Dhuhr
+ *      comme fenêtre du matin (consensus large pour les adhkar al-sabah).
+ *   2. Sinon, fallback sur les heures fixes (4h–13h = matin).
+ */
 export function getCurrentPeriod(): Period {
+  const data = readCachedPrayerTimesForToday()
+  if (data) {
+    const now = new Date()
+    const nowMin = now.getHours() * 60 + now.getMinutes()
+    const [fH, fM] = data.timings.fajr.split(':').map(Number)
+    const [dH, dM] = data.timings.dhuhr.split(':').map(Number)
+    const fajr  = fH * 60 + fM
+    const dhuhr = dH * 60 + dM
+    return nowMin >= fajr && nowMin < dhuhr ? 'morning' : 'evening'
+  }
+  // Fallback : heures fixes
   const h = new Date().getHours()
-  // Morning: Fajr-time (~4h) to Dhuhr (~13h)
   if (h >= 4 && h < 13) return 'morning'
-  // Evening: Asr-time (~13h) to Isha/night
   return 'evening'
 }
 

@@ -1,5 +1,6 @@
 import type { AppSettings, SessionState, StreakData, DayProgress } from '../types'
 import { formatDate } from '../utils/timeUtils'
+import { DEFAULT_CITY } from './prayerTimesService'
 
 const KEYS = {
   SETTINGS:      'dhikr_settings',
@@ -28,6 +29,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   eveningReminderTime:     '20:00',
   favoritesIds:            [],
   sessionBg:               'auto',
+  prayerCity:              DEFAULT_CITY,
 }
 
 export function loadSettings(): AppSettings {

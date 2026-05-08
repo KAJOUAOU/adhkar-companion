@@ -8,6 +8,7 @@ import Settings     from './pages/Settings'
 import DhikrDetail  from './pages/DhikrDetail'
 import SleepAdhkar  from './pages/SleepAdhkar'
 import EidPage      from './pages/EidPage'
+import Prayers      from './pages/Prayers'
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -32,6 +33,9 @@ export default function App() {
 
         {/* Eid Takbir — full screen, no nav bar */}
         <Route path="/eid" element={<EidPage />} />
+
+        {/* Horaires de prière — full screen, no nav bar */}
+        <Route path="/prayers" element={<Prayers />} />
 
         {/* Main app with bottom navigation */}
         <Route path="/" element={
