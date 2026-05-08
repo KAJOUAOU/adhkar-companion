@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, MapPin, RefreshCw, Calendar, ChevronDown, Search, X, Check, Sliders } from 'lucide-react'
+import { ArrowLeft, MapPin, RefreshCw, Calendar, ChevronDown, Search, X, Check, Sliders, Navigation as NavIcon, Compass } from 'lucide-react'
 import { usePrayerTimes } from '../hooks/usePrayerTimes'
 import { useSettings } from '../hooks/useSettings'
 import {
   PRESET_CITIES, DEFAULT_CITY, DEFAULT_METHOD, CALC_METHODS,
-  searchCities, getMethodById,
+  searchCities, getMethodById, getCurrentLocation,
   type CitySearchResult,
 } from '../services/prayerTimesService'
 import IslamicPattern from '../components/IslamicPattern'
@@ -39,6 +39,8 @@ export default function Prayers() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<CitySearchResult[]>([])
   const [searching, setSearching] = useState(false)
+  const [geolocating, setGeolocating] = useState(false)
+  const [geoError, setGeoError] = useState<string | null>(null)
 
   const searchTimer = useRef<number | undefined>()
 
@@ -68,6 +70,24 @@ export default function Prayers() {
 
   const setMethod = (id: number) => {
     updateSettings('prayerMethod', id)
+  }
+
+  const handleGeolocate = async () => {
+    setGeolocating(true)
+    setGeoError(null)
+    try {
+      const c = await getCurrentLocation(lang)
+      setCity(c)
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'Erreur'
+      setGeoError(
+        lang === 'en'
+          ? `Geolocation failed: ${msg}. Make sure you allowed location access.`
+          : `Échec de la géolocalisation : ${msg}. Vérifie que l\'accès à la position est autorisé.`
+      )
+    } finally {
+      setGeolocating(false)
+    }
   }
 
   const remainingTxt = next
@@ -157,6 +177,23 @@ export default function Prayers() {
         {/* Panel : sélecteur de ville */}
         {panel === 'city' && (
           <div className="bg-white dark:bg-night-800 rounded-2xl shadow-soft border border-cream-200 dark:border-white/10 overflow-hidden">
+            {/* Geolocate button */}
+            <div className="p-3 border-b border-cream-100 dark:border-white/5">
+              <button
+                onClick={handleGeolocate}
+                disabled={geolocating}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gold-100 dark:bg-gold-900/40 text-gold-800 dark:text-gold-200 text-sm font-bold transition-all active:scale-98 disabled:opacity-50"
+              >
+                <NavIcon size={15} className={geolocating ? 'animate-pulse' : ''} />
+                {geolocating
+                  ? (lang === 'en' ? 'Detecting…' : 'Détection en cours…')
+                  : (lang === 'en' ? 'Use my location' : 'Utiliser ma position')}
+              </button>
+              {geoError && (
+                <p className="text-[10px] text-amber-600 dark:text-amber-400 mt-1.5 px-1">{geoError}</p>
+              )}
+            </div>
+
             {/* Search bar */}
             <div className="p-3 border-b border-cream-100 dark:border-white/5">
               <div className="relative">
@@ -167,7 +204,6 @@ export default function Prayers() {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={lang === 'en' ? 'Search a city worldwide…' : 'Rechercher une ville (monde entier)…'}
                   className="w-full pl-9 pr-9 py-2.5 text-sm rounded-xl bg-cream-50 dark:bg-night-700 border border-cream-200 dark:border-white/10 text-gray-900 dark:text-cream-100 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gold-300"
-                  autoFocus
                 />
                 {query && (
                   <button

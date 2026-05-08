@@ -31,6 +31,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   sessionBg:               'auto',
   prayerCity:              DEFAULT_CITY,
   prayerMethod:            DEFAULT_METHOD,
+  prayerNotificationsEnabled: false,
 }
 
 export function loadSettings(): AppSettings {

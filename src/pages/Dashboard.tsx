@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Flame, ChevronRight, Moon, Sun, Clock } from 'lucide-react'
+import { Flame, ChevronRight, Moon, Sun, Clock, Compass, Calendar } from 'lucide-react'
 import SeoHead from '../components/SeoHead'
 import { getCurrentPeriod, getGreeting, getLast30Days, getHijriDate, getEidStatus } from '../utils/timeUtils'
 import { getAdhkarByPeriod } from '../data/adhkar'
@@ -355,6 +355,38 @@ export default function Dashboard() {
             <span className="text-2xl">📖</span>
             <p className="font-bold text-sm text-gray-900 dark:text-cream-100 mt-2">{t.browse}</p>
             <p className="text-xs text-gray-400 mt-0.5">{t.browseSub}</p>
+          </button>
+        </div>
+
+        {/* Qibla + Calendrier hijri */}
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            onClick={() => navigate('/qibla')}
+            className="bg-white dark:bg-night-800 rounded-2xl p-4 shadow-soft border border-cream-200 dark:border-white/5 text-left active:scale-98 transition-transform flex items-center gap-3"
+          >
+            <div className="w-11 h-11 rounded-xl bg-gold-50 dark:bg-gold-900/20 flex items-center justify-center flex-shrink-0">
+              <Compass size={22} className="text-gold-600" />
+            </div>
+            <div className="min-w-0">
+              <p className="font-bold text-sm text-gray-900 dark:text-cream-100">{lang === 'en' ? 'Qibla' : 'Qibla'}</p>
+              <p className="text-[11px] text-gray-400 truncate">
+                {lang === 'en' ? 'Direction to Kaaba' : 'Direction Kaaba'}
+              </p>
+            </div>
+          </button>
+          <button
+            onClick={() => navigate('/calendar')}
+            className="bg-white dark:bg-night-800 rounded-2xl p-4 shadow-soft border border-cream-200 dark:border-white/5 text-left active:scale-98 transition-transform flex items-center gap-3"
+          >
+            <div className="w-11 h-11 rounded-xl bg-forest-50 dark:bg-forest-900/20 flex items-center justify-center flex-shrink-0">
+              <Calendar size={22} className="text-forest-600 dark:text-forest-400" />
+            </div>
+            <div className="min-w-0">
+              <p className="font-bold text-sm text-gray-900 dark:text-cream-100">{lang === 'en' ? 'Calendar' : 'Calendrier'}</p>
+              <p className="text-[11px] text-gray-400 truncate">
+                {lang === 'en' ? 'Hijri & events' : 'Hijri & événements'}
+              </p>
+            </div>
           </button>
         </div>
 

@@ -107,6 +107,7 @@ export interface AppSettings {
   sessionBg: string                // bg id ou 'auto'
   prayerCity: PrayerCity           // ville pour le calcul des horaires de prière (Aladhan)
   prayerMethod: number             // méthode de calcul Aladhan (3 = MWL, aligné Sunna par défaut)
+  prayerNotificationsEnabled: boolean  // notifications "c'est l'heure de la prière"
 }
 
 // ─── Audio ────────────────────────────────────────────────────────────────────

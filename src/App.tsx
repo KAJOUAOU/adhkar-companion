@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Navigation from './components/Navigation'
+import { usePrayerNotifications } from './hooks/usePrayerNotifications'
 import Dashboard    from './pages/Dashboard'
 import ImmersiveMode from './pages/ImmersiveMode'
 import CardsMode    from './pages/CardsMode'
@@ -9,6 +10,8 @@ import DhikrDetail  from './pages/DhikrDetail'
 import SleepAdhkar  from './pages/SleepAdhkar'
 import EidPage      from './pages/EidPage'
 import Prayers      from './pages/Prayers'
+import Qibla        from './pages/Qibla'
+import HijriCalendar from './pages/HijriCalendar'
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -18,9 +21,16 @@ function Layout({ children }: { children: React.ReactNode }) {
   )
 }
 
+function AppShell() {
+  // Schedule prayer-time notifications (foreground) au niveau App
+  usePrayerNotifications()
+  return null
+}
+
 export default function App() {
   return (
     <BrowserRouter>
+      <AppShell />
       <Routes>
         {/* Immersive mode — full screen, no nav bar */}
         <Route path="/session/:period" element={<ImmersiveMode />} />
@@ -36,6 +46,12 @@ export default function App() {
 
         {/* Horaires de prière — full screen, no nav bar */}
         <Route path="/prayers" element={<Prayers />} />
+
+        {/* Qibla — full screen, no nav bar */}
+        <Route path="/qibla" element={<Qibla />} />
+
+        {/* Calendrier hijri — full screen, no nav bar */}
+        <Route path="/calendar" element={<HijriCalendar />} />
 
         {/* Main app with bottom navigation */}
         <Route path="/" element={

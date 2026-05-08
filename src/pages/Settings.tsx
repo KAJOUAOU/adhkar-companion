@@ -416,6 +416,25 @@ export default function Settings() {
               />
             </Row>
           )}
+
+          {/* Notifications horaires de prière */}
+          <Row
+            label={settings.language === 'en' ? 'Prayer time notifications' : 'Notifications heures de prière'}
+            sub={settings.language === 'en'
+              ? 'Alert at Fajr, Dhuhr, ʿAsr, Maghrib, ʿIshāʾ (app must be open)'
+              : 'Alerte à Fajr, Dhuhr, ʿAsr, Maghrib, ʿIshāʾ (l\'app doit être ouverte)'}
+          >
+            <Toggle
+              value={settings.prayerNotificationsEnabled}
+              onChange={async v => {
+                if (v) {
+                  const granted = await requestPermission()
+                  if (!granted) return
+                }
+                updateSettings('prayerNotificationsEnabled', v)
+              }}
+            />
+          </Row>
         </Section>
 
         {/* Preview arabe */}

@@ -235,6 +235,67 @@ export async function fetchPrayerTimes(city: PrayerCity = DEFAULT_CITY, method: 
   return data
 }
 
+// ─── Géolocalisation auto ───────────────────────────────────────────────────
+/**
+ * Demande la position GPS de l'utilisateur, puis fait un reverse-geocoding
+ * via Nominatim pour obtenir le nom de la ville.
+ *
+ * Permission gérée par le navigateur — l'utilisateur doit l'accorder.
+ */
+export async function getCurrentLocation(lang: 'fr' | 'en' = 'fr'): Promise<PrayerCity> {
+  if (!navigator.geolocation) {
+    throw new Error('Geolocation non disponible')
+  }
+
+  const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject, {
+      enableHighAccuracy: false,   // précision ville suffisante (~5km OK)
+      timeout: 15_000,
+      maximumAge: 5 * 60_000,      // accepte une position en cache vieille de 5 min
+    })
+  })
+
+  const lat = pos.coords.latitude
+  const lng = pos.coords.longitude
+
+  // Reverse geocoding via Nominatim
+  const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=jsonv2&zoom=10&accept-language=${lang}&addressdetails=1`
+  let name = ''
+  let country = ''
+  try {
+    const res = await fetch(url)
+    if (res.ok) {
+      const data = await res.json()
+      const a = data.address || {}
+      name    = a.city || a.town || a.village || a.municipality || a.county || a.state || `${lat.toFixed(2)}, ${lng.toFixed(2)}`
+      country = a.country || ''
+    }
+  } catch { /* on retombe sur les coordonnées */ }
+
+  if (!name)    name = `${lat.toFixed(2)}, ${lng.toFixed(2)}`
+  if (!country) country = lang === 'en' ? 'Detected' : 'Détecté'
+
+  return { name, country, latitude: lat, longitude: lng }
+}
+
+// ─── Qibla (direction vers la Kaaba) ────────────────────────────────────────
+/**
+ * Récupère l'angle de Qibla pour une position donnée (en degrés depuis le nord
+ * géographique, sens horaire).
+ *
+ * Endpoint : https://api.aladhan.com/v1/qibla/{lat}/{lng}
+ */
+export async function fetchQiblaDirection(latitude: number, longitude: number): Promise<number> {
+  const url = `https://api.aladhan.com/v1/qibla/${latitude}/${longitude}`
+  const res = await fetch(url)
+  if (!res.ok) throw new Error(`Aladhan qibla error: ${res.status}`)
+  const json = await res.json()
+  if (typeof json?.data?.direction !== 'number') {
+    throw new Error('Aladhan qibla : réponse invalide')
+  }
+  return json.data.direction
+}
+
 // ─── Recherche de villes via Nominatim (OpenStreetMap) ──────────────────────
 // API publique sans clé. Limite : 1 req/sec en théorie, on debounce côté UI.
 const NOMINATIM_URL = 'https://nominatim.openstreetmap.org/search'
