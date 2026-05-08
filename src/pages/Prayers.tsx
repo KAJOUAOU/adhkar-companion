@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, MapPin, RefreshCw, Calendar, ChevronDown, Search, X, Check, Sliders, Navigation as NavIcon, Clock } from 'lucide-react'
+import { ArrowLeft, MapPin, RefreshCw, Calendar, ChevronDown, Search, X, Check, Sliders, Navigation as NavIcon } from 'lucide-react'
 import { usePrayerTimes } from '../hooks/usePrayerTimes'
 import { useSettings } from '../hooks/useSettings'
 import {
@@ -24,10 +24,9 @@ const PRAYER_LABELS: Record<PrayerKey, { fr: string; en: string; arabic: string;
 }
 const PRAYER_ORDER: PrayerKey[] = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha']
 
-type PanelState = 'closed' | 'city' | 'method' | 'adjust'
+type PanelState = 'closed' | 'city' | 'method'
 
-const ADJ_PRAYER_KEYS = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'] as const
-type AdjPrayerKey = typeof ADJ_PRAYER_KEYS[number]
+const ADJUSTABLE_KEYS = new Set<PrayerKey>(['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'])
 
 export default function Prayers() {
   const navigate = useNavigate()
@@ -76,8 +75,8 @@ export default function Prayers() {
     updateSettings('prayerMethod', id)
   }
 
-  const setAdjustment = (key: AdjPrayerKey, mins: number) => {
-    const clamped = Math.max(-30, Math.min(30, mins))
+  const setAdjustment = (key: keyof typeof adjustments, mins: number) => {
+    const clamped = Math.max(-60, Math.min(60, mins))
     updateSettings('prayerAdjustments', { ...adjustments, [key]: clamped })
   }
 
@@ -85,7 +84,7 @@ export default function Prayers() {
     updateSettings('prayerAdjustments', { fajr: 0, dhuhr: 0, asr: 0, maghrib: 0, isha: 0 })
   }
 
-  const hasAnyAdj = ADJ_PRAYER_KEYS.some(k => adjustments[k] !== 0)
+  const hasAnyAdj = (['fajr','dhuhr','asr','maghrib','isha'] as const).some(k => adjustments[k] !== 0)
 
   const handleGeolocate = async () => {
     setGeolocating(true)
@@ -347,8 +346,8 @@ export default function Prayers() {
           </div>
         )}
 
-        {/* Toolbar : ouvrir / fermer panels */}
-        <div className="grid grid-cols-3 gap-2">
+        {/* Toolbar : ville + méthode */}
+        <div className="grid grid-cols-2 gap-2">
           <button
             onClick={() => setPanel(panel === 'city' ? 'closed' : 'city')}
             className={`flex items-center justify-center gap-1.5 px-2 py-2 rounded-xl text-[11px] font-semibold transition-all ${
@@ -371,81 +370,7 @@ export default function Prayers() {
             <Sliders size={13} />
             {currentMethod?.shortName ?? 'Méthode'}
           </button>
-          <button
-            onClick={() => setPanel(panel === 'adjust' ? 'closed' : 'adjust')}
-            className={`flex items-center justify-center gap-1.5 px-2 py-2 rounded-xl text-[11px] font-semibold transition-all ${
-              panel === 'adjust'
-                ? 'bg-gold-100 text-gold-800 dark:bg-gold-900/40 dark:text-gold-200'
-                : hasAnyAdj
-                  ? 'bg-forest-50 text-forest-700 dark:bg-forest-900/40 dark:text-forest-300 border border-forest-200 dark:border-forest-800/30'
-                  : 'bg-white text-gray-700 dark:bg-night-800 dark:text-gray-300 border border-cream-200 dark:border-white/5'
-            }`}
-          >
-            <Clock size={13} />
-            {lang === 'en' ? 'Adjust' : 'Ajuster'}
-            {hasAnyAdj && !panel.includes('adjust') && <span className="w-1.5 h-1.5 rounded-full bg-forest-500" />}
-          </button>
         </div>
-
-        {/* Panel : ajustements manuels */}
-        {panel === 'adjust' && (
-          <div className="bg-white dark:bg-night-800 rounded-2xl shadow-soft border border-cream-200 dark:border-white/10 overflow-hidden">
-            <div className="p-3 border-b border-cream-100 dark:border-white/5 flex items-start justify-between gap-2">
-              <div className="flex-1">
-                <p className="text-sm font-bold text-gray-900 dark:text-cream-100">
-                  {lang === 'en' ? 'Manual adjustments' : 'Ajustements manuels'}
-                </p>
-                <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
-                  {lang === 'en'
-                    ? 'Add or subtract minutes per prayer to match your local mosque (e.g. Mawaqit). Range: ±30 min.'
-                    : 'Ajoute ou retire des minutes pour caler sur ta mosquée locale (Mawaqit, etc.). Plage : ±30 min.'}
-                </p>
-              </div>
-              {hasAnyAdj && (
-                <button
-                  onClick={resetAdjustments}
-                  className="text-[10px] font-bold text-gold-600 dark:text-gold-400 px-2 py-1 hover:underline whitespace-nowrap"
-                >
-                  {lang === 'en' ? 'Reset' : 'Réinit.'}
-                </button>
-              )}
-            </div>
-            {ADJ_PRAYER_KEYS.map((p, idx) => {
-              const val = adjustments[p]
-              return (
-                <div
-                  key={p}
-                  className={`flex items-center justify-between px-4 py-2.5 ${
-                    idx > 0 ? 'border-t border-cream-100 dark:border-white/5' : ''
-                  }`}
-                >
-                  <div className="flex items-center gap-2 flex-1 min-w-0">
-                    <span className="text-base">{PRAYER_LABELS[p].emoji}</span>
-                    <div className="min-w-0">
-                      <p className="text-sm font-bold text-gray-900 dark:text-cream-100">{PRAYER_LABELS[p][lang]}</p>
-                      <p className="text-[10px] text-gray-400 tabular-nums">
-                        {data?.timings[p] ?? '—'}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <button
-                      onClick={() => setAdjustment(p, val - 1)}
-                      className="w-7 h-7 rounded-lg bg-cream-100 dark:bg-night-700 text-gray-700 dark:text-gray-300 font-bold text-sm active:scale-90 transition-transform"
-                    >−</button>
-                    <span className={`min-w-[44px] text-center text-sm font-bold tabular-nums ${val === 0 ? 'text-gray-400' : val < 0 ? 'text-red-600 dark:text-red-400' : 'text-forest-600 dark:text-forest-400'}`}>
-                      {val > 0 ? '+' : ''}{val} min
-                    </span>
-                    <button
-                      onClick={() => setAdjustment(p, val + 1)}
-                      className="w-7 h-7 rounded-lg bg-cream-100 dark:bg-night-700 text-gray-700 dark:text-gray-300 font-bold text-sm active:scale-90 transition-transform"
-                    >+</button>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        )}
 
         {/* Next prayer countdown */}
         {next && data && (
@@ -480,43 +405,77 @@ export default function Prayers() {
           </div>
         )}
 
-        {/* Prayer rows */}
+        {/* Prayer rows — avec ajustement inline ±60 min sur les 5 prières */}
         {data && (
           <div className="bg-white dark:bg-night-800 rounded-2xl shadow-soft border border-cream-200 dark:border-white/5 overflow-hidden">
             {PRAYER_ORDER.map((p, idx) => {
               const isNext = next?.name === p
               const time = data.timings[p]
+              const adjustable = ADJUSTABLE_KEYS.has(p)
+              const adjValue = adjustable ? adjustments[p as keyof typeof adjustments] : 0
               return (
                 <div
                   key={p}
-                  className={`flex items-center justify-between px-4 py-3.5 ${
+                  className={`px-4 py-3 ${
                     idx > 0 ? 'border-t border-cream-100 dark:border-white/5' : ''
                   } ${isNext ? 'bg-gold-50 dark:bg-gold-900/20' : ''}`}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-xl flex-shrink-0 w-8 text-center">{PRAYER_LABELS[p].emoji}</span>
-                    <div>
-                      <p className={`text-sm font-bold ${isNext ? 'text-gold-700 dark:text-gold-300' : 'text-gray-900 dark:text-cream-100'}`}>
-                        {PRAYER_LABELS[p][lang]}
-                      </p>
-                      <p className="font-arabic text-xs text-gray-400" dir="rtl">
-                        {PRAYER_LABELS[p].arabic}
-                      </p>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <span className="text-xl flex-shrink-0 w-7 text-center">{PRAYER_LABELS[p].emoji}</span>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <p className={`text-sm font-bold ${isNext ? 'text-gold-700 dark:text-gold-300' : 'text-gray-900 dark:text-cream-100'}`}>
+                            {PRAYER_LABELS[p][lang]}
+                          </p>
+                          {isNext && (
+                            <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-gold-200 text-gold-800 dark:bg-gold-700 dark:text-gold-100">
+                              {lang === 'en' ? 'Next' : 'Prochaine'}
+                            </span>
+                          )}
+                          {adjustable && adjValue !== 0 && (
+                            <span className={`text-[9px] font-bold tabular-nums px-1.5 py-0.5 rounded-full ${adjValue > 0 ? 'bg-forest-100 text-forest-700 dark:bg-forest-900/40 dark:text-forest-300' : 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300'}`}>
+                              {adjValue > 0 ? '+' : ''}{adjValue} min
+                            </span>
+                          )}
+                        </div>
+                        <p className="font-arabic text-xs text-gray-400 mt-0.5" dir="rtl">
+                          {PRAYER_LABELS[p].arabic}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {isNext && (
-                      <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold-200 text-gold-800 dark:bg-gold-700 dark:text-gold-100">
-                        {lang === 'en' ? 'Next' : 'Prochaine'}
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
+                      {adjustable && (
+                        <button
+                          onClick={() => setAdjustment(p as keyof typeof adjustments, adjValue - 1)}
+                          aria-label={lang === 'en' ? 'Subtract 1 minute' : 'Retirer 1 minute'}
+                          className="w-7 h-7 rounded-lg bg-cream-100 dark:bg-night-700 text-gray-600 dark:text-gray-300 font-bold text-base active:scale-90 transition-transform"
+                        >−</button>
+                      )}
+                      <span className={`text-lg tabular-nums font-bold min-w-[60px] text-center ${isNext ? 'text-gold-700 dark:text-gold-300' : 'text-gray-700 dark:text-gray-300'}`}>
+                        {time}
                       </span>
-                    )}
-                    <span className={`text-lg tabular-nums font-bold ${isNext ? 'text-gold-700 dark:text-gold-300' : 'text-gray-700 dark:text-gray-300'}`}>
-                      {time}
-                    </span>
+                      {adjustable && (
+                        <button
+                          onClick={() => setAdjustment(p as keyof typeof adjustments, adjValue + 1)}
+                          aria-label={lang === 'en' ? 'Add 1 minute' : 'Ajouter 1 minute'}
+                          className="w-7 h-7 rounded-lg bg-cream-100 dark:bg-night-700 text-gray-600 dark:text-gray-300 font-bold text-base active:scale-90 transition-transform"
+                        >+</button>
+                      )}
+                    </div>
                   </div>
                 </div>
               )
             })}
+            {/* Reset adjustments — visible uniquement quand des ajustements sont actifs */}
+            {hasAnyAdj && (
+              <button
+                onClick={resetAdjustments}
+                className="w-full px-4 py-2.5 text-[11px] font-bold text-gold-700 dark:text-gold-400 border-t border-cream-100 dark:border-white/5 hover:bg-cream-50 dark:hover:bg-night-700 transition-colors"
+              >
+                {lang === 'en' ? 'Reset all adjustments' : 'Réinitialiser les ajustements'}
+              </button>
+            )}
           </div>
         )}
 
