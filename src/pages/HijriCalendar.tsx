@@ -23,7 +23,6 @@ interface IslamicEvent {
 const ISLAMIC_EVENTS: IslamicEvent[] = [
   { monthHijri: 1,  day: 1,  name: { fr: 'Ras as-Sana (Nouvel an hijri)',  en: 'Hijri New Year' },                   emoji: '🌙', importance: 'major' },
   { monthHijri: 1,  day: 10, name: { fr: 'ʿĀshūrāʾ (jeûne recommandé)',     en: 'Ashura (recommended fast)' },        emoji: '✨', importance: 'recommended' },
-  { monthHijri: 3,  day: 12, name: { fr: 'Mawlid (avis variés)',            en: 'Mawlid (varying opinions)' },        emoji: '🌟', importance: 'recommended' },
   { monthHijri: 8,  day: 1,  name: { fr: 'Début Shaʿbān',                   en: 'Start of Shaban' },                  emoji: '🌙', importance: 'recommended' },
   { monthHijri: 9,  day: 1,  name: { fr: 'Début Ramadān',                   en: 'Start of Ramadan' },                 emoji: '🌙', importance: 'major' },
   { monthHijri: 9,  day: 27, name: { fr: 'Laylat al-Qadr (estimée)',        en: 'Laylat al-Qadr (estimated)' },       emoji: '⭐', importance: 'major' },
