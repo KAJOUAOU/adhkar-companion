@@ -14,7 +14,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 import type { PrayerCity, PrayerTimesData } from '../types'
-import { fetchPrayerTimes, getNextPrayer, DEFAULT_CITY, type NextPrayer } from '../services/prayerTimesService'
+import { fetchPrayerTimes, getNextPrayer, DEFAULT_CITY, DEFAULT_METHOD, type NextPrayer } from '../services/prayerTimesService'
 
 interface UsePrayerTimesResult {
   data:    PrayerTimesData | null
@@ -24,7 +24,7 @@ interface UsePrayerTimesResult {
   refresh: () => void
 }
 
-export function usePrayerTimes(city: PrayerCity = DEFAULT_CITY): UsePrayerTimesResult {
+export function usePrayerTimes(city: PrayerCity = DEFAULT_CITY, method: number = DEFAULT_METHOD): UsePrayerTimesResult {
   const [data,    setData]    = useState<PrayerTimesData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error,   setError]   = useState<string | null>(null)
@@ -48,7 +48,7 @@ export function usePrayerTimes(city: PrayerCity = DEFAULT_CITY): UsePrayerTimesR
     setLoading(true)
     setError(null)
     try {
-      const d = await fetchPrayerTimes(city)
+      const d = await fetchPrayerTimes(city, method)
       setData(d)
     } catch (e) {
       const msg = e instanceof Error ? e.message : 'Erreur de récupération des horaires'
@@ -56,7 +56,7 @@ export function usePrayerTimes(city: PrayerCity = DEFAULT_CITY): UsePrayerTimesR
     } finally {
       setLoading(false)
     }
-  }, [city.latitude, city.longitude, city.method])
+  }, [city.latitude, city.longitude, method])
 
   useEffect(() => { load() }, [load])
 

@@ -1,6 +1,6 @@
 import type { AppSettings, SessionState, StreakData, DayProgress } from '../types'
 import { formatDate } from '../utils/timeUtils'
-import { DEFAULT_CITY } from './prayerTimesService'
+import { DEFAULT_CITY, DEFAULT_METHOD } from './prayerTimesService'
 
 const KEYS = {
   SETTINGS:      'dhikr_settings',
@@ -30,6 +30,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   favoritesIds:            [],
   sessionBg:               'auto',
   prayerCity:              DEFAULT_CITY,
+  prayerMethod:            DEFAULT_METHOD,
 }
 
 export function loadSettings(): AppSettings {

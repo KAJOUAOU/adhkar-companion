@@ -106,6 +106,7 @@ export interface AppSettings {
   favoritesIds: string[]
   sessionBg: string                // bg id ou 'auto'
   prayerCity: PrayerCity           // ville pour le calcul des horaires de prière (Aladhan)
+  prayerMethod: number             // méthode de calcul Aladhan (3 = MWL, aligné Sunna par défaut)
 }
 
 // ─── Audio ────────────────────────────────────────────────────────────────────
@@ -130,8 +131,9 @@ export interface PrayerCity {
   country:   string
   latitude:  number
   longitude: number
-  /** Aladhan calculation method ID. 12 = UOIF (France) par défaut. */
-  method:    number
+  /** Méthode de calcul suggérée pour cette ville (utilisée comme défaut quand
+   *  on pioche un preset). La méthode effective vient de `settings.prayerMethod`. */
+  method?:   number
 }
 
 export interface PrayerTimesData {
