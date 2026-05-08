@@ -32,6 +32,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   prayerCity:              DEFAULT_CITY,
   prayerMethod:            DEFAULT_METHOD,
   prayerNotificationsEnabled: false,
+  prayerAdjustments:       { fajr: 0, dhuhr: 0, asr: 0, maghrib: 0, isha: 0 },
 }
 
 export function loadSettings(): AppSettings {

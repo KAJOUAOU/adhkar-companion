@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, MapPin, RefreshCw, Calendar, ChevronDown, Search, X, Check, Sliders, Navigation as NavIcon, Compass } from 'lucide-react'
+import { ArrowLeft, MapPin, RefreshCw, Calendar, ChevronDown, Search, X, Check, Sliders, Navigation as NavIcon, Clock } from 'lucide-react'
 import { usePrayerTimes } from '../hooks/usePrayerTimes'
 import { useSettings } from '../hooks/useSettings'
 import {
@@ -24,7 +24,10 @@ const PRAYER_LABELS: Record<PrayerKey, { fr: string; en: string; arabic: string;
 }
 const PRAYER_ORDER: PrayerKey[] = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha']
 
-type PanelState = 'closed' | 'city' | 'method'
+type PanelState = 'closed' | 'city' | 'method' | 'adjust'
+
+const ADJ_PRAYER_KEYS = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'] as const
+type AdjPrayerKey = typeof ADJ_PRAYER_KEYS[number]
 
 export default function Prayers() {
   const navigate = useNavigate()
@@ -33,7 +36,8 @@ export default function Prayers() {
   const city   = settings.prayerCity   ?? DEFAULT_CITY
   const method = settings.prayerMethod ?? DEFAULT_METHOD
 
-  const { data, next, loading, error, refresh } = usePrayerTimes(city, method)
+  const adjustments = settings.prayerAdjustments ?? { fajr: 0, dhuhr: 0, asr: 0, maghrib: 0, isha: 0 }
+  const { data, next, loading, error, refresh } = usePrayerTimes(city, method, adjustments)
 
   const [panel, setPanel] = useState<PanelState>('closed')
   const [query, setQuery] = useState('')
@@ -71,6 +75,17 @@ export default function Prayers() {
   const setMethod = (id: number) => {
     updateSettings('prayerMethod', id)
   }
+
+  const setAdjustment = (key: AdjPrayerKey, mins: number) => {
+    const clamped = Math.max(-30, Math.min(30, mins))
+    updateSettings('prayerAdjustments', { ...adjustments, [key]: clamped })
+  }
+
+  const resetAdjustments = () => {
+    updateSettings('prayerAdjustments', { fajr: 0, dhuhr: 0, asr: 0, maghrib: 0, isha: 0 })
+  }
+
+  const hasAnyAdj = ADJ_PRAYER_KEYS.some(k => adjustments[k] !== 0)
 
   const handleGeolocate = async () => {
     setGeolocating(true)
@@ -333,30 +348,104 @@ export default function Prayers() {
         )}
 
         {/* Toolbar : ouvrir / fermer panels */}
-        <div className="flex gap-2">
+        <div className="grid grid-cols-3 gap-2">
           <button
             onClick={() => setPanel(panel === 'city' ? 'closed' : 'city')}
-            className={`flex-1 flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`flex items-center justify-center gap-1.5 px-2 py-2 rounded-xl text-[11px] font-semibold transition-all ${
               panel === 'city'
                 ? 'bg-gold-100 text-gold-800 dark:bg-gold-900/40 dark:text-gold-200'
                 : 'bg-white text-gray-700 dark:bg-night-800 dark:text-gray-300 border border-cream-200 dark:border-white/5'
             }`}
           >
-            <MapPin size={14} />
-            {lang === 'en' ? 'Change city' : 'Changer de ville'}
+            <MapPin size={13} />
+            {lang === 'en' ? 'City' : 'Ville'}
           </button>
           <button
             onClick={() => setPanel(panel === 'method' ? 'closed' : 'method')}
-            className={`flex-1 flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`flex items-center justify-center gap-1.5 px-2 py-2 rounded-xl text-[11px] font-semibold transition-all ${
               panel === 'method'
                 ? 'bg-gold-100 text-gold-800 dark:bg-gold-900/40 dark:text-gold-200'
                 : 'bg-white text-gray-700 dark:bg-night-800 dark:text-gray-300 border border-cream-200 dark:border-white/5'
             }`}
           >
-            <Sliders size={14} />
+            <Sliders size={13} />
             {currentMethod?.shortName ?? 'Méthode'}
           </button>
+          <button
+            onClick={() => setPanel(panel === 'adjust' ? 'closed' : 'adjust')}
+            className={`flex items-center justify-center gap-1.5 px-2 py-2 rounded-xl text-[11px] font-semibold transition-all ${
+              panel === 'adjust'
+                ? 'bg-gold-100 text-gold-800 dark:bg-gold-900/40 dark:text-gold-200'
+                : hasAnyAdj
+                  ? 'bg-forest-50 text-forest-700 dark:bg-forest-900/40 dark:text-forest-300 border border-forest-200 dark:border-forest-800/30'
+                  : 'bg-white text-gray-700 dark:bg-night-800 dark:text-gray-300 border border-cream-200 dark:border-white/5'
+            }`}
+          >
+            <Clock size={13} />
+            {lang === 'en' ? 'Adjust' : 'Ajuster'}
+            {hasAnyAdj && !panel.includes('adjust') && <span className="w-1.5 h-1.5 rounded-full bg-forest-500" />}
+          </button>
         </div>
+
+        {/* Panel : ajustements manuels */}
+        {panel === 'adjust' && (
+          <div className="bg-white dark:bg-night-800 rounded-2xl shadow-soft border border-cream-200 dark:border-white/10 overflow-hidden">
+            <div className="p-3 border-b border-cream-100 dark:border-white/5 flex items-start justify-between gap-2">
+              <div className="flex-1">
+                <p className="text-sm font-bold text-gray-900 dark:text-cream-100">
+                  {lang === 'en' ? 'Manual adjustments' : 'Ajustements manuels'}
+                </p>
+                <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
+                  {lang === 'en'
+                    ? 'Add or subtract minutes per prayer to match your local mosque (e.g. Mawaqit). Range: ±30 min.'
+                    : 'Ajoute ou retire des minutes pour caler sur ta mosquée locale (Mawaqit, etc.). Plage : ±30 min.'}
+                </p>
+              </div>
+              {hasAnyAdj && (
+                <button
+                  onClick={resetAdjustments}
+                  className="text-[10px] font-bold text-gold-600 dark:text-gold-400 px-2 py-1 hover:underline whitespace-nowrap"
+                >
+                  {lang === 'en' ? 'Reset' : 'Réinit.'}
+                </button>
+              )}
+            </div>
+            {ADJ_PRAYER_KEYS.map((p, idx) => {
+              const val = adjustments[p]
+              return (
+                <div
+                  key={p}
+                  className={`flex items-center justify-between px-4 py-2.5 ${
+                    idx > 0 ? 'border-t border-cream-100 dark:border-white/5' : ''
+                  }`}
+                >
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <span className="text-base">{PRAYER_LABELS[p].emoji}</span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-gray-900 dark:text-cream-100">{PRAYER_LABELS[p][lang]}</p>
+                      <p className="text-[10px] text-gray-400 tabular-nums">
+                        {data?.timings[p] ?? '—'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => setAdjustment(p, val - 1)}
+                      className="w-7 h-7 rounded-lg bg-cream-100 dark:bg-night-700 text-gray-700 dark:text-gray-300 font-bold text-sm active:scale-90 transition-transform"
+                    >−</button>
+                    <span className={`min-w-[44px] text-center text-sm font-bold tabular-nums ${val === 0 ? 'text-gray-400' : val < 0 ? 'text-red-600 dark:text-red-400' : 'text-forest-600 dark:text-forest-400'}`}>
+                      {val > 0 ? '+' : ''}{val} min
+                    </span>
+                    <button
+                      onClick={() => setAdjustment(p, val + 1)}
+                      className="w-7 h-7 rounded-lg bg-cream-100 dark:bg-night-700 text-gray-700 dark:text-gray-300 font-bold text-sm active:scale-90 transition-transform"
+                    >+</button>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
 
         {/* Next prayer countdown */}
         {next && data && (

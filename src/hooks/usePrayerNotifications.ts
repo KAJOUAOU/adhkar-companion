@@ -17,7 +17,7 @@ import { schedulePrayerNotifications, cancelPrayerNotifications } from '../servi
 
 export function usePrayerNotifications(): void {
   const { settings } = useSettings()
-  const { data } = usePrayerTimes(settings.prayerCity, settings.prayerMethod)
+  const { data } = usePrayerTimes(settings.prayerCity, settings.prayerMethod, settings.prayerAdjustments)
 
   useEffect(() => {
     if (!settings.prayerNotificationsEnabled) {

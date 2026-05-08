@@ -12,9 +12,13 @@
  * la 2ᵉ navigation au cours de la journée est instantanée.
  */
 
-import { useEffect, useState, useCallback, useRef } from 'react'
-import type { PrayerCity, PrayerTimesData } from '../types'
-import { fetchPrayerTimes, getNextPrayer, DEFAULT_CITY, DEFAULT_METHOD, type NextPrayer } from '../services/prayerTimesService'
+import { useEffect, useState, useCallback, useRef, useMemo } from 'react'
+import type { PrayerCity, PrayerTimesData, PrayerAdjustments } from '../types'
+import {
+  fetchPrayerTimes, getNextPrayer, applyAdjustments,
+  DEFAULT_CITY, DEFAULT_METHOD, DEFAULT_ADJUSTMENTS,
+  type NextPrayer,
+} from '../services/prayerTimesService'
 
 interface UsePrayerTimesResult {
   data:    PrayerTimesData | null
@@ -24,12 +28,22 @@ interface UsePrayerTimesResult {
   refresh: () => void
 }
 
-export function usePrayerTimes(city: PrayerCity = DEFAULT_CITY, method: number = DEFAULT_METHOD): UsePrayerTimesResult {
-  const [data,    setData]    = useState<PrayerTimesData | null>(null)
+export function usePrayerTimes(
+  city: PrayerCity = DEFAULT_CITY,
+  method: number = DEFAULT_METHOD,
+  adjustments: PrayerAdjustments = DEFAULT_ADJUSTMENTS,
+): UsePrayerTimesResult {
+  const [rawData, setRawData] = useState<PrayerTimesData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error,   setError]   = useState<string | null>(null)
   const [next,    setNext]    = useState<NextPrayer | null>(null)
   const [tick,    setTick]    = useState(0)
+
+  // Applique les ajustements à chaque changement
+  const data = useMemo(
+    () => rawData ? applyAdjustments(rawData, adjustments) : null,
+    [rawData, adjustments.fajr, adjustments.dhuhr, adjustments.asr, adjustments.maghrib, adjustments.isha],
+  )
 
   // Recalcul "next prayer" toutes les 30 secondes
   const tickRef = useRef<number>()
@@ -49,7 +63,7 @@ export function usePrayerTimes(city: PrayerCity = DEFAULT_CITY, method: number =
     setError(null)
     try {
       const d = await fetchPrayerTimes(city, method)
-      setData(d)
+      setRawData(d)
     } catch (e) {
       const msg = e instanceof Error ? e.message : 'Erreur de récupération des horaires'
       setError(msg)

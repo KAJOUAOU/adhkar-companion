@@ -15,7 +15,7 @@ const PRAYER_LABELS: Record<string, { fr: string; en: string; emoji: string }> =
 export default function PrayerTimesCard() {
   const navigate = useNavigate()
   const { settings } = useSettings()
-  const { data, next, loading, error } = usePrayerTimes(settings.prayerCity, settings.prayerMethod)
+  const { data, next, loading, error } = usePrayerTimes(settings.prayerCity, settings.prayerMethod, settings.prayerAdjustments)
   const lang = settings.language
 
   // État de chargement initial

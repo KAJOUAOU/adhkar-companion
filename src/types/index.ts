@@ -108,6 +108,15 @@ export interface AppSettings {
   prayerCity: PrayerCity           // ville pour le calcul des horaires de prière (Aladhan)
   prayerMethod: number             // méthode de calcul Aladhan (3 = MWL, aligné Sunna par défaut)
   prayerNotificationsEnabled: boolean  // notifications "c'est l'heure de la prière"
+  prayerAdjustments: PrayerAdjustments  // ajustements manuels en minutes par prière
+}
+
+export interface PrayerAdjustments {
+  fajr:    number
+  dhuhr:   number
+  asr:     number
+  maghrib: number
+  isha:    number
 }
 
 // ─── Audio ────────────────────────────────────────────────────────────────────

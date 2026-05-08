@@ -9,7 +9,7 @@
  * limite de fraîcheur. Les anciennes entrées sont nettoyées au-delà de 7 jours.
  */
 
-import type { PrayerCity, PrayerTimesData } from '../types'
+import type { PrayerCity, PrayerTimesData, PrayerAdjustments } from '../types'
 
 const ALADHAN_BASE = 'https://api.aladhan.com/v1/timings'
 const CACHE_PREFIX = 'prayer_times_'
@@ -351,6 +351,44 @@ export async function searchCities(query: string, lang: 'fr' | 'en' = 'fr'): Pro
   } catch {
     return []
   }
+}
+
+// ─── Application des ajustements manuels (en minutes) ─────────────────────
+/** Décale "HH:MM" de N minutes (positif ou négatif), avec wrap-around 24h. */
+function shiftTime(time: string, mins: number): string {
+  if (!mins) return time
+  const [h, m] = time.split(':').map(Number)
+  if (Number.isNaN(h) || Number.isNaN(m)) return time
+  const total = h * 60 + m + mins
+  const wrapped = ((total % 1440) + 1440) % 1440
+  const newH = Math.floor(wrapped / 60)
+  const newM = wrapped % 60
+  return `${String(newH).padStart(2, '0')}:${String(newM).padStart(2, '0')}`
+}
+
+/**
+ * Applique les ajustements manuels de l'utilisateur sur les horaires bruts.
+ * Sunrise / Imsak / Midnight ne sont pas ajustables (peu utiles).
+ */
+export function applyAdjustments(
+  data: PrayerTimesData,
+  adj: PrayerAdjustments,
+): PrayerTimesData {
+  return {
+    ...data,
+    timings: {
+      ...data.timings,
+      fajr:    shiftTime(data.timings.fajr,    adj.fajr),
+      dhuhr:   shiftTime(data.timings.dhuhr,   adj.dhuhr),
+      asr:     shiftTime(data.timings.asr,     adj.asr),
+      maghrib: shiftTime(data.timings.maghrib, adj.maghrib),
+      isha:    shiftTime(data.timings.isha,    adj.isha),
+    },
+  }
+}
+
+export const DEFAULT_ADJUSTMENTS: PrayerAdjustments = {
+  fajr: 0, dhuhr: 0, asr: 0, maghrib: 0, isha: 0,
 }
 
 // ─── Helpers temps réel ──────────────────────────────────────────────────────
