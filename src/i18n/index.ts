@@ -85,6 +85,10 @@ export const T = {
       baraka:     { label: 'Baraka',           description: 'Demander la bénédiction divine' },
       anxiete:    { label: 'Anxiété',          description: "Apaiser l'inquiétude et l'angoisse" },
       foi:        { label: 'Renforcer sa foi', description: 'Fortifier son imân et sa conviction' },
+      dettes:     { label: 'Dettes',           description: "S'acquitter des dettes et trouver l'aisance" },
+      guidance:   { label: 'Guidance',         description: 'Être guidé vers le droit chemin' },
+      lumiere:    { label: 'Lumière',          description: 'Demander la lumière intérieure (nūr)' },
+      sagesse:    { label: 'Sagesse',          description: 'Demander la sagesse et la connaissance utile' },
     } as Record<string, { label: string; description: string }>,
   },
   en: {
@@ -171,6 +175,10 @@ export const T = {
       baraka:     { label: 'Blessings',         description: 'Seeking divine blessing' },
       anxiete:    { label: 'Anxiety',           description: 'Relieving worry and distress' },
       foi:        { label: 'Strengthen faith',  description: 'Fortifying your iman and conviction' },
+      dettes:     { label: 'Debts',             description: 'Relief from debts and provision' },
+      guidance:   { label: 'Guidance',          description: 'Being guided to the straight path' },
+      lumiere:    { label: 'Light',             description: 'Asking for inner light (nūr)' },
+      sagesse:    { label: 'Wisdom',            description: 'Asking for wisdom and beneficial knowledge' },
     } as Record<string, { label: string; description: string }>,
   },
 }

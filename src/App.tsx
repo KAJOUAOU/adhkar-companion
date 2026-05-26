@@ -12,6 +12,8 @@ import EidPage      from './pages/EidPage'
 import Prayers      from './pages/Prayers'
 import Qibla        from './pages/Qibla'
 import HijriCalendar from './pages/HijriCalendar'
+import Invocations  from './pages/Invocations'
+import InvocationDetail from './pages/InvocationDetail'
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -52,6 +54,10 @@ export default function App() {
 
         {/* Calendrier hijri — full screen, no nav bar */}
         <Route path="/calendar" element={<HijriCalendar />} />
+
+        {/* Invocations — Coran, Khatma, Prophétiques (full screen) */}
+        <Route path="/invocations"        element={<Invocations />} />
+        <Route path="/invocation/:id"     element={<InvocationDetail />} />
 
         {/* Main app with bottom navigation */}
         <Route path="/" element={

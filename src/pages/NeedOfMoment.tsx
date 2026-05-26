@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import { NEED_TAGS, getAdhkarByTag } from '../data/adhkar'
+import { getInvocationsByTag } from '../data/invocations'
 import ScrollButtons from '../components/ScrollButtons'
 import { useSettings } from '../hooks/useSettings'
 import { useAudio } from '../hooks/useAudio'
 import { loadSession, saveSession } from '../services/storageService'
 import AdhkarCard from '../components/AdhkarCard'
+import InvocationCard from '../components/InvocationCard'
 import { getT } from '../i18n'
 import SeoHead from '../components/SeoHead'
+import type { NeedTag } from '../types'
 
 export default function NeedOfMoment() {
   const [selected, setSelected] = useState<string | null>(null)
@@ -20,7 +23,9 @@ export default function NeedOfMoment() {
     evening: loadSession('evening'),
   })
 
-  const results = selected ? getAdhkarByTag(selected) : []
+  const adhkarResults     = selected ? getAdhkarByTag(selected) : []
+  const invocationResults = selected ? getInvocationsByTag(selected as NeedTag) : []
+  const totalResults      = adhkarResults.length + invocationResults.length
 
   const handleTap = (item: ReturnType<typeof getAdhkarByTag>[0]) => {
     const period = item.period === 'evening' ? 'evening' : 'morning'
@@ -95,7 +100,7 @@ export default function NeedOfMoment() {
       {/* Results */}
       {selected && (
         <div className="px-4 pb-6">
-          {results.length === 0 ? (
+          {totalResults === 0 ? (
             <div className="text-center py-12 text-gray-400">
               <p className="text-3xl mb-2">🤲</p>
               <p className="text-sm">{t.notFound}</p>
@@ -103,11 +108,11 @@ export default function NeedOfMoment() {
           ) : (
             <>
               <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-4 px-1">
-                {results.length} invocation{results.length > 1 ? 's' : ''} — {' '}
+                {totalResults} invocation{totalResults > 1 ? 's' : ''} — {' '}
                 {tTags[selected!]?.label ?? NEED_TAGS.find(nt => nt.id === selected)?.label}
               </p>
               <div className="space-y-4">
-                {results.map(item => (
+                {adhkarResults.map(item => (
                   <AdhkarCard
                     key={item.id}
                     item={item}
@@ -123,6 +128,20 @@ export default function NeedOfMoment() {
                     onTap={() => handleTap(item)}
                     onReset={() => handleReset(item)}
                     onMarkDone={() => {}}
+                    onPlay={audio.play}
+                    onStopAudio={audio.stop}
+                  />
+                ))}
+                {invocationResults.map(item => (
+                  <InvocationCard
+                    key={item.id}
+                    item={item}
+                    isFavorite={settings.favoritesIds.includes(item.id)}
+                    showTranslit={settings.showTranslit}
+                    showTranslat={settings.showTranslation}
+                    arabicSize={settings.arabicSize}
+                    audioState={audio.state}
+                    onFavorite={() => toggleFavorite(item.id)}
                     onPlay={audio.play}
                     onStopAudio={audio.stop}
                   />

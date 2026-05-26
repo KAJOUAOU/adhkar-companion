@@ -586,6 +586,10 @@ export const NEED_TAGS: { id: string; label: string; emoji: string; description:
   { id: 'baraka',      label: 'Baraka',            emoji: '✨',  description: 'Demander la bénédiction divine' },
   { id: 'anxiete',     label: 'Anxiété',           emoji: '💆',  description: "Apaiser l'inquiétude et l'angoisse" },
   { id: 'foi',         label: 'Renforcer sa foi',  emoji: '🌙',  description: 'Fortifier son imân et sa conviction' },
+  { id: 'dettes',      label: 'Dettes',            emoji: '💰',  description: "S'acquitter des dettes et trouver l'aisance" },
+  { id: 'guidance',    label: 'Guidance',          emoji: '🧭',  description: 'Être guidé vers le droit chemin' },
+  { id: 'lumiere',     label: 'Lumière',           emoji: '💡',  description: 'Demander la lumière intérieure (nūr)' },
+  { id: 'sagesse',     label: 'Sagesse',           emoji: '📖',  description: 'Demander la sagesse et la connaissance utile' },
 ]
 
 export const INSPIRATIONAL_QUOTES: string[] = [

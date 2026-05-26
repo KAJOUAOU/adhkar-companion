@@ -22,6 +22,10 @@ export type NeedTag =
   | 'baraka'
   | 'anxiete'
   | 'foi'
+  | 'dettes'
+  | 'guidance'
+  | 'lumiere'
+  | 'sagesse'
 
 export interface AdhkarItem {
   id: string
@@ -51,6 +55,33 @@ export interface AdhkarSubItem {
   transliteration: string
   translationFr: string
   repeat: number
+}
+
+// ─── Invocations (Coran / Khatma / Prophétiques) ──────────────────────────────
+// Invocations situationnelles (sans Period matin/soir). Issues du Coran et de la
+// Sunnah, organisées par catégorie. Audio FR + AR à venir.
+
+export type InvocationCategory = 'coran' | 'khatma' | 'prophetic'
+
+export interface InvocationItem {
+  id: string
+  number: number
+  category: InvocationCategory
+  title: string
+  titleAr: string
+  arabic: string
+  transliteration?: string
+  translationFr: string
+  translationEn?: string
+  source: string                  // ex: "Sahih al-Bukhari 6306"
+  sourceUrl?: string              // ex: "https://sunnah.com/bukhari:6306"
+  grade?: 'Sahih' | 'Hasan' | 'Daif' | 'Compilation'
+  gradingNote?: string            // note d'authentification (chaînes discutées, compilations…)
+  reference?: string              // ex: "Sourate 2, verset 201"
+  tags: NeedTag[]
+  audioArabicUrl?: string
+  audioFrenchUrl?: string
+  isQuran?: boolean               // true pour les versets coraniques → tajweed
 }
 
 // ─── User Progress ────────────────────────────────────────────────────────────

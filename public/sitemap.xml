@@ -4,7 +4,7 @@
 
   <url>
     <loc>https://adhkar-companion.com/</loc>
-    <lastmod>2026-05-06</lastmod>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://adhkar-companion.com/"/>
@@ -34,9 +34,9 @@
 
   <url>
     <loc>https://adhkar-companion.com/need</loc>
-    <lastmod>2026-05-06</lastmod>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
 
   <url>
@@ -74,32 +74,85 @@
     <priority>0.75</priority>
   </url>
 
+  <!-- Adhkars individuels (SEO pages dhikr/:id) -->
+  <url><loc>https://adhkar-companion.com/dhikr/salat-ibrahimiya</loc><lastmod>2026-05-06</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adhkar-companion.com/dhikr/ayat-al-kursi</loc><lastmod>2026-05-06</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adhkar-companion.com/dhikr/al-ikhlas</loc><lastmod>2026-05-06</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adhkar-companion.com/dhikr/sayyid-al-istighfar</loc><lastmod>2026-05-06</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- ─────────── Invocations — Coran, Khatma, Prophétiques ─────────── -->
   <url>
-    <loc>https://adhkar-companion.com/dhikr/salat-ibrahimiya</loc>
-    <lastmod>2026-05-06</lastmod>
+    <loc>https://adhkar-companion.com/invocations</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
 
-  <url>
-    <loc>https://adhkar-companion.com/dhikr/ayat-al-kursi</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <!-- Coran (24) -->
+  <url><loc>https://adhkar-companion.com/invocation/quran-40-60</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-2-201</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-2-250</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-2-286</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-3-8</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-3-53</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-3-147</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-3-38</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-14-41</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-10-85-86</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-11-47</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-23-97-98</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-17-80</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-20-25-28</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-18-10</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-21-87</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-14-40</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-9-129</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-7-23</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-7-47</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-21-89</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-23-109</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-7-126</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/quran-20-114</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
 
-  <url>
-    <loc>https://adhkar-companion.com/dhikr/al-ikhlas</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <!-- Khatma (9) -->
+  <url><loc>https://adhkar-companion.com/invocation/khatma-1-coran-guide</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/khatma-2-religion-vie-audela</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/khatma-3-meilleure-fin</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/khatma-4-vie-paisible-mort-sereine</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/khatma-5-meilleur-toute-chose</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/khatma-6-bonne-fin</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/khatma-7-mujibat-rahma</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/khatma-8-khashya-taa-yaqin</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/khatma-9-pas-de-peche-sans-pardon</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <url>
-    <loc>https://adhkar-companion.com/dhikr/sayyid-al-istighfar</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <!-- Prophétiques (28 — n°10 fusionné avec khatma-2) -->
+  <url><loc>https://adhkar-companion.com/invocation/sayyid-istighfar</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/anxiete-tristesse</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/pardon-abu-bakr</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/pardon-complet</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/avant-sommeil</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/dua-nour</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/salat-ibrahimiyya</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/refuge-dettes-tombe</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/pardon-fautes-ignorance</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/refuge-avarice-lachete</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/mal-commis-non-commis</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/guidance-piete-retenue-richesse</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/incapacite-paresse-savoir</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/soumission-confiance</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/preserver-bienfaits</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/muqallib-al-qulub</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/guide-vers-verite-jibril</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/satisfaction-contre-colere</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/epreuve-mauvais-destin</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/tout-bien-paradis</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/sagesse-piete-vision</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/protection-corps-religion-famille</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/refuge-createur-cieux-terre</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/fermete-foi-coeur-sain</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/halal-contre-haram</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/protection-corps-ouie-vue</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/rabbi-ainni</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://adhkar-companion.com/invocation/louange-benediction-foi</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
 
 </urlset>

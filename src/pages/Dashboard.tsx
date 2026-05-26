@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom'
-import { Flame, ChevronRight, Moon, Sun, Clock, Compass, Calendar } from 'lucide-react'
+import { Flame, ChevronRight, Moon, Sun, Clock, Compass, Calendar, BookOpen } from 'lucide-react'
 import SeoHead from '../components/SeoHead'
 import { getCurrentPeriod, getGreeting, getLast30Days, getHijriDate, getEidStatus } from '../utils/timeUtils'
 import { getAdhkarByPeriod } from '../data/adhkar'
+import { ALL_INVOCATIONS } from '../data/invocations'
 import { loadSession } from '../services/storageService'
 import { useStreak } from '../hooks/useStreak'
 import { useSettings } from '../hooks/useSettings'
@@ -306,6 +307,27 @@ export default function Dashboard() {
             </button>
           )
         })()}
+
+        {/* Invocations (Coran + Khatma + Prophétique) */}
+        <button
+          onClick={() => navigate('/invocations')}
+          className="w-full bg-white dark:bg-night-800 rounded-2xl p-4 shadow-soft border border-cream-200 dark:border-white/5 flex items-center gap-4 text-left active:scale-98 transition-transform"
+        >
+          <div className="w-11 h-11 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl flex items-center justify-center flex-shrink-0">
+            <BookOpen size={22} className="text-emerald-700 dark:text-emerald-400" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-bold text-sm text-gray-900 dark:text-cream-100">
+              {lang === 'en' ? 'Invocations' : 'Invocations'}
+            </p>
+            <p className="text-xs text-gray-400 mt-0.5">
+              {lang === 'en'
+                ? `From the Quran and Sunnah — ${ALL_INVOCATIONS.length} duʿās`
+                : `Issues du Coran et de la Sounnah — ${ALL_INVOCATIONS.length} duʿās`}
+            </p>
+          </div>
+          <ChevronRight size={18} className="text-gray-300 flex-shrink-0" />
+        </button>
 
         {/* Eid Takbir */}
         <button
